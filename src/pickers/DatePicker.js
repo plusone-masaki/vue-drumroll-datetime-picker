@@ -7,7 +7,6 @@ const DIGIT = 2
 
 export default {
   name: 'DatePicker',
-  components: { ScrollPicker, ScrollPickerGroup, BasePicker },
 
   props: {
     format: { type: String, required: true },
@@ -28,7 +27,7 @@ export default {
     const date = dayjs(this.value).endOf('month').date()
     return {
       date: date,
-      oldDate: date,
+      numberOfDays: date,
     }
   },
 
@@ -39,9 +38,12 @@ export default {
      * @return {array}
      */
     years () {
-      const times = []
-      for (let i = this.minYear; i < this.maxYear; i++) times.push(i)
-      return times
+      const years = []
+      for (let year = this.minYear; year < this.maxYear; year++) {
+        years.push(year)
+      }
+
+      return years
     },
 
     /**
@@ -51,12 +53,15 @@ export default {
      */
     months () {
       // 桁揃えをしつつ時刻を配列に追加
-      const times = []
-      for (let time = 1; time <= MONTH_UNIT; time++) {
-        times.push({ name: ('0' + time).slice(-DIGIT), value: ('0' + (time - 1)).slice(-DIGIT) })
+      const months = []
+      for (let month = 1; month <= MONTH_UNIT; month++) {
+        months.push({
+          name: ('0' + month).slice(-DIGIT),
+          value: month - 1,
+        })
       }
 
-      return times
+      return months
     },
 
     /**
@@ -67,18 +72,21 @@ export default {
      */
     days () {
       // 桁揃えをしつつ時刻を配列に追加
-      const times = []
-      for (let time = 1; time <= this.oldDate; time++) {
-        times.push({
-          name: time <= this.date ? ('0' + time).slice(-DIGIT) : '',
-          value: time,
+      const days = []
+      for (let date = 1; date <= this.numberOfDays; date++) {
+        days.push({
+          name: date <= this.date ? ('0' + date).slice(-DIGIT) : '',
+          value: date,
         })
       }
 
-      if (this.date !== this.oldDate) {
-        this.$nextTick(() => setTimeout(() => { this.oldDate = this.date }, 100))
+      if (this.date !== this.numberOfDays) {
+        this.$nextTick(() => setTimeout(() => {
+          this.numberOfDays = this.date
+        }, 100))
       }
-      return times
+
+      return days
     },
   },
 
@@ -89,9 +97,18 @@ export default {
     },
   },
 
+  methods: {
+    onInput (value) {
+      this.$emit('input', value)
+    },
+  },
+
   render (h) {
     // 境界線
-    const separator = h(ScrollPicker, { style: { width: '0.5em' }, props: { options: ['-'] } })
+    const separator = h(ScrollPicker, {
+      style: { width: '0.5em' },
+      props: { options: ['-'] },
+    })
 
     // 年
     const yearPicker = h(BasePicker, {
@@ -102,7 +119,7 @@ export default {
         ...this.$props,
       },
       on: {
-        input: value => this.$emit('input', value),
+        input: this.onInput,
       },
     })
 
@@ -115,7 +132,7 @@ export default {
         ...this.$props,
       },
       on: {
-        input: value => this.$emit('input', value),
+        input: this.onInput,
       },
     })
 
@@ -128,7 +145,7 @@ export default {
         ...this.$props,
       },
       on: {
-        input: value => this.$emit('input', value),
+        input: this.onInput,
       },
     })
 

@@ -35,12 +35,7 @@ export default {
     pickers (h) {
       const options = () => ({
         props: this.$props,
-        on: {
-          input: value => {
-            console.log('input', value)
-            this.$emit('input', value)
-          },
-        },
+        on: { input: this.onInput },
       })
 
       switch (this.type) {
@@ -59,18 +54,14 @@ export default {
 
       if (this.$scopedSlots.activator) {
         return h(this.$scopedSlots.activator, { props: { on } })
-      } else {
-        const options = {
-          attrs: {
-            value: dayjs(this.value).format(this.format),
-          },
-          on: {
-            input: value => this.$emit('input', dayjs(value).format(this.format)),
-            ...on,
-          },
-        }
-        return h('input', options)
       }
+
+      // Fallback default
+      const options = {
+        attrs: { value: this.value },
+        on: { input: this.onInput, ...on },
+      }
+      return h('input', options)
     },
 
     onActivate (e) {
@@ -82,21 +73,17 @@ export default {
       e.preventDefault()
       this.active = false
     },
+
+    onInput (value) {
+      this.$emit('input', value)
+    },
   },
 
   render (h) {
     const children = [this.generateActivator(h)]
 
-    if (this.active) {
-      children.push(h(ContentLayer, this.pickers(h)))
-      this.hideOverlay || children.push(h(
-        OverlayLayer, {
-          on: {
-            click: this.offActivate,
-          },
-        },
-      ))
-    }
+    if (this.active && !this.hideOverlay) children.push(h(OverlayLayer, { on: { click: this.offActivate } }))
+    if (this.active) children.push(h(ContentLayer, this.pickers(h)))
 
     return h('div', { class: ['v-drumroll-picker'] }, children)
   },

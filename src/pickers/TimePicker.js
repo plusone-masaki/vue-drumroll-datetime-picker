@@ -7,7 +7,6 @@ const DIGIT = 2
 
 export default {
   name: 'TimePicker',
-  components: { ScrollPicker, ScrollPickerGroup, BasePicker },
 
   props: {
     format: { type: String, default: 'YYYY-MM-DD HH:mm' },
@@ -31,7 +30,9 @@ export default {
      */
     hours () {
       const hours = []
-      for (let time = 0; time < HOUR_UNIT; time++) hours.push(('0' + time).slice(-DIGIT))
+      for (let time = 0; time < HOUR_UNIT; time++) {
+        hours.push(('0' + time).slice(-DIGIT))
+      }
       return hours
     },
 
@@ -41,15 +42,27 @@ export default {
      * @return {array}
      */
     minutes () {
+      const interval = Number(this.minuteInterval)
       const minutes = []
-      for (let minute = 0; minute < MINUTE_UNIT; minute += Number(this.minuteInterval)) minutes.push(('0' + minute).slice(-DIGIT))
+      for (let minute = 0; minute < MINUTE_UNIT; minute += interval) {
+        minutes.push(('0' + minute).slice(-DIGIT))
+      }
       return minutes
+    },
+  },
+
+  methods: {
+    onInput (value) {
+      this.$emit('input', value)
     },
   },
 
   render (h) {
     // 境界線
-    const separator = h(ScrollPicker, { style: { width: '0.5em' }, props: { options: [':'] } })
+    const separator = h(ScrollPicker, {
+      style: { width: '0.5em' },
+      props: { options: [':'] },
+    })
 
     // 時
     const hourPicker = h(BasePicker, {
@@ -60,7 +73,7 @@ export default {
         ...this.$props,
       },
       on: {
-        input: value => this.$emit('input', value),
+        input: this.onInput,
       },
     })
 
@@ -73,7 +86,7 @@ export default {
         ...this.$props,
       },
       on: {
-        input: value => this.$emit('input', value),
+        input: this.onInput,
       },
     })
 
