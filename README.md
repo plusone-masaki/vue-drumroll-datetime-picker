@@ -27,3 +27,12 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## インターフェース仕様
+
+### props
+|name|type|default|description|
+|---|---|---|---|
+|active-class|[String, Array, Object]|"vdd-active"|アクティブな値に付けられるクラス名|
+|value|[String, Date]|new Date()|日時|
+|minute-interval|[String, Number]|5|分単位の間隔|

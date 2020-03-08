@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "core-js": "^3.6.4",
-    "vue": "^2.6.11"
+    "dayjs": "^1.8.20",
+    "vue": "^2.6.11",
+    "vue-scroll-picker": "^0.4.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.2.0",

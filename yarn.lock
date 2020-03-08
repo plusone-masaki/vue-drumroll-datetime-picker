@@ -3264,6 +3264,11 @@ data-urls@^1.0.0, data-urls@^1.1.0:
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
 
+dayjs@^1.8.20:
+  version "1.8.20"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.8.20.tgz#724a5cb6ad1f6fc066b0bd9a800dedcc7886f19e"
+  integrity sha512-mH0MCDxw6UCGJYxVN78h8ugWycZAO8thkj3bW6vApL5tS0hQplIDdAQcmbvl7n35H0AKdCJQaArTrIQw2xt4Qg==
+
 de-indent@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/de-indent/-/de-indent-1.0.2.tgz#b2038e846dc33baa5796128d0804b455b8c1e21d"
@@ -9775,6 +9780,11 @@ vue-loader@^15.8.3:
     loader-utils "^1.1.0"
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
+
+vue-scroll-picker@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/vue-scroll-picker/-/vue-scroll-picker-0.4.1.tgz#b89ee89a2ca5b53cd8c48de22501c07761b58490"
+  integrity sha512-puUk5t55uI1wbCpltcm2J0jIOZwN5Mh7N6mRhyVuGHAQyY9HPWXLI7J+88TtuGht+bKETiu63xY2issppH7eeg==
 
 vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
   version "4.1.2"
