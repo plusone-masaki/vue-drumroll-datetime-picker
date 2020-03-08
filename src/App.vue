@@ -17,7 +17,7 @@ export default {
   data () {
     return {
       date: 10,
-      time: '2020-02-22 22:22',
+      time: '2020-02-22 22:25',
       options: {
         dragSensitivity: 1.7,
         touchSensitivity: 1.7,

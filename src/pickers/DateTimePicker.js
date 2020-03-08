@@ -33,15 +33,20 @@ export default {
 
   methods: {
     pickers (h) {
-      const options = {
+      const options = () => ({
         props: this.$props,
-        on: { input: value => this.$emit('input', value) },
-      }
+        on: {
+          input: value => {
+            console.log('input', value)
+            this.$emit('input', value)
+          },
+        },
+      })
 
       switch (this.type) {
-        case 'datetime': return [h(DatePicker, options), h(TimePicker, options)]
-        case 'date': return [h(DatePicker, options)]
-        case 'time': return [h(TimePicker, options)]
+        case 'datetime': return [h(DatePicker, options()), h(TimePicker, options())]
+        case 'date': return [h(DatePicker, options())]
+        case 'time': return [h(TimePicker, options())]
       }
     },
 
