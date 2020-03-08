@@ -12,10 +12,15 @@ export default {
   props: {
     format: { type: String, default: 'YYYY-MM-DD HH:mm' },
     minuteInterval: { type: [String, Number], default: 1 },
+    value: { type: [String, Number, Date], required: true },
+
+    /**
+     * Parent library properties
+     * @see https://github.com/wan2land/vue-scroll-picker
+     */
     dragSensitivity: { type: [String, Number], default: 1.7 },
     touchSensitivity: { type: [String, Number], default: 1.7 },
     scrollSensitivity: { type: [String, Number], default: 1 },
-    value: { type: [String, Number, Date], required: true },
   },
 
   computed: {
@@ -37,7 +42,7 @@ export default {
      */
     minutes () {
       const minutes = []
-      for (let minute = 0; minute < MINUTE_UNIT; minute += this.minuteInterval) minutes.push(('0' + minute).slice(-DIGIT))
+      for (let minute = 0; minute < MINUTE_UNIT; minute += Number(this.minuteInterval)) minutes.push(('0' + minute).slice(-DIGIT))
       return minutes
     },
   },

@@ -6,15 +6,23 @@ import ContentLayer from '../layers/ContentLayer'
 
 export default {
   name: 'DateTimePicker',
+
   props: {
     type: { type: String, default: 'datetime' },
     format: { type: String, default: 'YYYY-MM-DD HH:mm' },
-    minYear: { type: [String, Number], default: 1970 },
+    hideOverlay: { type: Boolean, default: false },
     maxYear: { type: [String, Number], default: dayjs().year() + 100 },
+    minYear: { type: [String, Number], default: 1970 },
+    minuteInterval: { type: [String, Number], default: 1 },
+    value: { type: [String, Number, Date], required: true },
+
+    /**
+     * Parent library properties
+     * @see https://github.com/wan2land/vue-scroll-picker
+     */
     dragSensitivity: { type: [String, Number], default: 1.7 },
     touchSensitivity: { type: [String, Number], default: 1.7 },
     scrollSensitivity: { type: [String, Number], default: 0.8 },
-    value: { type: [String, Number, Date], required: true },
   },
 
   data () {
@@ -27,12 +35,7 @@ export default {
     pickers (h) {
       const options = {
         props: this.$props,
-        on: {
-          input: value => {
-            this.$emit('input', value)
-            this.$emit('update:value', value)
-          },
-        },
+        on: { input: value => this.$emit('input', value) },
       }
 
       switch (this.type) {
@@ -43,17 +46,24 @@ export default {
     },
 
     generateActivator (h) {
-      const options = {
-        on: {
-          click: this.onActivate,
-          focus: this.onActivate,
-          touchend: this.onActivate,
-        },
+      const on = {
+        click: this.onActivate,
+        focus: this.onActivate,
+        touchend: this.onActivate,
       }
 
       if (this.$scopedSlots.activator) {
-        return h(this.$scopedSlots.activator, { props: options })
+        return h(this.$scopedSlots.activator, { props: { on } })
       } else {
+        const options = {
+          attrs: {
+            value: dayjs(this.value).format(this.format),
+          },
+          on: {
+            input: value => this.$emit('input', dayjs(value).format(this.format)),
+            ...on,
+          },
+        }
         return h('input', options)
       }
     },
@@ -70,19 +80,17 @@ export default {
   },
 
   render (h) {
-    const children = [
-      this.generateActivator(h),
-    ]
+    const children = [this.generateActivator(h)]
 
     if (this.active) {
-      children.push(h(
+      children.push(h(ContentLayer, this.pickers(h)))
+      this.hideOverlay || children.push(h(
         OverlayLayer, {
           on: {
             click: this.offActivate,
           },
         },
       ))
-      children.push(h(ContentLayer, this.pickers(h)))
     }
 
     return h('div', { class: ['v-drumroll-picker'] }, children)

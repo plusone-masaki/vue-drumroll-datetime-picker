@@ -13,10 +13,23 @@ export default {
     format: { type: String, required: true },
     minYear: { type: [String, Number], required: true },
     maxYear: { type: [String, Number], required: true },
+    value: { type: [String, Number, Date], required: true },
+
+    /**
+     * Parent library properties
+     * @see https://github.com/wan2land/vue-scroll-picker
+     */
     dragSensitivity: { type: [String, Number], required: true },
     touchSensitivity: { type: [String, Number], required: true },
     scrollSensitivity: { type: [String, Number], required: true },
-    value: { type: [String, Number, Date], required: true },
+  },
+
+  data () {
+    const date = dayjs(this.value).endOf('month').date()
+    return {
+      date: date,
+      oldDate: date,
+    }
   },
 
   computed: {
@@ -53,12 +66,26 @@ export default {
      * @return {array}
      */
     days () {
-      const date = dayjs(this.value).endOf('month').date()
       // 桁揃えをしつつ時刻を配列に追加
       const times = []
-      for (let time = 1; time <= date; time++) times.push(('0' + time).slice(-DIGIT))
+      for (let time = 1; time <= this.oldDate; time++) {
+        times.push({
+          name: time <= this.date ? ('0' + time).slice(-DIGIT) : '',
+          value: time,
+        })
+      }
 
+      if (this.date !== this.oldDate) {
+        this.$nextTick(() => setTimeout(() => { this.oldDate = this.date }, 100))
+      }
       return times
+    },
+  },
+
+  watch: {
+    value (newValue) {
+      const newDate = dayjs(newValue).endOf('month').date()
+      if (newDate !== this.date) this.date = newDate
     },
   },
 
@@ -70,13 +97,9 @@ export default {
     const yearPicker = h(BasePicker, {
       props: {
         items: this.years,
-        format: this.format,
-        dragSensitivity: this.dragSensitivity,
-        touchSensitivity: this.touchSensitivity,
-        scrollSensitivity: this.scrollSensitivity,
         unit: 'year',
-        value: this.value,
         width: DIGIT * 1.5 + 'em',
+        ...this.$props,
       },
       on: {
         input: value => this.$emit('input', value),

@@ -1,5 +1,4 @@
 import { ScrollPicker } from 'vue-scroll-picker'
-import 'vue-scroll-picker/dist/style.css'
 import dayjs from 'dayjs'
 
 export default {
@@ -30,8 +29,14 @@ export default {
       },
       on: {
         input: value => {
-          const date = dayjs(context.props.value).set(context.props.unit, value)
-          context.listeners.input(date.format(context.props.format))
+          const { props } = context
+          const day = dayjs(props.value)
+          const current = day.get(props.unit)
+          const date = day.set(props.unit, value)
+
+          // 桁上がり抑止
+          if (current <= value && date.get(props.unit) < value) return
+          context.listeners.input(date.format(props.format))
         },
       },
     })
