@@ -1,12 +1,19 @@
-@keyframes scaleIn
-  0%
-    opacity: 0
-  100%
-    opacity: 1
+.v-drumroll-picker__slide-transition
+  &-enter-active, &-leave-active
+      transition: 300ms ease
 
-@keyframes slideUp
-  0%
-    bottom: -10em
+  &-enter
+    @media screen and (min-width: 961px)
+      opacity: 0
+      transform: translateY(-2em)
 
-  100%
-    bottom: 0
+    @media screen and (max-width: 960px)
+      transform: translateY(100%)
+
+  &-leave-to
+    @media screen and (min-width: 961px)
+      opacity: 0
+      transform: translateY(-2em)
+
+    @media screen and (max-width: 960px)
+      transform: translateY(100%)

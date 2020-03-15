@@ -1,7 +1,12 @@
 <template>
   <div id="app">
     <div class="timepicker-container">
-      <DateTimePicker v-model="time" type="datetime" minute-interval="5" />
+      <DateTimePicker
+        v-model="time"
+        type="datetime"
+        minute-interval="5"
+        hide-overlay
+      />
     </div>
   </div>
 </template>

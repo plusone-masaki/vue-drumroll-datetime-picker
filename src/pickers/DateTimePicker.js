@@ -58,8 +58,9 @@ export default {
 
       // Fallback default
       const options = {
+        class: 'v-drumroll-picker__input',
         attrs: { value: this.value },
-        on: { input: this.onInput, ...on },
+        on: { input: this.onNativeInput, ...on },
       }
       return h('input', options)
     },
@@ -77,13 +78,25 @@ export default {
     onInput (value) {
       this.$emit('input', value)
     },
+
+    onNativeInput (event) {
+      this.$emit('input', event.target.value)
+    },
   },
 
   render (h) {
     const children = [this.generateActivator(h)]
 
-    if (this.active && !this.hideOverlay) children.push(h(OverlayLayer, { on: { click: this.offActivate } }))
-    if (this.active) children.push(h(ContentLayer, this.pickers(h)))
+    if (this.active) {
+      // overlay
+      children.push(h(OverlayLayer, {
+        props: { dark: !this.hideOverlay },
+        on: { click: this.offActivate },
+      }))
+
+      // picker
+      children.push(h(ContentLayer, this.pickers(h)))
+    }
 
     return h('div', { class: ['v-drumroll-picker'] }, children)
   },
