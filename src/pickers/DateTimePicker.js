@@ -1,8 +1,9 @@
 import dayjs from 'dayjs'
 import DatePicker from './DatePicker'
 import TimePicker from './TimePicker'
-import OverlayLayer from '../layers/OverlayLayer'
-import ContentLayer from '../layers/ContentLayer'
+import OverlayLayer from '../components/OverlayLayer'
+import ContentLayer from '../components/ContentLayer'
+import PickerContainer from '../components/PickerContainer'
 
 export default {
   name: 'DateTimePicker',
@@ -10,11 +11,13 @@ export default {
   props: {
     type: { type: String, default: 'datetime' },
     format: { type: String, default: 'YYYY-MM-DD HH:mm' },
-    hideOverlay: { type: Boolean, default: false },
     maxYear: { type: [String, Number], default: dayjs().year() + 100 },
     minYear: { type: [String, Number], default: 1970 },
     minuteInterval: { type: [String, Number], default: 1 },
     value: { type: [String, Number, Date], required: true },
+
+    dialog: { type: Boolean, default: false },
+    hideOverlay: { type: Boolean, default: false },
 
     /**
      * Parent library properties
@@ -53,7 +56,7 @@ export default {
       }
 
       if (this.$scopedSlots.activator) {
-        return h(this.$scopedSlots.activator, { props: { on } })
+        return this.$scopedSlots.activator({ on })
       }
 
       // Fallback default
@@ -63,6 +66,23 @@ export default {
         on: { input: this.onNativeInput, ...on },
       }
       return h('input', options)
+    },
+
+    generateDialogPicker (h) {
+      const content = [this.generateActivator(h)]
+
+      if (this.active) {
+        // overlay
+        content.push(h(OverlayLayer, {
+          props: { dark: !this.hideOverlay },
+          on: { click: this.offActivate },
+        }))
+
+        // picker
+        const picker = h(PickerContainer, [this.pickers(h)])
+        content.push(h(ContentLayer, [picker]))
+      }
+      return h('div', { class: ['v-drumroll-picker', 'v-drumroll-picker--dialog'] }, content)
     },
 
     onActivate (e) {
@@ -85,19 +105,8 @@ export default {
   },
 
   render (h) {
-    const children = [this.generateActivator(h)]
-
-    if (this.active) {
-      // overlay
-      children.push(h(OverlayLayer, {
-        props: { dark: !this.hideOverlay },
-        on: { click: this.offActivate },
-      }))
-
-      // picker
-      children.push(h(ContentLayer, this.pickers(h)))
-    }
-
-    return h('div', { class: ['v-drumroll-picker'] }, children)
+    return this.dialog
+      ? this.generateDialogPicker(h)
+      : h('div', { class: ['v-drumroll-picker'] }, [h(PickerContainer, [this.pickers(h)])])
   },
 }

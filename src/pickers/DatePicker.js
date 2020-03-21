@@ -39,7 +39,7 @@ export default {
      */
     years () {
       const years = []
-      for (let year = this.minYear; year < this.maxYear; year++) {
+      for (let year = this.minYear; year <= this.maxYear; year++) {
         years.push(year)
       }
 

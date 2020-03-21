@@ -1,17 +1,16 @@
 {
   "name": "vue-drumroll-datetime-picker",
   "version": "0.1.0",
-  "private": false,
+  "license": "MIT",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "dev": "vue-cli-service serve",
+    "build": "vue-cli-service build --target lib src/main.js dist",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^3.6.4",
     "dayjs": "^1.8.20",
-    "vue": "^2.6.11",
     "vue-scroll-picker": "^0.4.1"
   },
   "devDependencies": {
@@ -30,6 +29,7 @@
     "eslint-plugin-vue": "^6.1.2",
     "sass": "^1.25.0",
     "sass-loader": "^8.0.2",
+    "vue": "^2.6.11",
     "vue-template-compiler": "^2.6.11"
   }
 }

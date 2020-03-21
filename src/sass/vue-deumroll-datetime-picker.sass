@@ -11,7 +11,7 @@
     width: 100%
     z-index: 200
 
-    &.dark
+    &.--dark
       background: rgba(0, 0, 0, 0.33)
 
   &__content
@@ -29,7 +29,6 @@
   &__card
     background: #ffffff !important
     border-radius: 4px
-    box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12)
     display: flex
     height: 10em
     justify-content: center
@@ -47,6 +46,9 @@
     & > .vue-scroll-picker-group
       margin-left: .5em
       margin-right: .5em
+
+  &--dialog &__card
+    box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12)
 
   &__input
     border: none
