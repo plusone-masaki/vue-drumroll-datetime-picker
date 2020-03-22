@@ -1,8 +1,12 @@
 @import "~vue-scroll-picker/src/picker/picker"
 @import "~vue-scroll-picker/src/picker-group/picker-group"
+@import "variables"
 @import "animation"
 
 .v-drumroll-picker
+  .-selected
+    color: $selected-color
+
   &__overlay
     height: 100%
     left: 0
