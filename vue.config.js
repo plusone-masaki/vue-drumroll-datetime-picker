@@ -1,8 +1,8 @@
 module.exports = {
   pages: {
     index: {
-      entry: 'demo/entry.js',
-      template: 'demo/index.html',
+      entry: 'src/demo/entry.js',
+      template: 'src/demo/index.html',
       filename: 'index.html',
     },
   },

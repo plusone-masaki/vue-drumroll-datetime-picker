@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib src/main.js dist",
+    "build": "vue-cli-service build --formats commonjs --target lib src/main.js",
+    "build:demo": "vue-cli-service build --dest demo src/demo/entry.js",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },

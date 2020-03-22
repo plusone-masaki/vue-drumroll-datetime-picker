@@ -38,23 +38,23 @@ export default {
 </script>
 
 <style lang="sass">
-.code
-  background-color: #282c34
-  border-radius: 4px
-  color: #fff
-  display: block
-  padding: .5em 1em
-  margin-bottom: 1rem
+  .code
+    background-color: #282c34
+    border-radius: 4px
+    color: #fff
+    display: block
+    padding: .5em 1em
+    margin-bottom: 1rem
 
-  .pre-code
-    background: inherit
-    color: inherit
-    font-size: inherit
-    padding: 0
+    .pre-code
+      background: inherit
+      color: inherit
+      font-size: inherit
+      padding: 0
 
-.demo-input
-  border: 1px solid #ccc
-  border-radius: 4px
-  font-size: 16px
-  padding: .25em .5em
+  .demo-input
+    border: 1px solid #ccc
+    border-radius: 4px
+    font-size: 16px
+    padding: .25em .5em
 </style>
