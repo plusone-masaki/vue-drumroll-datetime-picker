@@ -21,9 +21,9 @@
 /&gt;</pre>
             </code>
 
-            Value: <input v-model="now" class="demo-input">
+            Value: <input v-model="range" class="demo-input">
             <date-time-picker
-              v-model="now"
+              v-model="range"
               min-year="2010"
               max-year="2038"
             />
@@ -44,9 +44,9 @@
 /&gt;</pre>
             </code>
 
-            Value: <input v-model="now" class="demo-input">
+            Value: <input v-model="format" class="demo-input">
             <date-time-picker
-              v-model="now"
+              v-model="format"
               type="date"
               format="YYYY-MM-DD"
             />
@@ -67,9 +67,9 @@
 /&gt;</pre>
             </code>
 
-            Value: <input v-model="now" class="demo-input">
+            Value: <input v-model="intervals" class="demo-input">
             <date-time-picker
-              v-model="now"
+              v-model="intervals"
               type="time"
               minute-interval="30"
             />
@@ -84,8 +84,11 @@
 export default {
   name: 'OtherOptions',
   data () {
+    const now = this.$dayjs()
     return {
-      now: this.$dayjs().format('YYYY-MM-DD HH:mm:ss'),
+      range: now.format('YYYY-MM-DD HH:mm'),
+      format: now.format('YYYY-MM-DD'),
+      intervals: now.format('YYYY-MM-DD HH:mm'),
     }
   },
 }

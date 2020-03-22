@@ -1,13 +1,19 @@
 <template>
-  <main style="margin-bottom: 15vh;">
+  <main>
     <section class="hero is-primary">
       <div class="hero-body">
         <div class="container">
-          <h1 class="title">Vue Drumroll DateTime Picker</h1>
+          <a
+            href="https://github.com/plusone-masaki/vue-drumroll-datetime-picker"
+            class="has-text-white"
+          >
+            <h1 class="title">Vue Drumroll DateTime Picker</h1>
+          </a>
           <h2 class="subtitle">Demo Page</h2>
         </div>
       </div>
     </section>
+
     <div class="container">
       <!-- Examples -->
       <basic-usages />
@@ -15,6 +21,14 @@
       <other-options />
       <!-- /Examples -->
     </div>
+
+    <footer class="has-background-dark" style="margin-top: 15vh;">
+      <div class="container is-flex">
+        <a class="has-text-white" href="https://www.plus-one.tech">
+          &copy; Plus One
+        </a>
+      </div>
+    </footer>
   </main>
 </template>
 
