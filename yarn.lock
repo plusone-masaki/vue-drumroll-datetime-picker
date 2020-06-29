@@ -9781,10 +9781,10 @@ vue-loader@^15.8.3:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
-vue-scroll-picker@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/vue-scroll-picker/-/vue-scroll-picker-0.4.1.tgz#b89ee89a2ca5b53cd8c48de22501c07761b58490"
-  integrity sha512-puUk5t55uI1wbCpltcm2J0jIOZwN5Mh7N6mRhyVuGHAQyY9HPWXLI7J+88TtuGht+bKETiu63xY2issppH7eeg==
+vue-scroll-picker@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/vue-scroll-picker/-/vue-scroll-picker-0.6.1.tgz#b7b472704c2e5f08cf8e385a34510f43cf2700a1"
+  integrity sha512-xv9Dqb+w+YeXUAFb0W/S2k5Kr9AZ4EQCVry0ycDug+wF4FKDBcjHyPRV1D4F99Hwb8L9QVbxf0POmrfq0xjDIQ==
 
 vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
   version "4.1.2"

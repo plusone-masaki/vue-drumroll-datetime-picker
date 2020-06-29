@@ -2,6 +2,7 @@
   "name": "vue-drumroll-datetime-picker",
   "version": "0.1.0",
   "license": "MIT",
+  "main": "src/main.js",
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build --formats commonjs --target lib src/main.js",
@@ -12,7 +13,7 @@
   "dependencies": {
     "core-js": "^3.6.4",
     "dayjs": "^1.8.20",
-    "vue-scroll-picker": "^0.4.1"
+    "vue-scroll-picker": "^0.6.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.2.0",
@@ -32,5 +33,14 @@
     "sass-loader": "^8.0.2",
     "vue": "^2.6.11",
     "vue-template-compiler": "^2.6.11"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plusone-masaki/vue-drumroll-datetime-picker.git"
+  },
+  "keywords": [
+    "date-picker",
+    "time-picker",
+    "calendar"
+  ]
 }
