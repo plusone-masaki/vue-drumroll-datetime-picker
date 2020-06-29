@@ -1,5 +1,8 @@
 import dayjs from 'dayjs'
-import { ScrollPicker, ScrollPickerGroup } from 'vue-scroll-picker'
+import {
+  ScrollPicker,
+  ScrollPickerGroup,
+} from 'vue-scroll-picker'
 import BasePicker from './BasePicker'
 
 const MONTH_UNIT = 12
@@ -149,7 +152,7 @@ export default {
       },
     })
 
-    return h(ScrollPickerGroup, { class: 'flex' }, [
+    return h(ScrollPickerGroup, { class: 'vdd-flex' }, [
       yearPicker,
       separator,
       monthPicker,

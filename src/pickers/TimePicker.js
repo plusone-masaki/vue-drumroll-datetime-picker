@@ -1,4 +1,7 @@
-import { ScrollPicker, ScrollPickerGroup } from 'vue-scroll-picker'
+import {
+  ScrollPicker,
+  ScrollPickerGroup,
+} from 'vue-scroll-picker'
 import BasePicker from './BasePicker'
 
 const HOUR_UNIT = 24
@@ -90,7 +93,7 @@ export default {
       },
     })
 
-    return h(ScrollPickerGroup, { class: 'flex' }, [
+    return h(ScrollPickerGroup, { class: 'vdd-flex' }, [
       hourPicker,
       separator,
       minutePicker,
