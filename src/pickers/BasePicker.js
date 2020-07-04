@@ -9,6 +9,8 @@ export default {
   props: {
     items: { type: Array, required: true },
     format: { type: String, required: true },
+    maxDate: { type: [String, Number, Date], default: undefined },
+    minDate: { type: [String, Number, Date], required: true },
     dragSensitivity: { type: [String, Number], required: true },
     touchSensitivity: { type: [String, Number], required: true },
     scrollSensitivity: { type: [String, Number], required: true },
@@ -36,6 +38,7 @@ export default {
 
           // 桁上がり抑止
           if (current <= value && date.get(props.unit) < value) return
+
           context.listeners.input(date.format(props.format))
         },
       },

@@ -13,8 +13,8 @@ export default {
 
   props: {
     format: { type: String, required: true },
-    minYear: { type: [String, Number], required: true },
-    maxYear: { type: [String, Number], required: true },
+    maxDate: { type: [String, Number, Date], default: undefined },
+    minDate: { type: [String, Number, Date], required: true },
     value: { type: [String, Number, Date], required: true },
 
     /**
@@ -31,6 +31,7 @@ export default {
     return {
       date: date,
       numberOfDays: date,
+      dateOfMin: 1,
     }
   },
 
@@ -41,8 +42,12 @@ export default {
      * @return {array}
      */
     years () {
+      const maxYear = this.maxDate
+        ? dayjs(this.maxDate).year()
+        : dayjs(this.value, this.format).add(100, 'year').year()
+
       const years = []
-      for (let year = this.minYear; year <= this.maxYear; year++) {
+      for (let year = dayjs(this.minDate).year(); year <= maxYear; year++) {
         years.push(year)
       }
 
@@ -55,9 +60,17 @@ export default {
      * @return {array}
      */
     months () {
+      const theDate = dayjs(this.value, this.format)
+      const minDate = dayjs(this.minDate)
+      const min = theDate.isSame(minDate, 'year') ? minDate.format('M') : 1
+
+      const max = this.maxDate && theDate.isSame(this.maxDate, 'year')
+        ? dayjs(this.maxDate).format('M')
+        : MONTH_UNIT
+
       // 桁揃えをしつつ時刻を配列に追加
       const months = []
-      for (let month = 1; month <= MONTH_UNIT; month++) {
+      for (let month = min; month <= max; month++) {
         months.push({
           name: ('0' + month).slice(-DIGIT),
           value: month - 1,
@@ -74,20 +87,29 @@ export default {
      * @return {array}
      */
     days () {
+      const theDate = dayjs(this.value, this.format)
+      const minDate = dayjs(this.minDate)
+
+      const min = theDate.isSame(minDate, 'month') ? minDate.date() : 1
+      const max = this.maxDate && theDate.isSame(this.maxDate, 'month')
+        ? dayjs(this.maxDate).date()
+        : this.numberOfDays
+
       // 桁揃えをしつつ時刻を配列に追加
       const days = []
-      for (let date = 1; date <= this.numberOfDays; date++) {
+      for (let date = this.dateOfMin; date <= max; date++) {
         days.push({
-          name: date <= this.date ? ('0' + date).slice(-DIGIT) : '',
+          name: date <= this.date && date >= min ? ('0' + date).slice(-DIGIT) : '',
           value: date,
         })
       }
 
-      if (this.date !== this.numberOfDays) {
-        this.$nextTick(() => setTimeout(() => {
+      this.$nextTick(() => setTimeout(() => {
+        this.dateOfMin = min
+        if (this.date !== this.numberOfDays) {
           this.numberOfDays = this.date
-        }, 100))
-      }
+        }
+      }, 100))
 
       return days
     },
@@ -95,8 +117,9 @@ export default {
 
   watch: {
     value (newValue) {
-      const newDate = dayjs(newValue).endOf('month').date()
-      if (newDate !== this.date) this.date = newDate
+      const newDate = dayjs(newValue)
+      const lastDate = newDate.endOf('month').date()
+      if (lastDate !== this.date) this.date = lastDate
     },
   },
 

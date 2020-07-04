@@ -3,6 +3,7 @@ import {
   ScrollPickerGroup,
 } from 'vue-scroll-picker'
 import BasePicker from './BasePicker'
+import dayjs from 'dayjs'
 
 const HOUR_UNIT = 24
 const MINUTE_UNIT = 60
@@ -13,6 +14,8 @@ export default {
 
   props: {
     format: { type: String, default: 'YYYY-MM-DD HH:mm' },
+    maxDate: { type: [String, Number, Date], default: undefined },
+    minDate: { type: [String, Number, Date], required: true },
     minuteInterval: { type: [String, Number], default: 1 },
     value: { type: [String, Number, Date], required: true },
 
@@ -32,8 +35,16 @@ export default {
      * @return {array}
      */
     hours () {
+      const theDate = dayjs(this.value, this.format)
+      const minDate = dayjs(this.minDate)
+
+      const min = theDate.isSame(minDate, 'date') ? minDate.hour() : 0
+      const max = this.maxDate && theDate.isSame(this.maxDate, 'date')
+        ? dayjs(this.maxDate).hour() + 1
+        : HOUR_UNIT
+
       const hours = []
-      for (let time = 0; time < HOUR_UNIT; time++) {
+      for (let time = min; time < max; time++) {
         hours.push(('0' + time).slice(-DIGIT))
       }
       return hours
@@ -45,9 +56,17 @@ export default {
      * @return {array}
      */
     minutes () {
+      const theDate = dayjs(this.value, this.format)
+      const minDate = dayjs(this.minDate)
+
+      const min = theDate.isSame(minDate, 'hour') ? minDate.minute() : 0
+      const max = this.maxDate && theDate.isSame(this.maxDate, 'hour')
+        ? dayjs(this.maxDate).minute() + 1
+        : MINUTE_UNIT
+
       const interval = Number(this.minuteInterval)
       const minutes = []
-      for (let minute = 0; minute < MINUTE_UNIT; minute += interval) {
+      for (let minute = min; minute < max; minute += interval) {
         minutes.push(('0' + minute).slice(-DIGIT))
       }
       return minutes

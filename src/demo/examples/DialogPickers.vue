@@ -6,7 +6,7 @@
         <div class="title">Dialog pickers</div>
 
         <code class="code">
-              <pre class="pre-code">
+          <pre class="pre-code">
 &lt;date-time-picker
   v-model="now"
   dialog
@@ -22,7 +22,7 @@
         <div class="subtitle">Hide overlay</div>
 
         <code class="code">
-              <pre class="pre-code">
+          <pre class="pre-code">
 &lt;date-time-picker
   v-model="now"
   dialog
@@ -43,7 +43,7 @@
         <div class="subtitle">Scoped slot</div>
 
         <code class="code">
-              <pre class="pre-code">
+          <pre class="pre-code">
 &lt;date-time-picker
   v-model="now"
   dialog
@@ -84,7 +84,7 @@ export default {
   name: 'DialogPickers',
   data () {
     return {
-      now: this.$dayjs().format('YYYY-MM-DD HH:mm:ss'),
+      now: this.$dayjs().format('YYYY-MM-DD HH:mm'),
     }
   },
 }

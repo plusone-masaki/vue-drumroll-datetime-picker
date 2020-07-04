@@ -5,14 +5,17 @@ import OverlayLayer from '../components/OverlayLayer'
 import ContentLayer from '../components/ContentLayer'
 import PickerContainer from '../components/PickerContainer'
 
+const date = dayjs()
+const DEFAULT_MIN_DATE = date.subtract(100, 'year').toDate()
+
 export default {
   name: 'DateTimePicker',
 
   props: {
     type: { type: String, default: 'datetime' },
     format: { type: String, default: 'YYYY-MM-DD HH:mm' },
-    maxYear: { type: [String, Number], default: dayjs().year() + 100 },
-    minYear: { type: [String, Number], default: 1970 },
+    maxDate: { type: [String, Number, Date], default: undefined },
+    minDate: { type: [String, Number, Date], default: () => DEFAULT_MIN_DATE },
     minuteInterval: { type: [String, Number], default: 1 },
     value: { type: [String, Number, Date], required: true },
 
@@ -20,7 +23,7 @@ export default {
     hideOverlay: { type: Boolean, default: false },
 
     /**
-     * Parent library properties
+     * Dependency library properties
      * @see https://github.com/wan2land/vue-scroll-picker
      */
     dragSensitivity: { type: [String, Number], default: 1.7 },

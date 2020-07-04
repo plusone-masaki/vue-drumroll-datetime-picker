@@ -10,22 +10,22 @@
         <div class="column is-6">
 
           <div class="card-content">
-            <div class="subtitle">Min year / Max year</div>
+            <div class="subtitle">Min date / Max date</div>
 
             <code class="code">
                   <pre class="pre-code">
 &lt;date-time-picker
   v-model="now"
-  min-year="2010"
-  max-year="2038"
+  min-date="2020-05-10 12:03"
+  max-date="2036-10-20 20:06"
 /&gt;</pre>
             </code>
 
             Value: <input v-model="range" class="demo-input">
             <date-time-picker
               v-model="range"
-              min-year="2010"
-              max-year="2038"
+              min-date="2020-05-10 12:03"
+              max-date="2036-10-20 20:06"
             />
           </div>
         </div>
