@@ -1,38 +1,36 @@
 # vue-drumroll-datetime-picker
 
-## Project setup
-```
-yarn install
+## Getting started
+
+### Install
+
+```bash
+yarn add vue-drumroll-datetime-picker
 ```
 
-### Compiles and hot-reloads for development
-```
-yarn serve
+### Usage
+
+```javascript
+import Vue from 'vue'
+import DateTimePicker from 'vue-drumroll-datetime-picker'
+import 'vue-drumroll-datetime-picker/vue-drumroll-datetime-picker.css'
+
+Vue.component('DateTimePicker', DateTimePicker)
 ```
 
-### Compiles and minifies for production
-```
-yarn build
-```
+## API references
 
-### Run your unit tests
-```
-yarn test:unit
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
-## インターフェース仕様
-
-### props
+### Props
 |name|type|default|description|
 |---|---|---|---|
-|active-class|[String, Array, Object]|"vdd-active"|アクティブな値に付けられるクラス名|
-|value|[String, Date]|new Date()|日時|
-|minute-interval|[String, Number]|5|分単位の間隔|
+|dialog|Boolean|false|ピッカーをダイアログで開く|
+|dragSensitivity|[String, Number]|1.7|ドラッグ感度|
+|format|String|"YYYY-MM-DD HH:mm"|日付形式|
+|hideOverlay|Boolean|false|ダイアログ表示のオーバーレイを非表示にする。`dialog` が有効な場合のみ有効|
+|maxDate|[String, Number, Date]|`undefined`|有効な最大日時|
+|minDate|[String, Number, Date]|`now - 100 years`|有効な最低日時|
+|minuteInterval|[String, Number]|1|分単位の間隔|
+|scrollSensitivity|[String, Number]|0.8|スクロール感度|
+|touchSensitivity|[String, Number]|1.7|タッチ操作の感度|
+|type|["datetime", "date", "time"]|"datetime"|ピッカーの種類。日時・年月日・時刻の3種類から選択|
+|value|[String, Number, Date]|`required`|変更対象の値|
