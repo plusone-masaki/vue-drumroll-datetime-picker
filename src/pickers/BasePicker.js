@@ -30,7 +30,7 @@ export default {
       on: {
         input: value => {
           const { props } = context
-          const day = dayjs(props.value)
+          const day = dayjs(props.value, props.format)
           const current = day.get(props.unit)
           const date = day.set(props.unit, value)
 
