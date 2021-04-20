@@ -2,10 +2,9 @@
   "name": "vue-drumroll-datetime-picker",
   "version": "0.2.1",
   "license": "MIT",
-  "main": "dist/vue-drumroll-datetime-picker.common.js",
+  "main": "src/main.js",
   "scripts": {
     "dev": "vue-cli-service serve",
-    "build": "vue-cli-service build --formats commonjs --target lib src/main.js",
     "build:demo": "vue-cli-service build --dest demo src/demo/entry.js && sed -i \"s/=\\//=.\\//g\" demo/index.html",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
