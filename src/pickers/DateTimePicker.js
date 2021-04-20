@@ -1,12 +1,9 @@
-import dayjs from 'dayjs'
 import DatePicker from './DatePicker'
 import TimePicker from './TimePicker'
 import OverlayLayer from '../components/OverlayLayer'
 import ContentLayer from '../components/ContentLayer'
 import PickerContainer from '../components/PickerContainer'
-
-const date = dayjs()
-const DEFAULT_MIN_DATE = date.subtract(100, 'year').toDate()
+import * as constants from '../data/constants'
 
 export default {
   name: 'DateTimePicker',
@@ -15,7 +12,7 @@ export default {
     type: { type: String, default: 'datetime' },
     format: { type: String, default: 'YYYY-MM-DD HH:mm' },
     maxDate: { type: [String, Number, Date], default: undefined },
-    minDate: { type: [String, Number, Date], default: () => DEFAULT_MIN_DATE },
+    minDate: { type: [String, Number, Date], default: () => constants.DEFAULT_MIN_DATE },
     minuteInterval: { type: [String, Number], default: 1 },
     value: { type: [String, Number, Date], required: true },
 

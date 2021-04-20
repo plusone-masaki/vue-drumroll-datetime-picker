@@ -4,26 +4,24 @@ import {
   ScrollPickerGroup,
 } from 'vue-scroll-picker'
 import BasePicker from './BasePicker'
-
-const MONTH_UNIT = 12
-const DIGIT = 2
+import * as constants from '../data/constants'
 
 export default {
   name: 'DatePicker',
 
   props: {
-    format: { type: String, required: true },
+    format: { type: String, default: 'YYYY-MM-DD' },
     maxDate: { type: [String, Number, Date], default: undefined },
-    minDate: { type: [String, Number, Date], required: true },
-    value: { type: [String, Number, Date], required: true },
+    minDate: { type: [String, Number, Date], default: constants.DEFAULT_MIN_DATE },
+    value: { type: [String, Number, Date], default: '' },
 
     /**
-     * Parent library properties
+     * Dependency library properties
      * @see https://github.com/wan2land/vue-scroll-picker
      */
-    dragSensitivity: { type: [String, Number], required: true },
-    touchSensitivity: { type: [String, Number], required: true },
-    scrollSensitivity: { type: [String, Number], required: true },
+    dragSensitivity: { type: [String, Number], default: 1.7 },
+    touchSensitivity: { type: [String, Number], default: 1.7 },
+    scrollSensitivity: { type: [String, Number], default: 0.8 },
   },
 
   data () {
@@ -42,12 +40,13 @@ export default {
      * @return {array}
      */
     years () {
+      const minDate = dayjs(this.minDate)
       const maxYear = this.maxDate
         ? dayjs(this.maxDate).year()
         : dayjs(this.value, this.format).add(100, 'year').year()
 
       const years = []
-      for (let year = dayjs(this.minDate).year(); year <= maxYear; year++) {
+      for (let year = minDate.year(); year <= maxYear; year++) {
         years.push(year)
       }
 
@@ -66,13 +65,13 @@ export default {
 
       const max = this.maxDate && theDate.isSame(this.maxDate, 'year')
         ? dayjs(this.maxDate).format('M')
-        : MONTH_UNIT
+        : constants.MONTH_UNIT
 
       // 桁揃えをしつつ時刻を配列に追加
       const months = []
       for (let month = min; month <= max; month++) {
         months.push({
-          name: ('0' + month).slice(-DIGIT),
+          name: ('0' + month).slice(-constants.DIGIT),
           value: month - 1,
         })
       }
@@ -99,7 +98,7 @@ export default {
       const days = []
       for (let date = this.dateOfMin; date <= max; date++) {
         days.push({
-          name: date <= this.date && date >= min ? ('0' + date).slice(-DIGIT) : '',
+          name: date <= this.date && date >= min ? ('0' + date).slice(-constants.DIGIT) : '',
           value: date,
         })
       }
@@ -141,7 +140,7 @@ export default {
       props: {
         items: this.years,
         unit: 'year',
-        width: DIGIT * 1.5 + 'em',
+        width: constants.DIGIT * 1.5 + 'em',
         ...this.$props,
       },
       on: {
@@ -154,7 +153,7 @@ export default {
       props: {
         items: this.months,
         unit: 'month',
-        width: DIGIT + 'em',
+        width: constants.DIGIT + 'em',
         ...this.$props,
       },
       on: {
@@ -167,7 +166,7 @@ export default {
       props: {
         items: this.days,
         unit: 'date',
-        width: DIGIT + 'em',
+        width: constants.DIGIT + 'em',
         ...this.$props,
       },
       on: {
