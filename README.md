@@ -12,6 +12,10 @@
 
 ```bash
 yarn add vue-drumroll-datetime-picker
+
+or
+
+npm install vue-drumroll-datetime-picker
 ```
 
 ### Usage
@@ -35,14 +39,14 @@ Vue.component('TimePicker', TimePicker)
 |name|type|default|description|
 |---|---|---|---|
 |dialog|Boolean|false|Open picker in dialog|
-|drag-sensitivity|[String, Number]|1.7|Drag sensitivity|
+|dragSensitivity|[String, Number]|1.7|Drag sensitivity|
 |format|String|"YYYY-MM-DD HH:mm"|Date format|
-|hide-overlay|Boolean|false|Hide the dialog display overlay. Valid only if `dialog` is `true`|
-|max-date|[String, Number, Date]|`value + 100 years`|Maximum valid date and time|
-|min-date|[String, Number, Date]|1900-01-01 00:00|Valid minimum date and time|
+|hideOverlay|Boolean|false|Hide the dialog display overlay. Valid only if `dialog` is `true`|
+|maxDate|[String, Number, Date]|`value + 100 years`|Maximum valid date and time|
+|minDate|[String, Number, Date]|1900-01-01 00:00|Valid minimum date and time|
 |minuteInterval|[String, Number]|1|Selectable minute intervals|
-|scroll-sensitivity|[String, Number]|0.8|Scroll sensitivity|
-|touch-sensitivity|[String, Number]|1.7|Touch operation sensitivity|
+|scrollSensitivity|[String, Number]|0.8|Scroll sensitivity|
+|touchSensitivity|[String, Number]|1.7|Touch operation sensitivity|
 |type|["datetime", "date", "time"]|"datetime"|Picker type. Select from 3 types: datetime / date / time|
 |value|[String, Number, Date]|undefined|Value of datetime|
 
@@ -51,13 +55,13 @@ Vue.component('TimePicker', TimePicker)
 |name|type|default|description|
 |---|---|---|---|
 |dialog|Boolean|false|Open picker in dialog|
-|drag-sensitivity|[String, Number]|1.7|Drag sensitivity|
+|dragSensitivity|[String, Number]|1.7|Drag sensitivity|
 |format|String|"YYYY-MM-DD HH:mm"|Date format|
-|hide-overlay|Boolean|false|Hide the dialog display overlay. Valid only if `dialog` is `true`|
-|max-date|[String, Number, Date]|`value + 100 years`|Maximum valid date and time|
-|min-date|[String, Number, Date]|1900-01-01 00:00|Valid minimum date and time|
-|scroll-sensitivity|[String, Number]|0.8|Scroll sensitivity|
-|touch-sensitivity|[String, Number]|1.7|Touch operation sensitivity|
+|hideOverlay|Boolean|false|Hide the dialog display overlay. Valid only if `dialog` is `true`|
+|maxDate|[String, Number, Date]|`value + 100 years`|Maximum valid date and time|
+|minDate|[String, Number, Date]|1900-01-01 00:00|Valid minimum date and time|
+|scrollSensitivity|[String, Number]|0.8|Scroll sensitivity|
+|touchSensitivity|[String, Number]|1.7|Touch operation sensitivity|
 |value|[String, Number, Date]|undefined|Value of date|
 
 #### TimePicker
@@ -65,10 +69,10 @@ Vue.component('TimePicker', TimePicker)
 |name|type|default|description|
 |---|---|---|---|
 |dialog|Boolean|false|Open picker in dialog|
-|drag-sensitivity|[String, Number]|1.7|Drag sensitivity|
+|dragSensitivity|[String, Number]|1.7|Drag sensitivity|
 |format|String|"HH:mm"|Time format|
-|hide-overlay|Boolean|false|Hide the dialog display overlay. Valid only if `dialog` is `true`|
+|hideOverlay|Boolean|false|Hide the dialog display overlay. Valid only if `dialog` is `true`|
 |minuteInterval|[String, Number]|1|Selectable minute intervals|
-|scroll-sensitivity|[String, Number]|0.8|Scroll sensitivity|
-|touch-sensitivity|[String, Number]|1.7|Touch operation sensitivity|
+|scrollSensitivity|[String, Number]|0.8|Scroll sensitivity|
+|touchSensitivity|[String, Number]|1.7|Touch operation sensitivity|
 |value|[String, Number, Date]|undefined|Value of time|
