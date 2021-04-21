@@ -1,6 +1,6 @@
 {
   "name": "vue-drumroll-datetime-picker",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "license": "MIT",
   "main": "dist/vue-drumroll-datetime-picker.js",
   "scripts": {
