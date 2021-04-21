@@ -1,18 +1,15 @@
 module.exports = {
   root: true,
   env: {
-    node: true
+    node: true,
   },
   extends: [
     'plugin:vue/essential',
-    '@vue/standard'
+    '@vue/standard',
   ],
   ignorePatterns: [
-    'dist/**/*'
+    'dist/**/*',
   ],
-  parserOptions: {
-    parser: 'babel-eslint'
-  },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -25,8 +22,8 @@ module.exports = {
         '**/tests/unit/**/*.spec.{j,t}s?(x)'
       ],
       env: {
-        jest: true
-      }
-    }
-  ]
+        jest: true,
+      },
+    },
+  ],
 }
