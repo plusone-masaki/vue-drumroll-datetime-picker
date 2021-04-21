@@ -15,7 +15,7 @@ export default {
   props: {
     format: { type: String, default: 'YYYY-MM-DD HH:mm' },
     maxDate: { type: [String, Number, Date], default: undefined },
-    minDate: { type: [String, Number, Date], required: true },
+    minDate: { type: [String, Number, Date], default: undefined },
     minuteInterval: { type: [String, Number], default: 1 },
     value: { type: [String, Number, Date], default: undefined },
   },
@@ -27,18 +27,22 @@ export default {
      * @return {array}
      */
     hours () {
-      const theDate = dayjs(this.value, this.format)
-      const minDate = dayjs(this.minDate)
+      let min = 0
+      let max = constants.HOUR_UNIT
 
-      const min = theDate.isSame(minDate, 'date') ? minDate.hour() : 0
-      const max = this.maxDate && theDate.isSame(this.maxDate, 'date')
-        ? dayjs(this.maxDate).hour() + 1
-        : constants.HOUR_UNIT
+      const theDate = dayjs(this.value, this.format)
+
+      if (this.minDate) {
+        const minDate = dayjs(this.minDate)
+        min = theDate.isSame(minDate, 'date') ? minDate.hour() : 0
+      }
+      if (this.maxDate) {
+        max = this.maxDate && theDate.isSame(this.maxDate, 'date')
+          ? dayjs(this.maxDate).hour() + 1 : constants.HOUR_UNIT
+      }
 
       const hours = []
-      for (let time = min; time < max; time++) {
-        hours.push(('0' + time).slice(-constants.DIGIT))
-      }
+      for (let time = min; time < max; time++) hours.push(('0' + time).slice(-constants.DIGIT))
       return hours
     },
 
@@ -49,12 +53,18 @@ export default {
      */
     minutes () {
       const theDate = dayjs(this.value, this.format)
-      const minDate = dayjs(this.minDate)
+      let min = 0
+      let max = constants.MINUTE_UNIT
 
-      const min = theDate.isSame(minDate, 'hour') ? minDate.minute() : 0
-      const max = this.maxDate && theDate.isSame(this.maxDate, 'hour')
-        ? dayjs(this.maxDate).minute() + 1
-        : constants.MINUTE_UNIT
+      if (this.minDate) {
+        const minDate = dayjs(this.minDate)
+        min = theDate.isSame(minDate, 'hour') ? minDate.minute() : 0
+      }
+      if (this.maxDate) {
+        max = this.maxDate && theDate.isSame(this.maxDate, 'hour')
+          ? dayjs(this.maxDate).minute() + 1
+          : constants.MINUTE_UNIT
+      }
 
       const interval = Number(this.minuteInterval)
       const minutes = []

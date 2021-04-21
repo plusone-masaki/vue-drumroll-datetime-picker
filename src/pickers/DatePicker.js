@@ -18,7 +18,7 @@ export default {
     format: { type: String, default: 'YYYY-MM-DD' },
     maxDate: { type: [String, Number, Date], default: undefined },
     minDate: { type: [String, Number, Date], default: () => constants.DEFAULT_MIN_DATE },
-    value: { type: [String, Number, Date], required: true },
+    value: { type: [String, Number, Date], default: undefined },
   },
 
   data () {

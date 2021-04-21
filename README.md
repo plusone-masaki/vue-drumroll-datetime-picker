@@ -1,5 +1,7 @@
 # vue-drumroll-datetime-picker
 
+[日本語](README.ja.md)
+
 ## Demo page
 
 [here](https://www.plus-one.tech/products/demo/vue-drumroll-datetime-picker/)
@@ -16,25 +18,57 @@ yarn add vue-drumroll-datetime-picker
 
 ```javascript
 import Vue from 'vue'
-import DateTimePicker from 'vue-drumroll-datetime-picker'
+import DateTimePicker, { DatePicker, TimePicker } from 'vue-drumroll-datetime-picker'
 import 'vue-drumroll-datetime-picker/vue-drumroll-datetime-picker.css'
 
 Vue.component('DateTimePicker', DateTimePicker)
+Vue.component('DatePicker', DatePicker)
+Vue.component('TimePicker', TimePicker)
 ```
 
 ## API references
 
 ### Props
+
+#### DateTimePicker
+
 |name|type|default|description|
 |---|---|---|---|
-|dialog|Boolean|false|ピッカーをダイアログで開く|
-|dragSensitivity|[String, Number]|1.7|ドラッグ感度|
-|format|String|"YYYY-MM-DD HH:mm"|日付形式|
-|hideOverlay|Boolean|false|ダイアログ表示のオーバーレイを非表示にする。`dialog` が有効な場合のみ有効|
-|maxDate|[String, Number, Date]|`undefined`|有効な最大日時|
-|minDate|[String, Number, Date]|`now - 100 years`|有効な最低日時|
-|minuteInterval|[String, Number]|1|分単位の間隔|
-|scrollSensitivity|[String, Number]|0.8|スクロール感度|
-|touchSensitivity|[String, Number]|1.7|タッチ操作の感度|
-|type|["datetime", "date", "time"]|"datetime"|ピッカーの種類。日時・年月日・時刻の3種類から選択|
-|value|[String, Number, Date]|`required`|変更対象の値|
+|dialog|Boolean|false|Open picker in dialog|
+|drag-sensitivity|[String, Number]|1.7|Drag sensitivity|
+|format|String|"YYYY-MM-DD HH:mm"|Date format|
+|hide-overlay|Boolean|false|Hide the dialog display overlay. Valid only if `dialog` is `true`|
+|max-date|[String, Number, Date]|`value + 100 years`|Maximum valid date and time|
+|min-date|[String, Number, Date]|1900-01-01 00:00|Valid minimum date and time|
+|minuteInterval|[String, Number]|1|Selectable minute intervals|
+|scroll-sensitivity|[String, Number]|0.8|Scroll sensitivity|
+|touch-sensitivity|[String, Number]|1.7|Touch operation sensitivity|
+|type|["datetime", "date", "time"]|"datetime"|Picker type. Select from 3 types: datetime / date / time|
+|value|[String, Number, Date]|undefined|Value of datetime|
+
+#### DatePicker
+
+|name|type|default|description|
+|---|---|---|---|
+|dialog|Boolean|false|Open picker in dialog|
+|drag-sensitivity|[String, Number]|1.7|Drag sensitivity|
+|format|String|"YYYY-MM-DD HH:mm"|Date format|
+|hide-overlay|Boolean|false|Hide the dialog display overlay. Valid only if `dialog` is `true`|
+|max-date|[String, Number, Date]|`value + 100 years`|Maximum valid date and time|
+|min-date|[String, Number, Date]|1900-01-01 00:00|Valid minimum date and time|
+|scroll-sensitivity|[String, Number]|0.8|Scroll sensitivity|
+|touch-sensitivity|[String, Number]|1.7|Touch operation sensitivity|
+|value|[String, Number, Date]|undefined|Value of date|
+
+#### TimePicker
+
+|name|type|default|description|
+|---|---|---|---|
+|dialog|Boolean|false|Open picker in dialog|
+|drag-sensitivity|[String, Number]|1.7|Drag sensitivity|
+|format|String|"HH:mm"|Time format|
+|hide-overlay|Boolean|false|Hide the dialog display overlay. Valid only if `dialog` is `true`|
+|minuteInterval|[String, Number]|1|Selectable minute intervals|
+|scroll-sensitivity|[String, Number]|0.8|Scroll sensitivity|
+|touch-sensitivity|[String, Number]|1.7|Touch operation sensitivity|
+|value|[String, Number, Date]|undefined|Value of time|
