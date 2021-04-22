@@ -1,6 +1,6 @@
 {
   "name": "vue-drumroll-datetime-picker",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "license": "MIT",
   "main": "dist/vue-drumroll-datetime-picker.js",
   "scripts": {
@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^18.0.0",
+    "@rollup/plugin-node-resolve": "^11.2.1",
     "@vue/cli-plugin-eslint": "^4.2.0",
     "@vue/cli-plugin-unit-jest": "^4.2.0",
     "@vue/cli-service": "^4.2.0",
