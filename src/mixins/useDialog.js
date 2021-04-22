@@ -1,6 +1,6 @@
-import OverlayLayer from '@/components/OverlayLayer'
-import PickerContainer from '@/components/PickerContainer'
-import ContentLayer from '@/components/ContentLayer'
+import OverlayLayer from '../components/OverlayLayer'
+import PickerContainer from '../components/PickerContainer'
+import ContentLayer from '../components/ContentLayer'
 
 export default {
   props: {

@@ -5,7 +5,7 @@ import {
 } from 'vue-scroll-picker'
 import BasePicker from './BasePicker'
 import * as constants from '../data/constants'
-import useSensitivity from '@/mixins/useSensitivity'
+import useSensitivity from '../mixins/useSensitivity'
 
 export default {
   name: 'BaseTimePicker',

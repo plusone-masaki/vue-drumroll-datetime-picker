@@ -1,9 +1,9 @@
 import DatePicker from './BaseDatePicker'
 import PickerContainer from '../components/PickerContainer'
 import * as constants from '../data/constants'
-import useBindings from '@/mixins/useBindings'
-import useDialog from '@/mixins/useDialog'
-import useSensitivity from '@/mixins/useSensitivity'
+import useBindings from '../mixins/useBindings'
+import useDialog from '../mixins/useDialog'
+import useSensitivity from '../mixins/useSensitivity'
 
 export default {
   name: 'DatePicker',

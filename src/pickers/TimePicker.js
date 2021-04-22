@@ -1,8 +1,8 @@
 import TimePicker from './BaseTimePicker'
 import PickerContainer from '../components/PickerContainer'
-import useBindings from '@/mixins/useBindings'
-import useDialog from '@/mixins/useDialog'
-import useSensitivity from '@/mixins/useSensitivity'
+import useBindings from '../mixins/useBindings'
+import useDialog from '../mixins/useDialog'
+import useSensitivity from '../mixins/useSensitivity'
 
 export default {
   name: 'TimePicker',
