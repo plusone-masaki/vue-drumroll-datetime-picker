@@ -16,6 +16,7 @@ export default {
   props: {
     format: { type: String, default: 'HH:mm' },
     minuteInterval: { type: [String, Number], default: 1 },
+    separator: { type: String, default: '-' },
     value: { type: [String, Number, Date], default: undefined },
   },
 

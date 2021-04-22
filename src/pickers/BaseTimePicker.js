@@ -17,6 +17,7 @@ export default {
     maxDate: { type: [String, Number, Date], default: undefined },
     minDate: { type: [String, Number, Date], default: undefined },
     minuteInterval: { type: [String, Number], default: 1 },
+    separator: { type: String, required: true },
     value: { type: [String, Number, Date], default: undefined },
   },
 
@@ -85,7 +86,7 @@ export default {
     // 境界線
     const separator = h(ScrollPicker, {
       style: { width: '0.5em' },
-      props: { options: [':'] },
+      props: { options: [this.separator] },
     })
 
     // 時

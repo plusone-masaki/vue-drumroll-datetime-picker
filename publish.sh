@@ -2,4 +2,4 @@
 
 yarn build
 yarn build:demo
-npm publish
+yarn publish

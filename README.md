@@ -60,6 +60,7 @@ Vue.component('TimePicker', TimePicker)
 |hideOverlay|Boolean|false|Hide the dialog display overlay. Valid only if `dialog` is `true`|
 |maxDate|[String, Number, Date]|`value + 100 years`|Maximum valid date and time|
 |minDate|[String, Number, Date]|1900-01-01 00:00|Valid minimum date and time|
+|separator|String|"-"|Change date separator character|
 |scrollSensitivity|[String, Number]|0.8|Scroll sensitivity|
 |touchSensitivity|[String, Number]|1.7|Touch operation sensitivity|
 |value|[String, Number, Date]|undefined|Value of date|
@@ -73,6 +74,7 @@ Vue.component('TimePicker', TimePicker)
 |format|String|"HH:mm"|Time format|
 |hideOverlay|Boolean|false|Hide the dialog display overlay. Valid only if `dialog` is `true`|
 |minuteInterval|[String, Number]|1|Selectable minute intervals|
+|separator|String|":"|Change time separator character|
 |scrollSensitivity|[String, Number]|0.8|Scroll sensitivity|
 |touchSensitivity|[String, Number]|1.7|Touch operation sensitivity|
 |value|[String, Number, Date]|undefined|Value of time|

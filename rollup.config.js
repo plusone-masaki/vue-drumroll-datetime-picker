@@ -8,7 +8,7 @@ export default {
   output: {
     name: 'VueDrumrollDatetimePicker',
     file: 'dist/vue-drumroll-datetime-picker.js',
-    format: 'esm',
+    format: 'commonjs',
     exports: 'named',
     globals: {
       vue: 'Vue',
@@ -18,7 +18,6 @@ export default {
     'Vue',
     'dayjs',
     'vue-scroll-picker',
-    'vue-scroll-picker/dist/style.css',
   ],
   plugins: [
     vue({
@@ -29,6 +28,8 @@ export default {
       output: 'dist/style.css',
     }),
     nodeResolve(),
-    commonjs(),
+    commonjs({
+      include: /node_modules/,
+    }),
   ],
 }

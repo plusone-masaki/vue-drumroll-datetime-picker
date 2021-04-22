@@ -16,6 +16,7 @@ export default {
     format: { type: String, default: 'YYYY-MM-DD' },
     maxDate: { type: [String, Number, Date], default: undefined },
     minDate: { type: [String, Number, Date], default: constants.DEFAULT_MIN_DATE },
+    separator: { type: String, required: true },
     value: { type: [String, Number, Date], default: '' },
   },
 
@@ -127,7 +128,7 @@ export default {
     // 境界線
     const separator = h(ScrollPicker, {
       style: { width: '0.5em' },
-      props: { options: ['-'] },
+      props: { options: [this.separator] },
     })
 
     // 年
