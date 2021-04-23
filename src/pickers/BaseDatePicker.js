@@ -1,8 +1,6 @@
 import dayjs from 'dayjs'
-import {
-  ScrollPicker,
-  ScrollPickerGroup,
-} from 'vue-scroll-picker'
+import { ScrollPickerGroup } from 'vue-scroll-picker'
+import DrumrollSeparator from '../components/DrumrollSeparator'
 import BasePicker from './BasePicker'
 import * as constants from '../data/constants'
 import useSensitivity from '../mixins/useSensitivity'
@@ -126,10 +124,7 @@ export default {
 
   render (h) {
     // 境界線
-    const separator = h(ScrollPicker, {
-      style: { width: '0.5em' },
-      props: { options: [this.separator] },
-    })
+    const separator = h(DrumrollSeparator, { props: { separator: this.separator } })
 
     // 年
     const yearPicker = h(BasePicker, {
