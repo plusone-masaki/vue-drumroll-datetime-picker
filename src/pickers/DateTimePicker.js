@@ -6,6 +6,14 @@ import useBindings from '../mixins/useBindings'
 import useDialog from '../mixins/useDialog'
 import useSensitivity from '../mixins/useSensitivity'
 
+const generateDatePicker = (h, options) => (
+  h(BaseDatePicker, options({ separator: '-' }))
+)
+
+const generateTimePicker = (h, options) => (
+  h(BaseTimePicker, options({ separator: ':' }))
+)
+
 export default {
   name: 'DateTimePicker',
 
@@ -18,29 +26,26 @@ export default {
   props: {
     type: { type: String, default: 'datetime' },
     format: { type: String, default: 'YYYY-MM-DD HH:mm' },
+    hideButton: { type: Boolean, default: false },
     maxDate: { type: [String, Number, Date], default: undefined },
     minDate: { type: [String, Number, Date], default: () => constants.DEFAULT_MIN_DATE },
     minuteInterval: { type: [String, Number], default: 1 },
-    value: { type: [String, Number, Date], default: undefined },
-  },
-
-  data () {
-    return {
-      active: false,
-    }
   },
 
   methods: {
     pickers (h) {
-      const options = () => ({
-        props: this.$props,
+      const options = props => ({
+        props: {
+          ...this.$props,
+          ...props,
+        },
         on: { input: this.onInput },
       })
 
       switch (this.type) {
-        case 'datetime': return [h(BaseDatePicker, options()), h(BaseTimePicker, options())]
-        case 'date': return [h(BaseDatePicker, options())]
-        case 'time': return [h(BaseTimePicker, options())]
+        case 'datetime': return [generateDatePicker(h, options), generateTimePicker(h, options)]
+        case 'date': return [generateDatePicker(h, options)]
+        case 'time': return [generateTimePicker(h, options)]
       }
     },
   },

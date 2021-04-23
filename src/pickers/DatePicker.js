@@ -16,16 +16,10 @@ export default {
 
   props: {
     format: { type: String, default: 'YYYY-MM-DD' },
+    hideButton: { type: Boolean, default: false },
     maxDate: { type: [String, Number, Date], default: undefined },
     minDate: { type: [String, Number, Date], default: () => constants.DEFAULT_MIN_DATE },
     separator: { type: String, default: '-' },
-    value: { type: [String, Number, Date], default: undefined },
-  },
-
-  data () {
-    return {
-      active: false,
-    }
   },
 
   methods: {

@@ -41,7 +41,8 @@ Vue.component('TimePicker', TimePicker)
 |dialog|Boolean|false|ピッカーをダイアログで開く|
 |dragSensitivity|[String, Number]|1.7|ドラッグ感度|
 |format|String|"YYYY-MM-DD HH:mm"|日付形式|
-|hideOverlay|Boolean|false|ダイアログ表示のオーバーレイを非表示にする。`dialog` が有効な場合のみ有効|
+|hideOverlay|Boolean|false|ダイアログ表示のオーバーレイを非表示にする。`dialog` が `true` の場合のみ有効|
+|hideButton|Boolean|false|ダイアログ表示の確定ボタンを非表示にする。`dialog` が `true` の場合のみ有効|
 |maxDate|[String, Number, Date]|`value + 100 years`|有効な最大日時|
 |minDate|[String, Number, Date]|1900-01-01 00:00|有効な最低日時|
 |minuteInterval|[String, Number]|1|分単位の間隔|
@@ -57,9 +58,11 @@ Vue.component('TimePicker', TimePicker)
 |dialog|Boolean|false|ピッカーをダイアログで開く|
 |dragSensitivity|[String, Number]|1.7|ドラッグ感度|
 |format|String|"YYYY-MM-DD HH:mm"|日付形式|
-|hideOverlay|Boolean|false|ダイアログ表示のオーバーレイを非表示にする。`dialog` が有効な場合のみ有効|
+|hideOverlay|Boolean|false|ダイアログ表示のオーバーレイを非表示にする。`dialog` が `true` の場合のみ有効|
+|hideButton|Boolean|false|ダイアログ表示の確定ボタンを非表示にする。`dialog` が `true` の場合のみ有効|
 |maxDate|[String, Number, Date]|`value + 100 years`|有効な最大日時|
 |minDate|[String, Number, Date]|1900-01-01 00:00|有効な最低日時|
+|separator|String|"-"|日付の区切り文字|
 |scrollSensitivity|[String, Number]|0.8|スクロール感度|
 |touchSensitivity|[String, Number]|1.7|タッチ操作の感度|
 |value|[String, Number, Date]|`required`|変更対象の値|
@@ -71,8 +74,10 @@ Vue.component('TimePicker', TimePicker)
 |dialog|Boolean|false|ピッカーをダイアログで開く|
 |dragSensitivity|[String, Number]|1.7|ドラッグ感度|
 |format|String|"YYYY-MM-DD HH:mm"|日付形式|
-|hideOverlay|Boolean|false|ダイアログ表示のオーバーレイを非表示にする。`dialog` が有効な場合のみ有効|
+|hideOverlay|Boolean|false|ダイアログ表示のオーバーレイを非表示にする。`dialog` が `true` の場合のみ有効|
+|hideButton|Boolean|false|ダイアログ表示の確定ボタンを非表示にする。`dialog` が `true` の場合のみ有効|
 |minuteInterval|[String, Number]|1|分単位の間隔|
+|separator|String|":"|時刻の区切り文字|
 |scrollSensitivity|[String, Number]|0.8|スクロール感度|
 |touchSensitivity|[String, Number]|1.7|タッチ操作の感度|
 |value|[String, Number, Date]|`required`|変更対象の値|

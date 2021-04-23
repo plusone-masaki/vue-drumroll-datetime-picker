@@ -15,15 +15,9 @@ export default {
 
   props: {
     format: { type: String, default: 'HH:mm' },
+    hideButton: { type: Boolean, default: false },
     minuteInterval: { type: [String, Number], default: 1 },
-    separator: { type: String, default: '-' },
-    value: { type: [String, Number, Date], default: undefined },
-  },
-
-  data () {
-    return {
-      active: false,
-    }
+    separator: { type: String, default: ':' },
   },
 
   methods: {

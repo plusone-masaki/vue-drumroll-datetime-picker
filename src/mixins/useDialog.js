@@ -6,6 +6,13 @@ export default {
   props: {
     dialog: { type: Boolean, default: false },
     hideOverlay: { type: Boolean, default: false },
+    hideButton: { type: Boolean, default: false },
+  },
+
+  data () {
+    return {
+      active: false,
+    }
   },
 
   methods: {
@@ -20,7 +27,13 @@ export default {
         }))
 
         // picker
-        const picker = h(PickerContainer, [this.pickers(h)])
+        const picker = h(PickerContainer, {
+          props: {
+            dialog: this.dialog,
+            hideButton: this.hideButton,
+          },
+          on: { click: this.offActivate },
+        }, [this.pickers(h)])
         content.push(h(ContentLayer, [picker]))
       }
       return h('div', { class: ['v-drumroll-picker', 'v-drumroll-picker--dialog'] }, content)
