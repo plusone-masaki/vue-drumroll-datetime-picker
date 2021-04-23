@@ -1,5 +1,5 @@
-import nodeResolve from 'rollup-plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
+import nodeResolve from 'rollup-plugin-node-resolve'
 import vue from 'rollup-plugin-vue'
 import sass from 'rollup-plugin-sass'
 
