@@ -58,13 +58,13 @@ export default {
   color: #fff
   display: block
   padding: .5em 1em
-  margin-bottom: 1rem
 
-  .pre-code
-    background: inherit
-    color: inherit
-    font-size: inherit
-    padding: 0
+.pre-code
+  background: inherit
+  color: inherit
+  font-size: inherit
+  margin-bottom: 16px
+  padding: 0
 
 .demo-input
   border: 1px solid #ccc

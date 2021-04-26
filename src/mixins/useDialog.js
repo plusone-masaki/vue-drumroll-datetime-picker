@@ -59,13 +59,35 @@ export default {
       return h('input', options)
     },
 
-    onActivate (e) {
-      e.preventDefault()
-      this.active = true
+    /**
+     * @param {KeyboardEvent} e
+     */
+    onClose (e) {
+      if (e.key.toUpperCase() === 'ESCAPE') this.offActivate(e)
     },
 
+    /**
+     * @param {MouseEvent} e
+     */
+    onActivate (e) {
+      e.preventDefault()
+
+      // Close on ESC
+      document.addEventListener('keydown', this.onClose)
+
+      // Blur active element.
+      const isElement = document.activeElement instanceof HTMLElement
+      if (!this.active && !this.hideOverlay && isElement) document.activeElement.blur()
+
+      this.active = !this.active
+    },
+
+    /**
+     * @param {MouseEvent|KeyboardEvent} e
+     */
     offActivate (e) {
       e.preventDefault()
+      document.removeEventListener('keydown', this.onClose)
       this.active = false
     },
   },

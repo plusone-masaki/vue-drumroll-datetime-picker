@@ -12,16 +12,13 @@
           <div class="card-content">
             <div class="subtitle">Min date / Max date</div>
 
-            <code class="code">
-                  <pre class="pre-code">
-&lt;date-time-picker
+            <pre class="pre-code"><code class="code">&lt;date-time-picker
   v-model="now"
   min-date="2020-05-10 12:03"
   max-date="2036-10-20 20:06"
-/&gt;</pre>
-            </code>
+/&gt;</code></pre>
 
-            Value: <input v-model="range" class="demo-input">
+            <label>Value: <input v-model="range" class="demo-input"></label>
             <date-time-picker
               v-model="range"
               min-date="2020-05-10 12:03"
@@ -35,16 +32,13 @@
           <div class="card-content">
             <div class="subtitle">Format</div>
 
-            <code class="code">
-                  <pre class="pre-code">
-&lt;date-time-picker
+            <pre class="pre-code"><code class="code">&lt;date-time-picker
   v-model="now"
   type="date"
   format="YYYY-MM-DD"
-/&gt;</pre>
-            </code>
+/&gt;</code></pre>
 
-            Value: <input v-model="format" class="demo-input">
+            <label>Value: <input v-model="format" class="demo-input"></label>
             <date-time-picker
               v-model="format"
               type="date"
@@ -58,16 +52,14 @@
           <div class="card-content">
             <div class="subtitle">Minute intervals</div>
 
-            <code class="code">
-                  <pre class="pre-code">
+            <pre class="pre-code"><code class="code">
 &lt;date-time-picker
   v-model="now"
   type="time"
   minute-interval="30"
-/&gt;</pre>
-            </code>
+/&gt;</code></pre>
 
-            Value: <input v-model="intervals" class="demo-input">
+            <label>Value: <input v-model="intervals" class="demo-input"></label>
             <date-time-picker
               v-model="intervals"
               type="time"

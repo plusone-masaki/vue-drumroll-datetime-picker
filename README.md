@@ -42,6 +42,7 @@ Vue.component('TimePicker', TimePicker)
 |dragSensitivity|[String, Number]|1.7|Drag sensitivity|
 |format|String|"YYYY-MM-DD HH:mm"|Date format|
 |hideOverlay|Boolean|false|Hide the dialog display overlay. Valid only if `dialog` is `true`|
+|height|[String, Number]|"10em"|Specifies the height of the picker|
 |hideButton|Boolean|false|Hide the dialog close button. Valid only if `dialog` is `true`|
 |maxDate|[String, Number, Date]|`value + 100 years`|Maximum valid date and time|
 |minDate|[String, Number, Date]|1900-01-01 00:00|Valid minimum date and time|
@@ -58,6 +59,7 @@ Vue.component('TimePicker', TimePicker)
 |dialog|Boolean|false|Open picker in dialog|
 |dragSensitivity|[String, Number]|1.7|Drag sensitivity|
 |format|String|"YYYY-MM-DD HH:mm"|Date format|
+|height|[String, Number]|"10em"|Specifies the height of the picker|
 |hideOverlay|Boolean|false|Hide the dialog display overlay. Valid only if `dialog` is `true`|
 |hideButton|Boolean|false|Hide the dialog close button. Valid only if `dialog` is `true`|
 |maxDate|[String, Number, Date]|`value + 100 years`|Maximum valid date and time|
@@ -74,6 +76,7 @@ Vue.component('TimePicker', TimePicker)
 |dialog|Boolean|false|Open picker in dialog|
 |dragSensitivity|[String, Number]|1.7|Drag sensitivity|
 |format|String|"HH:mm"|Time format|
+|height|[String, Number]|"10em"|Specifies the height of the picker|
 |hideOverlay|Boolean|false|Hide the dialog display overlay. Valid only if `dialog` is `true`|
 |hideButton|Boolean|false|Hide the dialog close button. Valid only if `dialog` is `true`|
 |minuteInterval|[String, Number]|1|Selectable minute intervals|

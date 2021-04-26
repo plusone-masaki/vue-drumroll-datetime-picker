@@ -20,11 +20,18 @@ export default {
 
   props: {
     dialog: { type: Boolean, default: false },
+    height: { type: [Number, String], default: '10em' },
     hideButton: { type: Boolean, default: false },
   },
 
   render: (h, context) => (h('div',
-    { class: 'v-drumroll-picker__container' },
+    {
+      class: 'v-drumroll-picker__container',
+      style: {
+        height: typeof context.props.height === 'string'
+          ? context.props.height : context.props.height + 'px',
+      },
+    },
     [
       pickerLayer(h),
       ...context.children,

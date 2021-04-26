@@ -5,13 +5,10 @@
       <div class="card-content">
         <div class="title">Dialog pickers</div>
 
-        <code class="code">
-          <pre class="pre-code">
-&lt;date-time-picker
+        <pre class="pre-code"><code class="code">&lt;date-time-picker
   v-model="now"
   dialog
-/&gt;</pre>
-        </code>
+/&gt;</code></pre>
 
         <div class="has-text-centered">
           <date-time-picker v-model="now" dialog />
@@ -21,14 +18,11 @@
       <div class="card-content">
         <div class="subtitle">Hide overlay</div>
 
-        <code class="code">
-          <pre class="pre-code">
-&lt;date-time-picker
+        <pre class="pre-code"><code class="code">&lt;date-time-picker
   v-model="now"
   dialog
   hide-overlay
-/&gt;</pre>
-        </code>
+/&gt;</code></pre>
 
         <div class="has-text-centered">
           <date-time-picker
@@ -42,9 +36,7 @@
       <div class="card-content">
         <div class="subtitle">Scoped slot</div>
 
-        <code class="code">
-          <pre class="pre-code">
-&lt;date-time-picker
+        <pre class="pre-code"><code class="code">&lt;date-time-picker
   v-model="now"
   dialog
 &gt;
@@ -56,8 +48,7 @@
       {{ '\{\{ now \}\}' }}
     &lt;/button&gt;
   &lt;/template&gt;
-&lt;/date-time-picker&gt;</pre>
-        </code>
+&lt;/date-time-picker&gt;</code></pre>
 
         <div class="has-text-centered">
           <date-time-picker

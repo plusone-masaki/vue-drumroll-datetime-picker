@@ -26,6 +26,7 @@ export default {
   props: {
     type: { type: String, default: 'datetime' },
     format: { type: String, default: 'YYYY-MM-DD HH:mm' },
+    height: { type: [String, Number], default: undefined },
     hideButton: { type: Boolean, default: false },
     maxDate: { type: [String, Number, Date], default: undefined },
     minDate: { type: [String, Number, Date], default: () => constants.DEFAULT_MIN_DATE },
@@ -51,8 +52,11 @@ export default {
   },
 
   render (h) {
-    return this.dialog
-      ? this.generateDialogPicker(h)
-      : h('div', { class: ['v-drumroll-picker'] }, [h(PickerContainer, [this.pickers(h)])])
+    if (this.dialog) {
+      return this.generateDialogPicker(h)
+    } else {
+      const container = h(PickerContainer, { props: this.$props }, [this.pickers(h)])
+      return h('div', { class: ['v-drumroll-picker'] }, [container])
+    }
   },
 }

@@ -12,6 +12,7 @@ export default {
 
   props: {
     format: { type: String, default: 'YYYY-MM-DD HH:mm' },
+    height: { type: [String, Number], default: undefined },
     maxDate: { type: [String, Number, Date], default: undefined },
     minDate: { type: [String, Number, Date], default: undefined },
     minuteInterval: { type: [String, Number], default: 1 },

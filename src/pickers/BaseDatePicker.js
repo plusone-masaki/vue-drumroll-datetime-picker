@@ -12,6 +12,7 @@ export default {
 
   props: {
     format: { type: String, default: 'YYYY-MM-DD' },
+    height: { type: [String, Number], default: undefined },
     maxDate: { type: [String, Number, Date], default: undefined },
     minDate: { type: [String, Number, Date], default: constants.DEFAULT_MIN_DATE },
     separator: { type: String, required: true },

@@ -5,12 +5,10 @@
       <div class="card-content">
         <div class="title">Basic usages</div>
 
-        <code class="code">
-          &lt;date-time-picker v-model="now" /&gt;
-        </code>
+        <pre class="pre-code"><code class="code">&lt;date-time-picker v-model="now" height="8em" /&gt;</code></pre>
 
-        Value: <input v-model="now" class="demo-input">
-        <date-time-picker v-model="now" />
+        <label>Value: <input v-model="now" class="demo-input"></label>
+        <date-time-picker v-model="now" height="8em" />
       </div>
 
       <div class="columns is-gapless">
@@ -20,15 +18,12 @@
           <div class="card-content">
             <div class="subtitle">Date picker</div>
 
-            <code class="code">
-                  <pre class="pre-code">
-&lt;date-time-picker
+            <pre class="pre-code"><code class="code">&lt;date-time-picker
   v-model="now"
   type="date"
-/&gt;</pre>
-            </code>
+/&gt;</code></pre>
 
-            Value: <input v-model="now" class="demo-input">
+            <label>Value: <input v-model="now" class="demo-input"></label>
             <date-time-picker v-model="now" type="date" />
           </div>
         </div>
@@ -38,15 +33,12 @@
           <div class="card-content">
             <div class="subtitle">Time picker</div>
 
-            <code class="code">
-                  <pre class="pre-code">
-&lt;date-time-picker
+            <pre class="pre-code"><code class="code">&lt;date-time-picker
   v-model="now"
   type="time"
-/&gt;</pre>
-            </code>
+/&gt;</code></pre>
 
-            Value: <input v-model="now" class="demo-input">
+            <label>Value: <input v-model="now" class="demo-input"></label>
             <date-time-picker v-model="now" type="time" />
           </div>
         </div>
