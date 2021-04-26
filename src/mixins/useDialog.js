@@ -5,6 +5,7 @@ import ContentLayer from '../components/ContentLayer'
 export default {
   props: {
     dialog: { type: Boolean, default: false },
+    height: { type: [String, Number], default: undefined },
     hideOverlay: { type: Boolean, default: false },
     hideButton: { type: Boolean, default: false },
   },
@@ -28,10 +29,7 @@ export default {
 
         // picker
         const picker = h(PickerContainer, {
-          props: {
-            dialog: this.dialog,
-            hideButton: this.hideButton,
-          },
+          props: this.$props,
           on: { click: this.offActivate },
         }, [this.pickers(h)])
         content.push(h(ContentLayer, [picker]))
