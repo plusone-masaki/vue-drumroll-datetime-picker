@@ -1,6 +1,6 @@
 import { ScrollPicker } from 'vue-scroll-picker'
 import dayjs from 'dayjs'
-import useSensitivity from '@/mixins/useSensitivity'
+import useSensitivity from '../mixins/useSensitivity'
 
 export default {
   name: 'BasePicker',
