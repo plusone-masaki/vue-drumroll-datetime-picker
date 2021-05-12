@@ -58,12 +58,14 @@ export default {
   color: #fff
   display: block
   padding: .5em 1em
+  overflow-x: auto
 
 .pre-code
   background: inherit
   color: inherit
   font-size: inherit
   margin-bottom: 16px
+  overflow: hidden
   padding: 0
 
 .demo-input

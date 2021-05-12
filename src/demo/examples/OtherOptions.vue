@@ -52,8 +52,7 @@
           <div class="card-content">
             <div class="subtitle">Minute intervals</div>
 
-            <pre class="pre-code"><code class="code">
-&lt;date-time-picker
+            <pre class="pre-code"><code class="code">&lt;date-time-picker
   v-model="now"
   type="time"
   minute-interval="30"
