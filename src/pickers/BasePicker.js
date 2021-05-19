@@ -1,5 +1,5 @@
-import { ScrollPicker } from 'vue-scroll-picker'
 import dayjs from 'dayjs'
+import { ScrollPicker } from 'vue-scroll-picker'
 import useSensitivity from '../mixins/useSensitivity'
 
 export default {
@@ -18,7 +18,7 @@ export default {
     maxDate: { type: [String, Number, Date], default: undefined },
     minDate: { type: [String, Number, Date], required: true },
     unit: { type: String, required: true },
-    value: { type: [String, Number], required: true },
+    value: { type: [String, Number], default: undefined },
     width: { type: [String, Number], default: '2em' },
   },
 

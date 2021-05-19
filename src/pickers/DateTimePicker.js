@@ -1,7 +1,7 @@
 import BaseDatePicker from './BaseDatePicker'
 import BaseTimePicker from './BaseTimePicker'
 import PickerContainer from '../components/PickerContainer'
-import * as constants from '../data/constants'
+import * as constants from '../assets/constants'
 import useBindings from '../mixins/useBindings'
 import useDialog from '../mixins/useDialog'
 import useSensitivity from '../mixins/useSensitivity'
@@ -24,13 +24,12 @@ export default {
   ],
 
   props: {
-    type: { type: String, default: 'datetime' },
-    format: { type: String, default: 'YYYY-MM-DD HH:mm' },
     height: { type: [String, Number], default: undefined },
     hideButton: { type: Boolean, default: false },
     maxDate: { type: [String, Number, Date], default: undefined },
     minDate: { type: [String, Number, Date], default: () => constants.DEFAULT_MIN_DATE },
     minuteInterval: { type: [String, Number], default: 1 },
+    type: { type: String, default: 'datetime' },
   },
 
   methods: {
@@ -39,6 +38,8 @@ export default {
         props: {
           ...this.$props,
           ...props,
+          value: this.modelValue,
+          format: this.modelFormat,
         },
         on: { input: this.onInput },
       })

@@ -51,7 +51,7 @@ export default {
       // Fallback default
       const options = {
         class: 'v-drumroll-picker__input',
-        attrs: { value: this.value },
+        domProps: { value: this.value },
         on: { input: this.onNativeInput, ...on },
       }
       return h('input', options)

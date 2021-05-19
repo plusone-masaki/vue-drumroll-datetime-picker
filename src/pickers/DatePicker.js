@@ -1,6 +1,6 @@
 import DatePicker from './BaseDatePicker'
 import PickerContainer from '../components/PickerContainer'
-import * as constants from '../data/constants'
+import * as constants from '../assets/constants'
 import useBindings from '../mixins/useBindings'
 import useDialog from '../mixins/useDialog'
 import useSensitivity from '../mixins/useSensitivity'
@@ -15,12 +15,17 @@ export default {
   ],
 
   props: {
-    format: { type: String, default: 'YYYY-MM-DD' },
     height: { type: [String, Number], default: undefined },
     hideButton: { type: Boolean, default: false },
     maxDate: { type: [String, Number, Date], default: undefined },
     minDate: { type: [String, Number, Date], default: () => constants.DEFAULT_MIN_DATE },
     separator: { type: String, default: '-' },
+  },
+
+  computed: {
+    type () {
+      return 'date'
+    },
   },
 
   methods: {
@@ -38,7 +43,11 @@ export default {
     if (this.dialog) {
       return this.generateDialogPicker(h)
     } else {
-      const container = h(PickerContainer, { props: this.$props }, [this.pickers(h)])
+      const props = {
+        ...this.$props,
+        value: this.modelValue,
+      }
+      const container = h(PickerContainer, { props }, [this.pickers(h)])
       return h('div', { class: ['v-drumroll-picker'] }, [container])
     }
   },

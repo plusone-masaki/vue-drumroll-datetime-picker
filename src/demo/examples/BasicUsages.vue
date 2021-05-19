@@ -7,8 +7,8 @@
 
         <pre class="pre-code"><code class="code">&lt;date-time-picker v-model="now" height="8em" /&gt;</code></pre>
 
-        <label>Value: <input v-model="now" class="demo-input"></label>
-        <date-time-picker v-model="now" height="8em" />
+        <label>Value: <input v-model="datetime" class="demo-input"></label>
+        <date-time-picker v-model="datetime" height="8em" />
       </div>
 
       <div class="columns is-gapless">
@@ -23,8 +23,8 @@
   type="date"
 /&gt;</code></pre>
 
-            <label>Value: <input v-model="now" class="demo-input"></label>
-            <date-time-picker v-model="now" type="date" />
+            <label>Value: <input v-model="date" class="demo-input"></label>
+            <date-time-picker v-model="date" type="date" />
           </div>
         </div>
 
@@ -38,8 +38,8 @@
   type="time"
 /&gt;</code></pre>
 
-            <label>Value: <input v-model="now" class="demo-input"></label>
-            <date-time-picker v-model="now" type="time" />
+            <label>Value: <input v-model="time" class="demo-input"></label>
+            <date-time-picker v-model="time" type="time" />
           </div>
         </div>
 
@@ -53,7 +53,9 @@ export default {
   name: 'BasicUsages',
   data () {
     return {
-      now: this.$dayjs().format('YYYY-MM-DD HH:mm:ss'),
+      datetime: this.$dayjs().format('YYYY-MM-DD HH:mm'),
+      date: this.$dayjs().format('YYYY-MM-DD'),
+      time: this.$dayjs().format('HH:mm'),
     }
   },
 }

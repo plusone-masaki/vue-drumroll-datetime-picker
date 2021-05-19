@@ -2,7 +2,7 @@ import dayjs from 'dayjs'
 import { ScrollPickerGroup } from 'vue-scroll-picker'
 import DrumrollSeparator from '../components/DrumrollSeparator'
 import BasePicker from './BasePicker'
-import * as constants from '../data/constants'
+import * as constants from '../assets/constants'
 import useSensitivity from '../mixins/useSensitivity'
 
 export default {
@@ -11,12 +11,13 @@ export default {
   mixins: [useSensitivity],
 
   props: {
+    defaultValue: { type: String, default: undefined },
     format: { type: String, default: 'YYYY-MM-DD' },
     height: { type: [String, Number], default: undefined },
     maxDate: { type: [String, Number, Date], default: undefined },
     minDate: { type: [String, Number, Date], default: constants.DEFAULT_MIN_DATE },
     separator: { type: String, required: true },
-    value: { type: [String, Number, Date], default: '' },
+    value: { type: [String, Number, Date], default: undefined },
   },
 
   data () {
@@ -54,11 +55,11 @@ export default {
      * @return {array}
      */
     months () {
-      const theDate = dayjs(this.value, this.format)
+      const currentDate = dayjs(this.value, this.format)
       const minDate = dayjs(this.minDate)
-      const min = theDate.isSame(minDate, 'year') ? minDate.format('M') : 1
+      const min = currentDate.isSame(minDate, 'year') ? minDate.format('M') : 1
 
-      const max = this.maxDate && theDate.isSame(this.maxDate, 'year')
+      const max = this.maxDate && currentDate.isSame(this.maxDate, 'year')
         ? dayjs(this.maxDate).format('M')
         : constants.MONTH_UNIT
 
@@ -66,7 +67,7 @@ export default {
       const months = []
       for (let month = min; month <= max; month++) {
         months.push({
-          name: ('0' + month).slice(-constants.DIGIT),
+          name: month.toString().padStart(constants.DIGIT, '0'),
           value: month - 1,
         })
       }
@@ -81,11 +82,11 @@ export default {
      * @return {array}
      */
     days () {
-      const theDate = dayjs(this.value, this.format)
+      const currentDate = dayjs(this.value, this.format)
       const minDate = dayjs(this.minDate)
 
-      const min = theDate.isSame(minDate, 'month') ? minDate.date() : 1
-      const max = this.maxDate && theDate.isSame(this.maxDate, 'month')
+      const min = currentDate.isSame(minDate, 'month') ? minDate.date() : 1
+      const max = this.maxDate && currentDate.isSame(this.maxDate, 'month')
         ? dayjs(this.maxDate).date()
         : this.numberOfDays
 
@@ -93,7 +94,7 @@ export default {
       const days = []
       for (let date = this.dateOfMin; date <= max; date++) {
         days.push({
-          name: date <= this.date && date >= min ? ('0' + date).slice(-constants.DIGIT) : '',
+          name: date <= this.date && date >= min ? date.toString().padStart(constants.DIGIT, '0') : '',
           value: date,
         })
       }
@@ -119,7 +120,8 @@ export default {
 
   methods: {
     onInput (value) {
-      this.$emit('input', value)
+      const defaultValue = dayjs(this.defaultValue).format(this.format)
+      if (dayjs(value).isValid() && (this.value || value !== defaultValue)) this.$emit('input', value)
     },
   },
 

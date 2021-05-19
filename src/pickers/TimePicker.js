@@ -14,11 +14,16 @@ export default {
   ],
 
   props: {
-    format: { type: String, default: 'HH:mm' },
     height: { type: [String, Number], default: undefined },
     hideButton: { type: Boolean, default: false },
     minuteInterval: { type: [String, Number], default: 1 },
     separator: { type: String, default: ':' },
+  },
+
+  computed: {
+    type () {
+      return 'time'
+    },
   },
 
   methods: {
@@ -36,7 +41,12 @@ export default {
     if (this.dialog) {
       return this.generateDialogPicker(h)
     } else {
-      const container = h(PickerContainer, { props: this.$props }, [this.pickers(h)])
+      const props = {
+        ...this.$props,
+        value: this.modelValue,
+        format: this.modelFormat,
+      }
+      const container = h(PickerContainer, { props }, [this.pickers(h)])
       return h('div', { class: ['v-drumroll-picker'] }, [container])
     }
   },

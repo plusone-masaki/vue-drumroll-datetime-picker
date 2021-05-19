@@ -2,7 +2,8 @@ import dayjs from 'dayjs'
 import { ScrollPickerGroup } from 'vue-scroll-picker'
 import DrumrollSeparator from '../components/DrumrollSeparator'
 import BasePicker from './BasePicker'
-import * as constants from '../data/constants'
+import * as constants from '../assets/constants'
+import datestring from '../assets/datestring'
 import useSensitivity from '../mixins/useSensitivity'
 
 export default {
@@ -11,6 +12,7 @@ export default {
   mixins: [useSensitivity],
 
   props: {
+    defaultValue: { type: String, default: undefined },
     format: { type: String, default: 'YYYY-MM-DD HH:mm' },
     height: { type: [String, Number], default: undefined },
     maxDate: { type: [String, Number, Date], default: undefined },
@@ -30,14 +32,14 @@ export default {
       let min = 0
       let max = constants.HOUR_UNIT
 
-      const theDate = dayjs(this.value, this.format)
+      const currentDate = dayjs(this.value)
 
       if (this.minDate) {
         const minDate = dayjs(this.minDate)
-        min = theDate.isSame(minDate, 'date') ? minDate.hour() : 0
+        min = currentDate.isSame(minDate, 'date') ? minDate.hour() : 0
       }
       if (this.maxDate) {
-        max = this.maxDate && theDate.isSame(this.maxDate, 'date')
+        max = this.maxDate && currentDate.isSame(this.maxDate, 'date')
           ? dayjs(this.maxDate).hour() + 1 : constants.HOUR_UNIT
       }
 
@@ -52,16 +54,16 @@ export default {
      * @return {array}
      */
     minutes () {
-      const theDate = dayjs(this.value, this.format)
+      const currentDate = dayjs(this.value)
       let min = 0
       let max = constants.MINUTE_UNIT
 
       if (this.minDate) {
         const minDate = dayjs(this.minDate)
-        min = theDate.isSame(minDate, 'hour') ? minDate.minute() : 0
+        min = currentDate.isSame(minDate, 'hour') ? minDate.minute() : 0
       }
       if (this.maxDate) {
-        max = this.maxDate && theDate.isSame(this.maxDate, 'hour')
+        max = this.maxDate && currentDate.isSame(this.maxDate, 'hour')
           ? dayjs(this.maxDate).minute() + 1
           : constants.MINUTE_UNIT
       }
@@ -77,7 +79,9 @@ export default {
 
   methods: {
     onInput (value) {
-      this.$emit('input', value)
+      const modelValue = datestring(value, this.format, 'time')
+      const defaultValue = datestring(this.defaultValue || dayjs().format(this.format), this.format, 'time')
+      if (modelValue && (this.value || modelValue !== defaultValue)) this.$emit('input', dayjs(modelValue).format(this.format))
     },
   },
 
@@ -88,10 +92,10 @@ export default {
     // 時
     const hourPicker = h(BasePicker, {
       props: {
+        ...this.$props,
         items: this.hours,
         unit: 'hour',
         width: constants.DIGIT + 'em',
-        ...this.$props,
       },
       on: {
         input: this.onInput,
@@ -101,10 +105,10 @@ export default {
     // 分
     const minutePicker = h(BasePicker, {
       props: {
+        ...this.$props,
         items: this.minutes,
         unit: 'minute',
         width: constants.DIGIT + 'em',
-        ...this.$props,
       },
       on: {
         input: this.onInput,
