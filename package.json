@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "rollup -c",
-    "build:demo": "vue-cli-service build --dest docs src/demo/entry.js",
+    "build:demo": "vue-cli-service build --dest docs src/demo/entry.js --inline-vue",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
