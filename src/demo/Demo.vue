@@ -25,7 +25,7 @@
     <footer class="has-background-dark" style="margin-top: 15vh;">
       <div class="container is-flex">
         <a class="has-text-white" href="https://www.plus-one.tech">
-          &copy; Plus One
+          Plus One
         </a>
       </div>
     </footer>
