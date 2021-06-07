@@ -2,6 +2,8 @@ import OverlayLayer from '../components/OverlayLayer'
 import PickerContainer from '../components/PickerContainer'
 import ContentLayer from '../components/ContentLayer'
 
+const disableScroll = (e) => e.preventDefault()
+
 export default {
   props: {
     dialog: { type: Boolean, default: false },
@@ -72,6 +74,7 @@ export default {
 
       // Close on ESC
       document.addEventListener('keydown', this.onClose)
+      document.addEventListener('touchmove', disableScroll, { passive: false })
 
       // Blur active element.
       const isElement = document.activeElement instanceof HTMLElement
@@ -86,6 +89,7 @@ export default {
     offActivate (e) {
       e.preventDefault()
       document.removeEventListener('keydown', this.onClose)
+      document.removeEventListener('touchmove', disableScroll)
       this.active = false
     },
   },
