@@ -1,6 +1,7 @@
 import OverlayLayer from '../components/OverlayLayer'
 import PickerContainer from '../components/PickerContainer'
 import ContentLayer from '../components/ContentLayer'
+import dayjs from 'dayjs'
 
 const disableScroll = (e) => e.preventDefault()
 
@@ -79,6 +80,9 @@ export default {
       // Blur active element.
       const isElement = document.activeElement instanceof HTMLElement
       if (!this.active && !this.hideOverlay && isElement) document.activeElement.blur()
+
+      // Emit initial value
+      this.$emit('input', dayjs(this.value || this.defaultValue, this.format).format(this.format))
 
       this.active = !this.active
     },

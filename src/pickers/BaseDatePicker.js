@@ -21,7 +21,7 @@ export default {
   },
 
   data () {
-    const date = dayjs(this.value).endOf('month').date()
+    const date = dayjs(this.value || this.defaultValue).endOf('month').date()
     return {
       date: date,
       numberOfDays: date,
@@ -39,7 +39,7 @@ export default {
       const minDate = dayjs(this.minDate)
       const maxYear = this.maxDate
         ? dayjs(this.maxDate).year()
-        : dayjs(this.value, this.format).add(100, 'year').year()
+        : dayjs(this.value || this.defaultValue, this.format).add(100, 'year').year()
 
       const years = []
       for (let year = minDate.year(); year <= maxYear; year++) {
@@ -55,7 +55,7 @@ export default {
      * @return {array}
      */
     months () {
-      const currentDate = dayjs(this.value, this.format)
+      const currentDate = dayjs(this.value || this.defaultValue, this.format)
       const minDate = dayjs(this.minDate)
       const min = currentDate.isSame(minDate, 'year') ? minDate.format('M') : 1
 
@@ -82,7 +82,7 @@ export default {
      * @return {array}
      */
     days () {
-      const currentDate = dayjs(this.value, this.format)
+      const currentDate = dayjs(this.value || this.defaultValue, this.format)
       const minDate = dayjs(this.minDate)
 
       const min = currentDate.isSame(minDate, 'month') ? minDate.date() : 1
@@ -136,6 +136,7 @@ export default {
         unit: 'year',
         width: constants.DIGIT * 1.5 + 'em',
         ...this.$props,
+        value: this.value || this.defaultValue,
       },
       on: {
         input: this.onInput,
@@ -149,6 +150,7 @@ export default {
         unit: 'month',
         width: constants.DIGIT + 'em',
         ...this.$props,
+        value: this.value || this.defaultValue,
       },
       on: {
         input: this.onInput,
@@ -162,6 +164,7 @@ export default {
         unit: 'date',
         width: constants.DIGIT + 'em',
         ...this.$props,
+        value: this.value || this.defaultValue,
       },
       on: {
         input: this.onInput,
