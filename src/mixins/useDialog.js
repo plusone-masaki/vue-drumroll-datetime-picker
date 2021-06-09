@@ -2,6 +2,7 @@ import OverlayLayer from '../components/OverlayLayer'
 import PickerContainer from '../components/PickerContainer'
 import ContentLayer from '../components/ContentLayer'
 import dayjs from 'dayjs'
+import datestring from '@/assets/datestring'
 
 const disableScroll = (e) => e.preventDefault()
 
@@ -82,7 +83,10 @@ export default {
       if (!this.active && !this.hideOverlay && isElement) document.activeElement.blur()
 
       // Emit initial value
-      this.$emit('input', dayjs(this.value || this.defaultValue, this.format).format(this.format))
+      const modelFormat = this.format || this.modelFormat
+      const modelValue = this.value || this.defaultValue || dayjs().format(modelFormat)
+      const initialValue = datestring(modelValue, modelFormat, this.type)
+      this.$emit('input', initialValue)
 
       this.active = !this.active
     },

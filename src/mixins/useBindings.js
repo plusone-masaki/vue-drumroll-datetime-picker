@@ -10,7 +10,8 @@ export default {
   computed: {
     modelValue: {
       get () {
-        return datestring(this.value, this.modelFormat, this.type)
+        const modelValue = this.value || this.defaultValue || dayjs().format(this.modelFormat)
+        return datestring(modelValue, this.modelFormat, this.type)
       },
       set (value) {
         this.$emit('input', dayjs(value).format(this.modelFormat))

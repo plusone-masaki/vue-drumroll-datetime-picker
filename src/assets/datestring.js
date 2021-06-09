@@ -16,8 +16,9 @@ export default (value, modelFormat, type) => {
     .replace(/([YMDHms])/g, '\\d')
   const format = new RegExp(baseFormat)
   if (format.test(value)) {
-    if (dayjs(value, modelFormat).isValid()) {
-      return value
+    const modelValue = dayjs(value, modelFormat)
+    if (modelValue.isValid()) {
+      return modelValue.format(modelFormat)
     } else if (type === 'time' && typeof value === 'string') {
       const datetime = `1900-01-01 ${value}`
       const date = dayjs(datetime, `YYYY-MM-DD ${modelFormat}`)
