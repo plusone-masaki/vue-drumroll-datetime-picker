@@ -57,11 +57,15 @@ export default {
     months () {
       const currentDate = dayjs(this.value || this.defaultValue, this.format)
       const minDate = dayjs(this.minDate)
-      const min = currentDate.isSame(minDate, 'year') ? minDate.format('M') : 1
-
-      const max = this.maxDate && currentDate.isSame(this.maxDate, 'year')
+      let min = currentDate.isSame(minDate, 'year') ? minDate.format('M') : 1
+      let max = this.maxDate && currentDate.isSame(this.maxDate, 'year')
         ? dayjs(this.maxDate).format('M')
         : constants.MONTH_UNIT
+
+      if (min > currentDate.format('M') || max < currentDate.format('M')) {
+        min = 1
+        max = constants.MONTH_UNIT
+      }
 
       // 桁揃えをしつつ時刻を配列に追加
       const months = []
@@ -84,15 +88,19 @@ export default {
     days () {
       const currentDate = dayjs(this.value || this.defaultValue, this.format)
       const minDate = dayjs(this.minDate)
-
-      const min = currentDate.isSame(minDate, 'month') ? minDate.date() : 1
-      const max = this.maxDate && currentDate.isSame(this.maxDate, 'month')
+      let min = currentDate.isSame(minDate, 'month') ? minDate.date() : 1
+      let max = this.maxDate && currentDate.isSame(this.maxDate, 'month')
         ? dayjs(this.maxDate).date()
         : this.numberOfDays
 
+      if (min > currentDate.date() || max < currentDate.date()) {
+        min = 1
+        max = this.numberOfDays
+      }
+
       // 桁揃えをしつつ時刻を配列に追加
       const days = []
-      for (let date = this.dateOfMin; date <= max; date++) {
+      for (let date = Math.min(this.dateOfMin, min); date <= max; date++) {
         days.push({
           name: date <= this.date && date >= min ? date.toString().padStart(constants.DIGIT, '0') : '',
           value: date,
@@ -120,16 +128,17 @@ export default {
 
   methods: {
     onInput (value) {
+      console.log('on input', value)
       const defaultValue = dayjs(this.defaultValue).format(this.format)
-      if (dayjs(value).isValid() && (this.value || value !== defaultValue)) this.$emit('input', value)
+      if (dayjs(value).isValid() && (this.value || value !== defaultValue)) {
+        this.$emit('input', value)
+      }
     },
   },
 
   render (h) {
-    // 境界線
     const separator = h(DrumrollSeparator, { props: { separator: this.separator } })
 
-    // 年
     const yearPicker = h(BasePicker, {
       props: {
         items: this.years,
@@ -143,7 +152,6 @@ export default {
       },
     })
 
-    // 月
     const monthPicker = h(BasePicker, {
       props: {
         items: this.months,
@@ -157,7 +165,6 @@ export default {
       },
     })
 
-    // 日
     const dayPicker = h(BasePicker, {
       props: {
         items: this.days,

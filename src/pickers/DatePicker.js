@@ -1,6 +1,8 @@
-import DatePicker from './BaseDatePicker'
-import PickerContainer from '../components/PickerContainer'
+import dayjs from 'dayjs'
 import * as constants from '../assets/constants'
+import datestring from '../assets/datestring'
+import PickerContainer from '../components/PickerContainer'
+import DatePicker from './BaseDatePicker'
 import useBindings from '../mixins/useBindings'
 import useDialog from '../mixins/useDialog'
 import useSensitivity from '../mixins/useSensitivity'
@@ -29,6 +31,14 @@ export default {
   },
 
   methods: {
+    onInput (value) {
+      if (this.maxDate && dayjs(value).isAfter(this.maxDate)) {
+        this.modelValue = datestring(this.maxDate, this.modelFormat, this.type)
+      } else {
+        this.modelValue = datestring(value, this.modelFormat, this.type)
+      }
+    },
+
     pickers (h) {
       const options = () => ({
         props: this.$props,

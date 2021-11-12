@@ -37,13 +37,14 @@ export default {
       },
       on: {
         input: value => {
+          if (!value) value = 0
+
           const day = dayjs(props.value, props.format)
           const current = day.get(props.unit)
           const date = day.set(props.unit, value)
 
           // 桁上がり抑止
           if (current <= value && date.get(props.unit) < value) return
-
           listeners.input(date.format(props.format))
         },
       },

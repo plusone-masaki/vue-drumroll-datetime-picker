@@ -28,10 +28,6 @@ export default {
     },
   },
   methods: {
-    onInput (value) {
-      this.modelValue = datestring(value, this.modelFormat, this.type)
-    },
-
     onNativeInput (event) {
       const value = datestring(event.target.value, this.modelFormat, this.type)
       if (value) this.modelValue = value

@@ -3,6 +3,7 @@ import PickerContainer from '../components/PickerContainer'
 import useBindings from '../mixins/useBindings'
 import useDialog from '../mixins/useDialog'
 import useSensitivity from '../mixins/useSensitivity'
+import datestring from '../assets/datestring'
 
 export default {
   name: 'TimePicker',
@@ -27,6 +28,10 @@ export default {
   },
 
   methods: {
+    onInput (value) {
+      this.modelValue = datestring(value, this.modelFormat, this.type)
+    },
+
     pickers (h) {
       const options = () => ({
         props: this.$props,

@@ -20,7 +20,7 @@ export default (value, modelFormat, type) => {
     if (modelValue.isValid()) {
       return modelValue.format(modelFormat)
     } else if (type === 'time' && typeof value === 'string') {
-      const datetime = `1900-01-01 ${value}`
+      const datetime = `1980-01-01 ${value}`
       const date = dayjs(datetime, `YYYY-MM-DD ${modelFormat}`)
       return date.isValid() ? datetime : undefined
     }

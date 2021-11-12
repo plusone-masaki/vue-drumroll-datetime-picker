@@ -24,7 +24,11 @@
 /&gt;</code></pre>
 
             <label>Value: <input v-model="date" class="demo-input"></label>
-            <date-time-picker v-model="date" type="date" />
+            <date-time-picker v-model="date" type="date"
+              min-date="2022/01/09"
+              max-date="2022/02/08"
+              format="YYYY/MM/DD"
+            />
           </div>
         </div>
 
