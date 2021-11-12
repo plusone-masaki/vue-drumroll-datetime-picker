@@ -128,7 +128,6 @@ export default {
 
   methods: {
     onInput (value) {
-      console.log('on input', value)
       const defaultValue = dayjs(this.defaultValue).format(this.format)
       if (dayjs(value).isValid() && (this.value || value !== defaultValue)) {
         this.$emit('input', value)
