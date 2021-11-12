@@ -1,7 +1,8 @@
 name: Publish
 
 on:
-  push
+  push:
+    branches: [main]
   release:
     types: [created]
 
