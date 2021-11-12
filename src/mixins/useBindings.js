@@ -28,6 +28,16 @@ export default {
     },
   },
   methods: {
+    onInput (value) {
+      if (dayjs(value).isBefore(this.minDate)) {
+        this.modelValue = datestring(this.minDate, this.modelFormat, this.type)
+      } else if (this.maxDate && dayjs(value).isAfter(this.maxDate)) {
+        this.modelValue = datestring(this.maxDate, this.modelFormat, this.type)
+      } else {
+        this.modelValue = datestring(value, this.modelFormat, this.type)
+      }
+    },
+
     onNativeInput (event) {
       const value = datestring(event.target.value, this.modelFormat, this.type)
       if (value) this.modelValue = value

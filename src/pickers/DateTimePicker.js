@@ -5,8 +5,6 @@ import * as constants from '../assets/constants'
 import useBindings from '../mixins/useBindings'
 import useDialog from '../mixins/useDialog'
 import useSensitivity from '../mixins/useSensitivity'
-import datestring from '../assets/datestring'
-import dayjs from 'dayjs'
 
 const generateDatePicker = (h, options) => (
   h(BaseDatePicker, options({ separator: '-' }))
@@ -35,15 +33,6 @@ export default {
   },
 
   methods: {
-    onInput (value) {
-      if (dayjs(value).isBefore(this.minDate)) {
-        this.modelValue = datestring(this.minDate, this.modelFormat, this.type)
-      } else if (this.maxDate && dayjs(value).isAfter(this.maxDate)) {
-        this.modelValue = datestring(this.maxDate, this.modelFormat, this.type)
-      } else {
-        this.modelValue = datestring(value, this.modelFormat, this.type)
-      }
-    },
 
     pickers (h) {
       const options = props => ({
