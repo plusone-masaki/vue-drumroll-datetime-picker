@@ -34,7 +34,7 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com
-          scope: @plusone-masaki
+          scope: '@plusone-masaki'
       - run: yarn
       - run: yarn build
       - run: yarn build:demo
