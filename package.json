@@ -1,8 +1,11 @@
 {
   "name": "vue-drumroll-datetime-picker",
-  "version": "0.2.18",
+  "version": "0.2.19",
   "license": "MIT",
   "main": "dist/vue-drumroll-datetime-picker.js",
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com"
+  },
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "rollup -c",
