@@ -5,27 +5,6 @@ on:
     types: [created]
 
 jobs:
-  publish-npm:
-    runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup for npm
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-          registry-url: https://registry.npmjs.org
-          always-auth: true
-
-      - run: yarn
-      - run: yarn build
-      - run: yarn build:demo
-      - run: yarn publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
   publish-github:
     runs-on: ubuntu-latest
     permissions:
