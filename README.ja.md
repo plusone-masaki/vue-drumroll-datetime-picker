@@ -11,11 +11,11 @@
 ### インストール
 
 ```bash
-yarn add vue-drumroll-datetime-picker
+yarn add @plusone-masaki/vue-drumroll-datetime-picker
 
 or
 
-npm install vue-drumroll-datetime-picker
+npm install @plusone-masaki/vue-drumroll-datetime-picker
 ```
 
 ### 使い方
