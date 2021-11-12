@@ -4,7 +4,7 @@
   "license": "MIT",
   "main": "dist/vue-drumroll-datetime-picker.js",
   "publishConfig": {
-    "registry":"https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com"
   },
   "scripts": {
     "dev": "vue-cli-service serve",
