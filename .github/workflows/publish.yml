@@ -17,24 +17,14 @@ jobs:
       - name: npm setup
         uses: actions/setup-node@v2
         with:
-          node-version: 12
+          node-version: 12.x
           registry-url: https://registry.npmjs.org
           always-auth: true
 
       - run: yarn
       - run: yarn build
       - run: yarn build:demo
-      - run: cat /home/runner/work/_temp/.npmrc
-      - run: yarn publish
+      - uses: primer/publish@v3
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: GitHub Packages setup
-        uses: actions/setup-node@v2
-        with:
-          node-version: 12
-          registry-url: https://npm.pkg.github.com
-          scope: '@plusone-masaki'
-      - run: yarn publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
