@@ -12,6 +12,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 12
+      - run: yarn
       - run: yarn build
       - run: yarn build:demo
 
@@ -27,6 +28,7 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
+      - run: yarn
       - run: yarn build
       - run: yarn build:demo
       - run: yarn publish
