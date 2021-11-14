@@ -4,7 +4,7 @@
 
 ## Demo page
 
-[here](https://www.plus-one.tech/products/demo/vue-drumroll-datetime-picker/)
+[here](https://www.plus-one.tech/vue-drumroll-datetime-picker/)
 
 ## Getting started
 

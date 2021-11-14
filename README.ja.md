@@ -4,7 +4,7 @@
 
 ## デモページ
 
-[デモページ](https://www.plus-one.tech/products/demo/vue-drumroll-datetime-picker/)
+[デモページ](https://www.plus-one.tech/vue-drumroll-datetime-picker/)
 
 ## 利用方法
 
