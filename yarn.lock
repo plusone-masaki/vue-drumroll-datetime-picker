@@ -767,7 +767,7 @@
   resolved "https://registry.yarnpkg.com/@vue/cli-overlay/-/cli-overlay-4.5.15.tgz#0700fd6bad39336d4189ba3ff7d25e638e818c9c"
   integrity sha512-0zI0kANAVmjFO2LWGUIzdGPMeE3+9k+KeRDXsUqB30YfRF7abjfiiRPq5BU9pOzlJbVdpRkisschBrvdJqDuDg==
 
-"@vue/cli-plugin-eslint@^4.2.0":
+"@vue/cli-plugin-eslint@^4.5.15":
   version "4.5.15"
   resolved "https://registry.yarnpkg.com/@vue/cli-plugin-eslint/-/cli-plugin-eslint-4.5.15.tgz#5781824a941f34c26336a67b1f6584a06c6a24ff"
   integrity sha512-/2Fl6wY/5bz3HD035oSnFRMsKNxDxU396KqBdpCQdwdvqk4mm6JAbXqihpcBRTNPeTO6w+LwGe6FE56PVbJdbg==
@@ -786,7 +786,7 @@
   dependencies:
     "@vue/cli-shared-utils" "^4.5.15"
 
-"@vue/cli-plugin-unit-jest@^4.2.0":
+"@vue/cli-plugin-unit-jest@^4.5.15":
   version "4.5.15"
   resolved "https://registry.yarnpkg.com/@vue/cli-plugin-unit-jest/-/cli-plugin-unit-jest-4.5.15.tgz#7be914ca1507ca344487eb377ed925c9db0b772a"
   integrity sha512-oE3RDMerb21P6ALg70Zh2zU+RYYjoe09/7ZXYUj03uTb2obqUbcINpFfeVwM0B/J6H1YmqWJpnNBxWURhrqQHg==
@@ -812,7 +812,7 @@
   resolved "https://registry.yarnpkg.com/@vue/cli-plugin-vuex/-/cli-plugin-vuex-4.5.15.tgz#466c1f02777d02fef53a9bb49a36cc3a3bcfec4e"
   integrity sha512-fqap+4HN+w+InDxlA3hZTOGE0tzBTgXhKLoDydhywqgmhQ1D9JA6Feh94ze6tG8DsWX58/ujYUqA8jAz17FJtg==
 
-"@vue/cli-service@^4.2.0":
+"@vue/cli-service@^4.5.15":
   version "4.5.15"
   resolved "https://registry.yarnpkg.com/@vue/cli-service/-/cli-service-4.5.15.tgz#0e9a186d51550027d0e68e95042077eb4d115b45"
   integrity sha512-sFWnLYVCn4zRfu45IcsIE9eXM0YpDV3S11vlM2/DVbIPAGoYo5ySpSof6aHcIvkeGsIsrHFpPHzNvDZ/efs7jA==
