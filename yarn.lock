@@ -2841,6 +2841,11 @@ data-urls@^1.0.0, data-urls@^1.1.0:
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
 
+dayjs-jp-format@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/dayjs-jp-format/-/dayjs-jp-format-1.0.1.tgz#6c9c5366cff44182155f65d2359ab86bc28920e9"
+  integrity sha512-1ASGTe8GJF+Qjn/RhWpbaV3oOMutuKRTZxnxtQsg8ar9bH4QRkhyfTI+JHSK5iJdqqsaEZr+kP7eTH2qaxF3ew==
+
 dayjs@^1.10.4:
   version "1.10.7"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.10.7.tgz#2cf5f91add28116748440866a0a1d26f3a6ce468"

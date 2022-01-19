@@ -1,5 +1,5 @@
-import dayjs from 'dayjs'
 import { ScrollPicker } from 'vue-scroll-picker'
+import dayjs from '../modules/dayjs'
 import useSensitivity from '../mixins/useSensitivity'
 
 export default {
@@ -39,9 +39,9 @@ export default {
         input: value => {
           if (!value) value = 0
 
-          const day = dayjs(props.value, props.format)
-          const current = day.get(props.unit)
-          const date = day.set(props.unit, value)
+          const dateObj = dayjs(props.value, props.format)
+          const current = dateObj.get(props.unit)
+          const date = dateObj.set(props.unit, value)
 
           // 桁上がり抑止
           if (current <= value && date.get(props.unit) < value) return

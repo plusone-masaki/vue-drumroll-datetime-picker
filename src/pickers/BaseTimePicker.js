@@ -1,6 +1,6 @@
-import dayjs from 'dayjs'
+import dayjs from '../modules/dayjs'
 import { ScrollPickerGroup } from 'vue-scroll-picker'
-import DrumrollSeparator from '../components/DrumrollSeparator'
+import DrumDivider from '../components/DrumDivider'
 import BasePicker from './BasePicker'
 import * as constants from '../assets/constants'
 import datestring from '../assets/datestring'
@@ -13,12 +13,13 @@ export default {
 
   props: {
     defaultValue: { type: String, default: undefined },
+    drumPattern: { type: Object, default: undefined },
     format: { type: String, default: 'YYYY-MM-DD HH:mm' },
     height: { type: [String, Number], default: undefined },
     maxDate: { type: [String, Number, Date], default: undefined },
     minDate: { type: [String, Number, Date], default: undefined },
     minuteInterval: { type: [String, Number], default: 1 },
-    separator: { type: String, required: true },
+    separator: { type: String, default: undefined }, // deprecated
     value: { type: [String, Number, Date], default: undefined },
   },
 
@@ -87,7 +88,7 @@ export default {
 
   render (h) {
     // 境界線
-    const separator = h(DrumrollSeparator, { props: { separator: this.separator } })
+    const divider = h(DrumDivider, { props: { divider: this.separator || this.drumPattern['divider-time'] } })
 
     // 時
     const hourPicker = h(BasePicker, {
@@ -117,7 +118,7 @@ export default {
 
     return h(ScrollPickerGroup, { class: 'vdd-flex' }, [
       hourPicker,
-      separator,
+      divider,
       minutePicker,
     ])
   },

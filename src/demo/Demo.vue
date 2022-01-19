@@ -18,6 +18,7 @@
       <!-- Examples -->
       <basic-usages />
       <dialog-pickers />
+      <date-format />
       <other-options />
       <!-- /Examples -->
     </div>
@@ -36,6 +37,7 @@
 import dayjs from 'dayjs'
 import BasicUsages from './examples/BasicUsages'
 import DialogPickers from './examples/DialogPickers'
+import DateFormat from './examples/DateFormat'
 import OtherOptions from './examples/OtherOptions'
 
 export default {
@@ -43,6 +45,7 @@ export default {
   components: {
     BasicUsages,
     DialogPickers,
+    DateFormat,
     OtherOptions,
   },
   data: () => ({

@@ -36,7 +36,7 @@ Vue.component('TimePicker', TimePicker)
 
 #### DateTimePicker
 
-|name|type|default|description|
+|項目名|型|デフォルト|説明|
 |---|---|---|---|
 |dialog|Boolean|false|ピッカーをダイアログで開く|
 |dragSensitivity|[String, Number]|1.7|ドラッグ感度|
@@ -54,7 +54,7 @@ Vue.component('TimePicker', TimePicker)
 
 #### DatePicker
 
-|name|type|default|description|
+|項目名|型|デフォルト|説明|
 |---|---|---|---|
 |dialog|Boolean|false|ピッカーをダイアログで開く|
 |dragSensitivity|[String, Number]|1.7|ドラッグ感度|
@@ -71,7 +71,7 @@ Vue.component('TimePicker', TimePicker)
 
 #### TimePicker
 
-|name|type|default|description|
+|項目名|型|デフォルト|説明|
 |---|---|---|---|
 |dialog|Boolean|false|ピッカーをダイアログで開く|
 |dragSensitivity|[String, Number]|1.7|ドラッグ感度|

@@ -1,10 +1,12 @@
-import dayjs from 'dayjs'
 import datestring from '../assets/datestring'
+import dayjs from '../modules/dayjs'
+import { calculatePattern } from '@/modules/format-helper'
 
 export default {
   props: {
     defaultValue: { type: String, default: undefined },
-    format: { type: String, default: undefined },
+    drumPattern: { type: Object, default: undefined },
+    format: { type: [String, Object], default: undefined },
     value: { type: [String, Number, Date], default: undefined },
   },
   computed: {
@@ -25,6 +27,9 @@ export default {
         case 'time': return 'HH:mm'
         default: throw new Error('Invalid property. "type" is only allow "datetime/date/time".')
       }
+    },
+    pattern () {
+      return this.drumPattern || calculatePattern(this.modelFormat)
     },
   },
   methods: {

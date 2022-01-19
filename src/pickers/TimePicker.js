@@ -1,9 +1,9 @@
-import TimePicker from './BaseTimePicker'
+import datestring from '../assets/datestring'
+import BaseTimePicker from './BaseTimePicker'
 import PickerContainer from '../components/PickerContainer'
 import useBindings from '../mixins/useBindings'
 import useDialog from '../mixins/useDialog'
 import useSensitivity from '../mixins/useSensitivity'
-import datestring from '../assets/datestring'
 
 export default {
   name: 'TimePicker',
@@ -18,7 +18,7 @@ export default {
     height: { type: [String, Number], default: undefined },
     hideButton: { type: Boolean, default: false },
     minuteInterval: { type: [String, Number], default: 1 },
-    separator: { type: String, default: ':' },
+    separator: { type: String, default: undefined },
   },
 
   computed: {
@@ -38,7 +38,7 @@ export default {
         on: { input: this.onInput },
       })
 
-      return [h(TimePicker, options())]
+      return [h(BaseTimePicker, options())]
     },
   },
 
