@@ -9653,10 +9653,10 @@ vue-runtime-helpers@^1.1.2:
   resolved "https://registry.yarnpkg.com/vue-runtime-helpers/-/vue-runtime-helpers-1.1.2.tgz#446b7b820888ab0c5264d2c3a32468e72e4100f3"
   integrity sha512-pZfGp+PW/IXEOyETE09xQHR1CKkR9HfHZdnMD/FVLUNI+HxYTa82evx5WrF6Kz4s82qtqHvMZ8MZpbk2zT2E1Q==
 
-vue-scroll-picker@0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/vue-scroll-picker/-/vue-scroll-picker-0.7.1.tgz#31a5e73d92ea2524c14e8dc24ac80b52e2269bdf"
-  integrity sha512-G0TCHd3qdwmFGh+ScUpsCxHjeNPzY45bvZFHRP6xDnT66tKkuM6+QaXm4M4vO5dxyFNyzXqX9PPnH9opC+a/FA==
+vue-scroll-picker@0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/vue-scroll-picker/-/vue-scroll-picker-0.8.0.tgz#9e55feb2731f4fbe943977856c29d0b62eddc94e"
+  integrity sha512-h9EcLxyVeYBm9eUJdG/uCQpSJI8ReNr2F6uVlwGWz2c56hNerySfkPytSymKo13xFAxaSJ132bJhSgJ+hQzoOA==
 
 vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
   version "4.1.3"
