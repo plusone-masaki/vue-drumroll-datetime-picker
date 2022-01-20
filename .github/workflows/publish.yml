@@ -5,14 +5,14 @@ on:
     types: [created]
 
 jobs:
-  publish-github:
+  publish:
     runs-on: ubuntu-latest
     permissions:
       packages: write
       contents: read
     steps:
       - uses: actions/checkout@v2
-      - name: Setup for GitHub Packages
+      - name: Setup for npm
         uses: actions/setup-node@v2
         with:
           node-version: 16.x
@@ -22,6 +22,6 @@ jobs:
       - run: yarn
       - run: yarn build
       - run: yarn build:demo
-      - run: yarn publish --access public
+      - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
