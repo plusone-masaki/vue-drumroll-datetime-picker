@@ -15,6 +15,7 @@ export default (value, modelFormat, type) => {
     .replace(/(Aa|M{3,4}|d{2,4})/g, '[\\u\\l]+?')
     .replace(/([YMDHms])/g, '\\d')
   const format = new RegExp(baseFormat)
+  // console.log('datestring', baseFormat, value, format.test(value))
   if (format.test(value)) {
     const modelValue = dayjs(value, modelFormat)
     if (modelValue.isValid()) {

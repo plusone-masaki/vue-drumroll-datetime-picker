@@ -4,8 +4,9 @@ import { calculatePattern } from '@/modules/format-helper'
 
 export default {
   props: {
+    align: { type: String, default: 'center' },
     defaultValue: { type: String, default: undefined },
-    drumPattern: { type: Object, default: undefined },
+    pattern: { type: Object, default: undefined },
     format: { type: [String, Object], default: undefined },
     value: { type: [String, Number, Date], default: undefined },
   },
@@ -16,7 +17,7 @@ export default {
         return datestring(modelValue, this.modelFormat, this.type)
       },
       set (value) {
-        this.$emit('input', dayjs(value).format(this.modelFormat))
+        this.$emit('input', value)
       },
     },
     modelFormat () {
@@ -28,13 +29,16 @@ export default {
         default: throw new Error('Invalid property. "type" is only allow "datetime/date/time".')
       }
     },
-    pattern () {
-      return this.drumPattern || calculatePattern(this.modelFormat)
+    drumPattern () {
+      return {
+        ...calculatePattern(this.modelFormat),
+        ...(this.pattern || {}),
+      }
     },
   },
   methods: {
     onInput (value) {
-      if (dayjs(value).isBefore(this.minDate)) {
+      if (dayjs.unix(value).isBefore(this.minDate)) {
         this.modelValue = datestring(this.minDate, this.modelFormat, this.type)
       } else if (this.maxDate && dayjs(value).isAfter(this.maxDate)) {
         this.modelValue = datestring(this.maxDate, this.modelFormat, this.type)

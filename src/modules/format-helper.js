@@ -11,8 +11,8 @@ export const calculatePattern = format => {
     hour: match(/H+/i, format),
     minute: match(/m+/, format),
     second: match(/s+/, format),
-    'divider-date': match(/[YMD]+([^YMD]*)[YMD]+/, format, 1),
-    'divider-time': match(/[Hms]+([^Hms]*)[Hms]+/, format, 1),
+    dividerDate: match(/[YMD]+([^YMD]*)[YMD]+/, format, 1),
+    dividerTime: match(/[Hms]+([^Hms]*)[Hms]+/, format, 1),
   }
 }
 
@@ -28,4 +28,21 @@ export const guessDateOrder = (baseFormat) => {
   ]
     .sort((a, b) => a.index - b.index)
     .map(item => item.type)
+}
+
+export const calculateWidth = str => {
+  let result = 0
+  for (let i = 0; i < str.length; i++) {
+    const chr = str.charCodeAt(i)
+    if ((chr >= 0x00 && chr < 0x81) ||
+      (chr === 0xf8f0) ||
+      (chr >= 0xff61 && chr < 0xffa0) ||
+      (chr >= 0xf8f1 && chr < 0xf8f4)) {
+      result += 0.6
+    } else {
+      result += 1
+    }
+  }
+
+  return result
 }

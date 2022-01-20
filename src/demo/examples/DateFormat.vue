@@ -10,19 +10,19 @@
         <div class="column is-6">
 
           <div class="card-content">
-            <div class="subtitle">String format</div>
+            <div class="subtitle">Change drum order and divider</div>
 
             <pre class="pre-code"><code class="code">&lt;date-time-picker
   v-model="now"
   type="date"
-  format="YYYY/MM/DD"
+  format="DD/MM/YYYY"
 /&gt;</code></pre>
 
-            <label>Value: <input v-model="stringFormat" class="demo-input"></label>
+            <label>Value: <input v-model="changeDrum" class="demo-input"></label>
             <date-time-picker
-              v-model="stringFormat"
+              v-model="changeDrum"
               type="date"
-              format="YYYY/MM/DD"
+              format="DD/MM/YYYY"
             />
           </div>
         </div>
@@ -35,7 +35,13 @@
             <pre class="pre-code"><code class="code">&lt;date-time-picker
   v-model="now"
   type="date"
-  format="YYYY-MM-DD"
+  format="YYYY年MM月DD日"
+  :pattern="{
+    year: '（rrrr年）YYYY年',
+    month: 'M月',
+    date: 'D日',
+    dividerDate: '',
+  }"
 /&gt;</code></pre>
 
             <label>Value: <input v-model="format" class="demo-input"></label>
@@ -43,32 +49,18 @@
               v-model="format"
               type="date"
               format="YYYY年MM月DD日"
-            />
-          </div>
-        </div>
-
-        <div class="column is-6">
-
-          <div class="card-content">
-            <div class="subtitle">Minute intervals</div>
-
-            <pre class="pre-code"><code class="code">&lt;date-time-picker
-  v-model="now"
-  type="time"
-  format="YYYY年MM月DD日"
-/&gt;</code></pre>
-
-            <label>Value: <input v-model="intervals" class="demo-input"></label>
-            <date-time-picker
-              v-model="intervals"
-              type="time"
-              minute-interval="30"
+              :pattern="{
+                year: '（rrrr年）YYYY年',
+                month: 'M月',
+                date: 'D日',
+                dividerDate: '',
+              }"
             />
           </div>
         </div>
       </div>
     </div>
-  </div><!-- /Other options -->
+  </div><!-- /Date format -->
 </template>
 
 <script>
@@ -77,7 +69,7 @@ export default {
   data () {
     const now = this.$dayjs()
     return {
-      stringFormat: now.format('YYYY/MM/DD HH:mm'),
+      changeDrum: now.format('DD/MM/YYYY HH:mm'),
       format: now.format('YYYY年MM月DD日'),
       intervals: now.format('YYYY-MM-DD HH:mm'),
     }

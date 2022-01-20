@@ -41,7 +41,7 @@ export default {
           ...props,
           value: this.modelValue,
           format: this.modelFormat,
-          drumPattern: this.pattern,
+          drumPattern: this.drumPattern,
         },
         on: { input: this.onInput },
       })

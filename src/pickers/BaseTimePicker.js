@@ -88,7 +88,11 @@ export default {
 
   render (h) {
     // 境界線
-    const divider = h(DrumDivider, { props: { divider: this.separator || this.drumPattern['divider-time'] } })
+    const divider = h(DrumDivider, {
+      props: {
+        divider: this.separator || this.drumPattern.dividerTime || this.drumPattern['divider-time'],
+      },
+    })
 
     // 時
     const hourPicker = h(BasePicker, {

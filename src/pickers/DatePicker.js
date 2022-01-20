@@ -47,7 +47,7 @@ export default {
       const props = {
         ...this.$props,
         value: this.modelValue,
-        drumPattern: this.pattern,
+        drumPattern: this.drumPattern,
       }
       const container = h(PickerContainer, { props }, [this.pickers(h)])
       return h('div', { class: ['v-drumroll-picker'] }, [container])

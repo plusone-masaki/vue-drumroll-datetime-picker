@@ -33,7 +33,7 @@ export default {
         dragSensitivity: props.dragSensitivity,
         touchSensitivity: props.touchSensitivity,
         scrollSensitivity: props.scrollSensitivity,
-        value: dayjs(props.value).get(props.unit),
+        value: dayjs(props.value, props.format).get(props.unit),
       },
       on: {
         input: value => {
@@ -45,7 +45,7 @@ export default {
 
           // 桁上がり抑止
           if (current <= value && date.get(props.unit) < value) return
-          listeners.input(date.format(props.format))
+          listeners.input(date.unix())
         },
       },
     })

@@ -1,10 +1,10 @@
 import { ScrollPickerGroup } from 'vue-scroll-picker'
 import * as constants from '../assets/constants'
 import dayjs from '../modules/dayjs'
+import { calculateWidth, guessDateOrder } from '../modules/format-helper'
 import useSensitivity from '../mixins/useSensitivity'
 import DrumDivider from '../components/DrumDivider'
 import BasePicker from './BasePicker'
-import { guessDateOrder } from '@/modules/format-helper'
 
 export default {
   name: 'BaseDatePicker',
@@ -24,7 +24,7 @@ export default {
   },
 
   data () {
-    const date = dayjs(this.value || this.defaultValue).endOf('month').date()
+    const date = dayjs(this.value || this.defaultValue, this.format).endOf('month').date()
     return {
       date: date,
       numberOfDays: date,
@@ -33,6 +33,10 @@ export default {
   },
 
   computed: {
+    formatDefaultValue () {
+      return dayjs(this.defaultValue).format(this.format)
+    },
+
     /**
      * 年配列
      *
@@ -66,7 +70,7 @@ export default {
       const value = this.value || this.defaultValue
       const currentDate = dayjs(value, this.format)
       const minDate = dayjs(this.minDate)
-      let min = currentDate.isSame(minDate, 'year') ? minDate.format('M') : 1
+      let min = currentDate.isSame(minDate, 'year') ? minDate.month() : 0
       let max = this.maxDate && currentDate.isSame(this.maxDate, 'year')
         ? dayjs(this.maxDate).month()
         : constants.MONTH_UNIT
@@ -79,7 +83,7 @@ export default {
       // 桁揃えをしつつ時刻を配列に追加
       const months = []
       const dateObj = dayjs(value, this.format)
-      for (let month = min; month <= max; month++) {
+      for (let month = min; month < max; month++) {
         months.push({
           name: dateObj.set('month', month).format(this.drumPattern.month),
           value: month,
@@ -132,7 +136,7 @@ export default {
 
   watch: {
     value (newValue) {
-      const newDate = dayjs(newValue)
+      const newDate = dayjs(newValue, this.format)
       const lastDate = newDate.endOf('month').date()
       if (lastDate !== this.date) this.date = lastDate
     },
@@ -140,23 +144,23 @@ export default {
 
   methods: {
     onInput (value) {
-      console.log('value', value, dayjs(value, this.format).isValid())
-      const defaultValue = dayjs(this.defaultValue).format(this.format)
-      if (dayjs(value, this.format).isValid() && (this.value || value !== defaultValue)) {
-        this.$emit('input', value)
+      if (value > 0 && (this.value || dayjs.unix(value).format(this.format) !== this.formatDefaultValue)) {
+        this.$emit('input', dayjs.unix(value).format(this.format))
       }
     },
   },
 
   render (h) {
-    const divider = h(DrumDivider, { props: { divider: this.separator || this.drumPattern['divider-date'] } })
+    const divider = this.separator || this.drumPattern.dividerDate || this.drumPattern['divider-date']
+    const drumDivider = divider ? h(DrumDivider, { props: { divider } }) : null
+    const sampleDate = dayjs('1989-12-31')
 
     const drums = {
       year: h(BasePicker, {
         props: {
           items: this.years,
           unit: 'year',
-          width: constants.DIGIT * 1.5 + 'em',
+          width: calculateWidth(sampleDate.format(this.drumPattern.year)) + 'em',
           ...this.$props,
           value: this.value || this.defaultValue,
         },
@@ -168,7 +172,7 @@ export default {
         props: {
           items: this.months,
           unit: 'month',
-          width: constants.DIGIT + 'em',
+          width: calculateWidth(sampleDate.format(this.drumPattern.month)) + 'em',
           ...this.$props,
           value: this.value || this.defaultValue,
         },
@@ -180,7 +184,7 @@ export default {
         props: {
           items: this.days,
           unit: 'date',
-          width: constants.DIGIT + 'em',
+          width: calculateWidth(sampleDate.format(this.drumPattern.date)) + 'em',
           ...this.$props,
           value: this.value || this.defaultValue,
         },
@@ -194,7 +198,7 @@ export default {
     const dateOrder = this.dateOrder || guessDateOrder(this.format)
     for (let i = 0; i < dateOrder.length; i++) {
       pickers.push(drums[dateOrder[i]])
-      if (i < dateOrder.length - 1) pickers.push(divider)
+      if (divider && i < dateOrder.length - 1) pickers.push(drumDivider)
     }
 
     return h(ScrollPickerGroup, { class: 'vdd-flex' }, pickers)
