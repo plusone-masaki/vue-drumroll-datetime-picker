@@ -18,13 +18,11 @@ export default {
     height: { type: [String, Number], default: undefined },
     hideButton: { type: Boolean, default: false },
     minuteInterval: { type: [String, Number], default: 1 },
-    separator: { type: String, default: undefined },
+    separator: { type: String, default: undefined }, // deprecated
   },
 
   computed: {
-    type () {
-      return 'time'
-    },
+    type: () => 'time',
   },
 
   methods: {
@@ -34,7 +32,12 @@ export default {
 
     pickers (h) {
       const options = () => ({
-        props: this.$props,
+        props: {
+          ...this.$props,
+          value: this.modelValue,
+          format: this.modelFormat,
+          drumPattern: this.drumPattern,
+        },
         on: { input: this.onInput },
       })
 
@@ -50,6 +53,7 @@ export default {
         ...this.$props,
         value: this.modelValue,
         format: this.modelFormat,
+        drumPattern: this.drumPattern,
       }
       const container = h(PickerContainer, { props }, [this.pickers(h)])
       return h('div', { class: ['v-drumroll-picker'] }, [container])

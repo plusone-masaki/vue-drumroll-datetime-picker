@@ -4,22 +4,29 @@
 
 .v-drumroll-picker
   --selected-color: #007BFF
+  --picker-align: center
+
+  *
+    user-select: none
 
   .-selected
     color: var(--selected-color)
 
-  &__overlay
-    height: 100%
-    left: 0
-    position: fixed
-    top: 0
-    width: 100%
-    z-index: 200
+  .vdd-flex
+    display: flex
 
-    &.--dark
-      background: rgba(0, 0, 0, 0.33)
+.v-drumroll-picker__overlay
+  height: 100%
+  left: 0
+  position: fixed
+  top: 0
+  width: 100%
+  z-index: 200
 
-  &__content
+  &.--dark
+    background: rgba(0, 0, 0, 0.33)
+
+.v-drumroll-picker__content
     align-items: center
     display: flex
     height: 100%
@@ -31,69 +38,72 @@
     width: 100%
     z-index: 201
 
-  &__container
-    background: #ffffff !important
-    border-radius: 4px
-    display: flex
-    height: 10em
-    justify-content: center
-    overflow: hidden
-    padding: 0 1em
-    pointer-events: auto
-    position: relative
+.v-drumroll-picker__container
+  background: #ffffff !important
+  border-radius: 4px
+  box-sizing: border-box
+  display: flex
+  height: 10em
+  justify-content: center
+  overflow: hidden
+  padding: 0 1em
+  pointer-events: auto
+  position: relative
 
-    & > .vue-scroll-picker-layer
-      pointer-events: none
+  & > .vue-scroll-picker-layer
+    pointer-events: none
 
-      .top, .bottom
-        background: transparent
+    .top, .bottom
+      background: transparent
 
-    & > .vue-scroll-picker-group
-      margin-left: .5em
-      margin-right: .5em
+  & > .vue-scroll-picker-group
+    margin-left: .5em
+    margin-right: .5em
 
-  &--dialog &__container
-    box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12)
-    position: relative
+  & .vue-scroll-picker-item
+    text-align: var(--picker-align)
 
-  &__input
-    border: none
-    border-radius: 4px
-    box-shadow: 0 3px 3px -2px rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12)
-    padding: .5em
+.v-drumroll-picker--dialog .v-drumroll-picker__container
+  box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12)
+  position: relative
 
-  &__divider
-    align-items: center
-    display: flex
+.v-drumroll-picker__input
+  border: none
+  border-radius: 4px
+  box-shadow: 0 3px 3px -2px rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12)
+  padding: .5em
 
-  &__button
-    display: none
+.v-drumroll-picker__divider
+  align-items: center
+  display: flex
+  justify-content: center
+  min-width: 6px
+  padding: 0 1px 2px
 
-  .vdd-flex
-    display: flex
+.v-drumroll-picker__button
+  display: none
 
 @media screen and (max-width: 960px)
   .v-drumroll-picker
-    &__content
+    .v-drumroll-picker__content
       align-items: flex-end
 
-    &__container
+    .v-drumroll-picker__container
       border-radius: 0
       width: 100%
 
-    &__button
+    .v-drumroll-picker__button
       background: var(--selected-color)
       border: none
       border-radius: 2px
       display: flex
-      height: 24px
       fill: white
       justify-content: center
       outline: none !important
+      padding: 2px 20px
       position: absolute
       right: 4px
       top: 4px
-      width: 56px
 
       &::before
         content: ""
@@ -106,8 +116,3 @@
       &:active::before,
       &:hover::before
         background: rgba(255, 255, 255, 0.2)
-
-
-      &--icon
-        height: 21px
-        width: 21px

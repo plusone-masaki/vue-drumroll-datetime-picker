@@ -1,6 +1,6 @@
 import datestring from '../assets/datestring'
 import dayjs from '../modules/dayjs'
-import { calculatePattern } from '@/modules/format-helper'
+import { calculatePattern } from '../modules/format-helper'
 
 export default {
   props: {
@@ -17,6 +17,10 @@ export default {
         return datestring(modelValue, this.modelFormat, this.type)
       },
       set (value) {
+        const valueObj = dayjs(value, this.format)
+        if (this.minDate && valueObj.isBefore(this.minDate)) value = this.minDate
+        if (this.maxDate && valueObj.isAfter(this.maxDate)) value = this.maxDate
+
         this.$emit('input', value)
       },
     },

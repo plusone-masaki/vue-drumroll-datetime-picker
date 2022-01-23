@@ -12,6 +12,7 @@ export default {
   mixins: [useSensitivity],
 
   props: {
+    align: { type: String, default: 'center' },
     dateOrder: { type: Array, default: undefined },
     defaultValue: { type: String, default: undefined },
     drumPattern: { type: Object, required: true },
@@ -72,7 +73,7 @@ export default {
       const minDate = dayjs(this.minDate)
       let min = currentDate.isSame(minDate, 'year') ? minDate.month() : 0
       let max = this.maxDate && currentDate.isSame(this.maxDate, 'year')
-        ? dayjs(this.maxDate).month()
+        ? dayjs(this.maxDate).month() + 1
         : constants.MONTH_UNIT
 
       if (min > currentDate.month() || max < currentDate.month()) {
@@ -115,7 +116,7 @@ export default {
 
       // 桁揃えをしつつ時刻を配列に追加
       const days = []
-      const dateObj = dayjs(value, this.format)
+      const dateObj = currentDate.clone()
       for (let date = Math.min(this.dateOfMin, min); date <= max; date++) {
         days.push({
           name: date <= this.date && date >= min ? dateObj.set('date', date).format(this.drumPattern.date) : '',
@@ -144,8 +145,11 @@ export default {
 
   methods: {
     onInput (value) {
-      if (value > 0 && (this.value || dayjs.unix(value).format(this.format) !== this.formatDefaultValue)) {
-        this.$emit('input', dayjs.unix(value).format(this.format))
+      if (!value) return
+
+      const valueObj = dayjs.unix(value)
+      if (this.value || valueObj.format(this.format) !== this.formatDefaultValue) {
+        this.$emit('input', valueObj.format(this.format))
       }
     },
   },

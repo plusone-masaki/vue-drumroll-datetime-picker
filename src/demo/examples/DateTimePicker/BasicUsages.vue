@@ -1,14 +1,14 @@
 <template>
   <!-- Basic usages -->
-  <div id="basic" class="column is-10 is-offset-1">
+  <div id="date-time-picker-basic" class="column is-10 is-offset-1">
     <div class="card">
       <div class="card-content">
         <div class="title">Basic usages</div>
 
-        <pre class="pre-code"><code class="code">&lt;date-time-picker v-model="now" height="8em" /&gt;</code></pre>
+        <pre class="pre-code"><code class="code">&lt;date-time-picker v-model="now" /&gt;</code></pre>
 
         <label>Value: <input v-model="datetime" class="demo-input"></label>
-        <date-time-picker v-model="datetime" height="8em" />
+        <date-time-picker v-model="datetime" />
       </div>
 
       <div class="columns is-gapless">

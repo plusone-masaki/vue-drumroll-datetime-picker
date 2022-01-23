@@ -12,11 +12,10 @@ export default {
   ],
 
   props: {
+    align: { type: String, default: 'center' },
     items: { type: Array, required: true },
     format: { type: String, required: true },
     height: { type: [String, Number], default: '10em' },
-    maxDate: { type: [String, Number, Date], default: undefined },
-    minDate: { type: [String, Number, Date], required: true },
     unit: { type: String, required: true },
     value: { type: [String, Number], default: undefined },
     width: { type: [String, Number], default: '2em' },
@@ -25,6 +24,7 @@ export default {
   render (h, { props, listeners }) {
     return h(ScrollPicker, {
       style: {
+        '--picker-align': props.align,
         height: typeof props.height === 'string' ? props.height : props.height + 'px',
         width: typeof props.width === 'string' ? props.width : props.width + 'px',
       },
@@ -39,7 +39,7 @@ export default {
         input: value => {
           if (!value) value = 0
 
-          const dateObj = dayjs(props.value, props.format)
+          const dateObj = props.value ? dayjs(props.value, props.format) : dayjs()
           const current = dateObj.get(props.unit)
           const date = dateObj.set(props.unit, value)
 

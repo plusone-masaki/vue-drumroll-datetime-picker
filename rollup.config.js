@@ -1,19 +1,32 @@
 import commonjs from '@rollup/plugin-commonjs'
 import nodeResolve from 'rollup-plugin-node-resolve'
+import { terser } from 'rollup-plugin-terser'
 import vue from 'rollup-plugin-vue'
 import sass from 'rollup-plugin-sass'
 
 export default {
   input: 'src/main.js',
-  output: {
-    name: 'VueDrumrollDatetimePicker',
-    file: 'dist/vue-drumroll-datetime-picker.js',
-    format: 'commonjs',
-    exports: 'named',
-    globals: {
-      vue: 'Vue',
+  output: [
+    {
+      name: 'VueDrumrollDatetimePicker',
+      file: 'dist/vue-drumroll-datetime-picker.js',
+      format: 'commonjs',
+      exports: 'named',
+      globals: {
+        vue: 'Vue',
+      },
     },
-  },
+    {
+      name: 'VueDrumrollDatetimePicker',
+      file: 'dist/vue-drumroll-datetime-picker.min.js',
+      format: 'commonjs',
+      exports: 'named',
+      globals: {
+        vue: 'Vue',
+      },
+      plugins: [terser()],
+    },
+  ],
   external: [
     'Vue',
     'dayjs',

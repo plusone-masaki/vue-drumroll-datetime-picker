@@ -10,7 +10,6 @@ export const calculatePattern = format => {
     date: match(/D+/, format),
     hour: match(/H+/i, format),
     minute: match(/m+/, format),
-    second: match(/s+/, format),
     dividerDate: match(/[YMD]+([^YMD]*)[YMD]+/, format, 1),
     dividerTime: match(/[Hms]+([^Hms]*)[Hms]+/, format, 1),
   }

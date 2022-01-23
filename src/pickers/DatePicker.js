@@ -32,7 +32,12 @@ export default {
   methods: {
     pickers (h) {
       const options = () => ({
-        props: this.$props,
+        props: {
+          ...this.$props,
+          value: this.modelValue,
+          format: this.modelFormat,
+          drumPattern: this.drumPattern,
+        },
         on: { input: this.onInput },
       })
 
@@ -47,6 +52,7 @@ export default {
       const props = {
         ...this.$props,
         value: this.modelValue,
+        format: this.modelFormat,
         drumPattern: this.drumPattern,
       }
       const container = h(PickerContainer, { props }, [this.pickers(h)])
