@@ -1,17 +1,17 @@
-import BaseDatePicker from './BaseDatePicker'
-import BaseTimePicker from './BaseTimePicker'
-import PickerContainer from '../components/PickerContainer'
 import * as constants from '../assets/constants'
 import useBindings from '../mixins/useBindings'
 import useDialog from '../mixins/useDialog'
 import useSensitivity from '../mixins/useSensitivity'
+import PickerContainer from '../components/PickerContainer'
+import BaseDatePicker from './BaseDatePicker'
+import BaseTimePicker from './BaseTimePicker'
 
 const generateDatePicker = (h, options) => (
-  h(BaseDatePicker, options({ separator: '-' }))
+  h(BaseDatePicker, options())
 )
 
 const generateTimePicker = (h, options) => (
-  h(BaseTimePicker, options({ separator: ':' }))
+  h(BaseTimePicker, options())
 )
 
 export default {
@@ -24,6 +24,7 @@ export default {
   ],
 
   props: {
+    dateOrder: { type: Array, default: undefined },
     height: { type: [String, Number], default: undefined },
     hideButton: { type: Boolean, default: false },
     maxDate: { type: [String, Number, Date], default: undefined },
@@ -33,7 +34,6 @@ export default {
   },
 
   methods: {
-
     pickers (h) {
       const options = props => ({
         props: {
@@ -41,6 +41,7 @@ export default {
           ...props,
           value: this.modelValue,
           format: this.modelFormat,
+          drumPattern: this.drumPattern,
         },
         on: { input: this.onInput },
       })

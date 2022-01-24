@@ -1,10 +1,10 @@
-import dayjs from 'dayjs'
+import dayjs from '../modules/dayjs'
 import { ScrollPickerGroup } from 'vue-scroll-picker'
-import DrumrollSeparator from '../components/DrumrollSeparator'
+import DrumDivider from '../components/DrumDivider'
 import BasePicker from './BasePicker'
 import * as constants from '../assets/constants'
-import datestring from '../assets/datestring'
 import useSensitivity from '../mixins/useSensitivity'
+import { calculateWidth } from '../modules/format-helper'
 
 export default {
   name: 'BaseTimePicker',
@@ -12,17 +12,23 @@ export default {
   mixins: [useSensitivity],
 
   props: {
+    align: { type: String, default: 'center' },
     defaultValue: { type: String, default: undefined },
+    drumPattern: { type: Object, required: true },
     format: { type: String, default: 'YYYY-MM-DD HH:mm' },
     height: { type: [String, Number], default: undefined },
     maxDate: { type: [String, Number, Date], default: undefined },
     minDate: { type: [String, Number, Date], default: undefined },
     minuteInterval: { type: [String, Number], default: 1 },
-    separator: { type: String, required: true },
+    separator: { type: String, default: undefined }, // deprecated
     value: { type: [String, Number, Date], default: undefined },
   },
 
   computed: {
+    formatDefaultValue () {
+      return dayjs(this.defaultValue).format(this.format)
+    },
+
     /**
      * 時配列
      *
@@ -32,7 +38,8 @@ export default {
       let min = 0
       let max = constants.HOUR_UNIT
 
-      const currentDate = dayjs(this.value)
+      const value = this.value || this.defaultValue
+      const currentDate = value ? dayjs(value, this.format) : dayjs()
 
       if (this.minDate) {
         const minDate = dayjs(this.minDate)
@@ -44,7 +51,13 @@ export default {
       }
 
       const hours = []
-      for (let time = min; time < max; time++) hours.push(('0' + time).slice(-constants.DIGIT))
+      const dateObj = currentDate.clone()
+      for (let hour = min; hour < max; hour++) {
+        hours.push({
+          name: dateObj.set('hour', hour).format(this.drumPattern.hour),
+          value: hour,
+        })
+      }
       return hours
     },
 
@@ -54,9 +67,11 @@ export default {
      * @return {array}
      */
     minutes () {
-      const currentDate = dayjs(this.value)
       let min = 0
       let max = constants.MINUTE_UNIT
+
+      const value = this.value || this.defaultValue
+      const currentDate = value ? dayjs(value, this.format) : dayjs()
 
       if (this.minDate) {
         const minDate = dayjs(this.minDate)
@@ -70,8 +85,12 @@ export default {
 
       const interval = Number(this.minuteInterval)
       const minutes = []
+      const dateObj = currentDate.clone()
       for (let minute = min; minute < max; minute += interval) {
-        minutes.push(('0' + minute).slice(-constants.DIGIT))
+        minutes.push({
+          name: dateObj.set('minute', minute).format(this.drumPattern.minute),
+          value: minute,
+        })
       }
       return minutes
     },
@@ -79,15 +98,16 @@ export default {
 
   methods: {
     onInput (value) {
-      const modelValue = datestring(value, this.format, 'time')
-      const defaultValue = datestring(this.defaultValue || dayjs().format(this.format), this.format, 'time')
-      if (modelValue && (this.value || modelValue !== defaultValue)) this.$emit('input', dayjs(modelValue).format(this.format))
+      if (value && (this.value || dayjs.unix(value).format(this.format) !== this.formatDefaultValue)) {
+        this.$emit('input', dayjs.unix(value).format(this.format))
+      }
     },
   },
 
   render (h) {
-    // 境界線
-    const separator = h(DrumrollSeparator, { props: { separator: this.separator } })
+    const divider = this.separator || this.drumPattern.dividerTime || this.drumPattern['divider-time']
+    const drumDivider = divider ? h(DrumDivider, { props: { divider } }) : null
+    const sampleDate = dayjs('1989-12-31 10:10:10')
 
     // 時
     const hourPicker = h(BasePicker, {
@@ -95,7 +115,7 @@ export default {
         ...this.$props,
         items: this.hours,
         unit: 'hour',
-        width: constants.DIGIT + 'em',
+        width: calculateWidth(sampleDate.format(this.drumPattern.hour)) + 'em',
       },
       on: {
         input: this.onInput,
@@ -108,7 +128,7 @@ export default {
         ...this.$props,
         items: this.minutes,
         unit: 'minute',
-        width: constants.DIGIT + 'em',
+        width: calculateWidth(sampleDate.format(this.drumPattern.minute)) + 'em',
       },
       on: {
         input: this.onInput,
@@ -117,7 +137,7 @@ export default {
 
     return h(ScrollPickerGroup, { class: 'vdd-flex' }, [
       hourPicker,
-      separator,
+      drumDivider,
       minutePicker,
     ])
   },

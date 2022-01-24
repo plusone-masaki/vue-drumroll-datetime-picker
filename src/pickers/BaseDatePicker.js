@@ -1,9 +1,10 @@
-import dayjs from 'dayjs'
 import { ScrollPickerGroup } from 'vue-scroll-picker'
-import DrumrollSeparator from '../components/DrumrollSeparator'
-import BasePicker from './BasePicker'
 import * as constants from '../assets/constants'
+import dayjs from '../modules/dayjs'
+import { calculateWidth, guessDateOrder } from '../modules/format-helper'
 import useSensitivity from '../mixins/useSensitivity'
+import DrumDivider from '../components/DrumDivider'
+import BasePicker from './BasePicker'
 
 export default {
   name: 'BaseDatePicker',
@@ -11,17 +12,20 @@ export default {
   mixins: [useSensitivity],
 
   props: {
+    align: { type: String, default: 'center' },
+    dateOrder: { type: Array, default: undefined },
     defaultValue: { type: String, default: undefined },
-    format: { type: String, default: 'YYYY-MM-DD' },
+    drumPattern: { type: Object, required: true },
+    format: { type: [String, Object], default: 'YYYY-MM-DD' },
     height: { type: [String, Number], default: undefined },
     maxDate: { type: [String, Number, Date], default: undefined },
     minDate: { type: [String, Number, Date], default: constants.DEFAULT_MIN_DATE },
-    separator: { type: String, required: true },
+    separator: { type: String, default: undefined }, // deprecated
     value: { type: [String, Number, Date], default: undefined },
   },
 
   data () {
-    const date = dayjs(this.value || this.defaultValue).endOf('month').date()
+    const date = dayjs(this.value || this.defaultValue, this.format).endOf('month').date()
     return {
       date: date,
       numberOfDays: date,
@@ -30,20 +34,29 @@ export default {
   },
 
   computed: {
+    formatDefaultValue () {
+      return dayjs(this.defaultValue).format(this.format)
+    },
+
     /**
      * 年配列
      *
      * @return {array}
      */
     years () {
-      const minDate = dayjs(this.minDate)
+      const value = this.value || this.defaultValue
+      const minYear = dayjs(this.minDate).year()
       const maxYear = this.maxDate
         ? dayjs(this.maxDate).year()
-        : dayjs(this.value || this.defaultValue, this.format).add(100, 'year').year()
+        : dayjs(value, this.format).add(100, 'year').year()
 
       const years = []
-      for (let year = minDate.year(); year <= maxYear; year++) {
-        years.push(year)
+      const dateObj = dayjs(value, this.format)
+      for (let year = minYear; year <= maxYear; year++) {
+        years.push({
+          name: dateObj.set('year', year).format(this.drumPattern.year),
+          value: year,
+        })
       }
 
       return years
@@ -55,24 +68,26 @@ export default {
      * @return {array}
      */
     months () {
-      const currentDate = dayjs(this.value || this.defaultValue, this.format)
+      const value = this.value || this.defaultValue
+      const currentDate = dayjs(value, this.format)
       const minDate = dayjs(this.minDate)
-      let min = currentDate.isSame(minDate, 'year') ? minDate.format('M') : 1
+      let min = currentDate.isSame(minDate, 'year') ? minDate.month() : 0
       let max = this.maxDate && currentDate.isSame(this.maxDate, 'year')
-        ? dayjs(this.maxDate).format('M')
+        ? dayjs(this.maxDate).month() + 1
         : constants.MONTH_UNIT
 
-      if (min > currentDate.format('M') || max < currentDate.format('M')) {
-        min = 1
+      if (min > currentDate.month() || max < currentDate.month()) {
+        min = 0
         max = constants.MONTH_UNIT
       }
 
       // 桁揃えをしつつ時刻を配列に追加
       const months = []
-      for (let month = min; month <= max; month++) {
+      const dateObj = dayjs(value, this.format)
+      for (let month = min; month < max; month++) {
         months.push({
-          name: month.toString().padStart(constants.DIGIT, '0'),
-          value: month - 1,
+          name: dateObj.set('month', month).format(this.drumPattern.month),
+          value: month,
         })
       }
 
@@ -86,7 +101,8 @@ export default {
      * @return {array}
      */
     days () {
-      const currentDate = dayjs(this.value || this.defaultValue, this.format)
+      const value = this.value || this.defaultValue
+      const currentDate = dayjs(value, this.format)
       const minDate = dayjs(this.minDate)
       let min = currentDate.isSame(minDate, 'month') ? minDate.date() : 1
       let max = this.maxDate && currentDate.isSame(this.maxDate, 'month')
@@ -100,9 +116,10 @@ export default {
 
       // 桁揃えをしつつ時刻を配列に追加
       const days = []
+      const dateObj = currentDate.clone()
       for (let date = Math.min(this.dateOfMin, min); date <= max; date++) {
         days.push({
-          name: date <= this.date && date >= min ? date.toString().padStart(constants.DIGIT, '0') : '',
+          name: date <= this.date && date >= min ? dateObj.set('date', date).format(this.drumPattern.date) : '',
           value: date,
         })
       }
@@ -120,7 +137,7 @@ export default {
 
   watch: {
     value (newValue) {
-      const newDate = dayjs(newValue)
+      const newDate = dayjs(newValue, this.format)
       const lastDate = newDate.endOf('month').date()
       if (lastDate !== this.date) this.date = lastDate
     },
@@ -128,61 +145,66 @@ export default {
 
   methods: {
     onInput (value) {
-      const defaultValue = dayjs(this.defaultValue).format(this.format)
-      if (dayjs(value).isValid() && (this.value || value !== defaultValue)) {
-        this.$emit('input', value)
+      if (!value) return
+
+      const valueObj = dayjs.unix(value)
+      if (this.value || valueObj.format(this.format) !== this.formatDefaultValue) {
+        this.$emit('input', valueObj.format(this.format))
       }
     },
   },
 
   render (h) {
-    const separator = h(DrumrollSeparator, { props: { separator: this.separator } })
+    const divider = this.separator || this.drumPattern.dividerDate || this.drumPattern['divider-date']
+    const drumDivider = divider ? h(DrumDivider, { props: { divider } }) : null
+    const sampleDate = dayjs('1989-12-31')
 
-    const yearPicker = h(BasePicker, {
-      props: {
-        items: this.years,
-        unit: 'year',
-        width: constants.DIGIT * 1.5 + 'em',
-        ...this.$props,
-        value: this.value || this.defaultValue,
-      },
-      on: {
-        input: this.onInput,
-      },
-    })
+    const drums = {
+      year: h(BasePicker, {
+        props: {
+          items: this.years,
+          unit: 'year',
+          width: calculateWidth(sampleDate.format(this.drumPattern.year)) + 'em',
+          ...this.$props,
+          value: this.value || this.defaultValue,
+        },
+        on: {
+          input: this.onInput,
+        },
+      }),
+      month: h(BasePicker, {
+        props: {
+          items: this.months,
+          unit: 'month',
+          width: calculateWidth(sampleDate.format(this.drumPattern.month)) + 'em',
+          ...this.$props,
+          value: this.value || this.defaultValue,
+        },
+        on: {
+          input: this.onInput,
+        },
+      }),
+      date: h(BasePicker, {
+        props: {
+          items: this.days,
+          unit: 'date',
+          width: calculateWidth(sampleDate.format(this.drumPattern.date)) + 'em',
+          ...this.$props,
+          value: this.value || this.defaultValue,
+        },
+        on: {
+          input: this.onInput,
+        },
+      }),
+    }
 
-    const monthPicker = h(BasePicker, {
-      props: {
-        items: this.months,
-        unit: 'month',
-        width: constants.DIGIT + 'em',
-        ...this.$props,
-        value: this.value || this.defaultValue,
-      },
-      on: {
-        input: this.onInput,
-      },
-    })
+    const pickers = []
+    const dateOrder = this.dateOrder || guessDateOrder(this.format)
+    for (let i = 0; i < dateOrder.length; i++) {
+      pickers.push(drums[dateOrder[i]])
+      if (divider && i < dateOrder.length - 1) pickers.push(drumDivider)
+    }
 
-    const dayPicker = h(BasePicker, {
-      props: {
-        items: this.days,
-        unit: 'date',
-        width: constants.DIGIT + 'em',
-        ...this.$props,
-        value: this.value || this.defaultValue,
-      },
-      on: {
-        input: this.onInput,
-      },
-    })
-
-    return h(ScrollPickerGroup, { class: 'vdd-flex' }, [
-      yearPicker,
-      separator,
-      monthPicker,
-      separator,
-      dayPicker,
-    ])
+    return h(ScrollPickerGroup, { class: 'vdd-flex' }, pickers)
   },
 }

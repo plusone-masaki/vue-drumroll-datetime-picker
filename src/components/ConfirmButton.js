@@ -6,7 +6,7 @@ export default {
   functional: true,
 
   props: {
-    size: { type: [Number, String], default: 21 },
+    size: { type: [Number, String], default: 24 },
   },
 
   render (h, { props, listeners }) {

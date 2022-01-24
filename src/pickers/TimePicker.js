@@ -1,9 +1,9 @@
-import TimePicker from './BaseTimePicker'
+import { datestring } from '../modules/format-helper'
+import BaseTimePicker from './BaseTimePicker'
 import PickerContainer from '../components/PickerContainer'
 import useBindings from '../mixins/useBindings'
 import useDialog from '../mixins/useDialog'
 import useSensitivity from '../mixins/useSensitivity'
-import datestring from '../assets/datestring'
 
 export default {
   name: 'TimePicker',
@@ -18,13 +18,11 @@ export default {
     height: { type: [String, Number], default: undefined },
     hideButton: { type: Boolean, default: false },
     minuteInterval: { type: [String, Number], default: 1 },
-    separator: { type: String, default: ':' },
+    separator: { type: String, default: undefined }, // deprecated
   },
 
   computed: {
-    type () {
-      return 'time'
-    },
+    type: () => 'time',
   },
 
   methods: {
@@ -34,11 +32,16 @@ export default {
 
     pickers (h) {
       const options = () => ({
-        props: this.$props,
+        props: {
+          ...this.$props,
+          value: this.modelValue,
+          format: this.modelFormat,
+          drumPattern: this.drumPattern,
+        },
         on: { input: this.onInput },
       })
 
-      return [h(TimePicker, options())]
+      return [h(BaseTimePicker, options())]
     },
   },
 
@@ -50,6 +53,7 @@ export default {
         ...this.$props,
         value: this.modelValue,
         format: this.modelFormat,
+        drumPattern: this.drumPattern,
       }
       const container = h(PickerContainer, { props }, [this.pickers(h)])
       return h('div', { class: ['v-drumroll-picker'] }, [container])

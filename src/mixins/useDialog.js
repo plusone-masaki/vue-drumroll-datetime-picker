@@ -1,15 +1,17 @@
+import dayjs from '../modules/dayjs'
+import { datestring } from '../modules/format-helper'
 import OverlayLayer from '../components/OverlayLayer'
 import PickerContainer from '../components/PickerContainer'
 import ContentLayer from '../components/ContentLayer'
-import dayjs from 'dayjs'
-import datestring from '../assets/datestring'
 
-const disableScroll = (e) => e.preventDefault()
+const disableScroll = (e) => {
+  e.preventDefault()
+  e.stopPropagation()
+}
 
 export default {
   props: {
     dialog: { type: Boolean, default: false },
-    height: { type: [String, Number], default: undefined },
     hideOverlay: { type: Boolean, default: false },
     hideButton: { type: Boolean, default: false },
   },
@@ -76,6 +78,8 @@ export default {
 
       // Close on ESC
       document.addEventListener('keydown', this.onClose)
+      document.addEventListener('scroll', disableScroll, { passive: false })
+      document.addEventListener('wheel', disableScroll, { passive: false })
       document.addEventListener('touchmove', disableScroll, { passive: false })
 
       // Blur active element.
@@ -97,6 +101,8 @@ export default {
     offActivate (e) {
       e.preventDefault()
       document.removeEventListener('keydown', this.onClose)
+      document.removeEventListener('scroll', disableScroll)
+      document.removeEventListener('wheel', disableScroll)
       document.removeEventListener('touchmove', disableScroll)
       this.active = false
     },

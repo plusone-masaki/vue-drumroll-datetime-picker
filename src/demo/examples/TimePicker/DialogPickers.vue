@@ -1,32 +1,32 @@
 <template>
   <!-- Dialog pickers -->
-  <div id="dialog" class="column is-10 is-offset-1">
+  <div id="time-picker-dialog" class="column is-10 is-offset-1">
     <div class="card">
       <div class="card-content">
         <div class="title">Dialog pickers</div>
 
-        <pre class="pre-code"><code class="code">&lt;date-time-picker
+        <pre class="pre-code"><code class="code">&lt;time-picker
   v-model="now"
   dialog
 /&gt;</code></pre>
 
         <div class="has-text-centered">
-          <date-time-picker v-model="now" dialog />
+          <time-picker v-model="dialog" dialog />
         </div>
       </div>
 
       <div class="card-content">
         <div class="subtitle">Hide overlay</div>
 
-        <pre class="pre-code"><code class="code">&lt;date-time-picker
+        <pre class="pre-code"><code class="code">&lt;time-picker
   v-model="now"
   dialog
   hide-overlay
 /&gt;</code></pre>
 
         <div class="has-text-centered">
-          <date-time-picker
-            v-model="now"
+          <time-picker
+            v-model="hideOverlay"
             dialog
             hide-overlay
           />
@@ -36,7 +36,7 @@
       <div class="card-content">
         <div class="subtitle">Scoped slot</div>
 
-        <pre class="pre-code"><code class="code">&lt;date-time-picker
+        <pre class="pre-code"><code class="code">&lt;time-picker
   v-model="now"
   dialog
 &gt;
@@ -48,11 +48,11 @@
       {{ '\{\{ now \}\}' }}
     &lt;/button&gt;
   &lt;/template&gt;
-&lt;/date-time-picker&gt;</code></pre>
+&lt;/time-picker&gt;</code></pre>
 
         <div class="has-text-centered">
-          <date-time-picker
-            v-model="now"
+          <time-picker
+            v-model="scoped"
             dialog
           >
             <template v-slot:activator="{ on }">
@@ -60,10 +60,10 @@
                 class="button is-primary"
                 v-on="on"
               >
-                {{ now }}
+                {{ scoped }}
               </button>
             </template>
-          </date-time-picker>
+          </time-picker>
         </div>
       </div>
     </div>
@@ -74,8 +74,11 @@
 export default {
   name: 'DialogPickers',
   data () {
+    const now = this.$dayjs()
     return {
-      now: this.$dayjs().format('YYYY-MM-DD HH:mm'),
+      dialog: now.format('HH:mm'),
+      hideOverlay: now.format('HH:mm'),
+      scoped: now.format('HH:mm'),
     }
   },
 }
