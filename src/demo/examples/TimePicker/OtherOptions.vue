@@ -43,6 +43,38 @@
             />
           </div>
         </div><!-- /column -->
+
+        <div class="column is-6">
+          <div class="card-content">
+            <div class="subtitle">Alignment</div>
+
+            <pre class="pre-code"><code class="code">&lt;time-picker
+  v-model="now"
+  align="left"
+/&gt;</code></pre>
+
+            <label>Value: <input v-model="align" class="demo-input"></label>
+            <time-picker
+              v-model="align"
+              align="left"
+            />
+          </div>
+        </div><!-- /column -->
+
+        <div class="column is-6">
+          <div class="card-content">
+            <div class="subtitle">Font size</div>
+
+            <pre class="pre-code"><code class="code">&lt;div style="font-size: 21px"&gt;
+  &lt;time-picker v-model="now" /&gt;
+&lt;/div&gt;</code></pre>
+
+            <label>Value: <input v-model="fontSize" class="demo-input"></label>
+            <div style="font-size: 21px">
+              <time-picker v-model="fontSize" />
+            </div>
+          </div>
+        </div><!-- /column -->
       </div>
     </div>
   </div><!-- /Other options -->
@@ -54,9 +86,11 @@ export default {
   data () {
     const now = this.$dayjs()
     return {
-      range: now.format('YYYY-MM-DD HH:mm'),
-      intervals: now.format('YYYY-MM-DD HH:mm'),
-      height: now.format('YYYY-MM-DD HH:mm'),
+      range: now.format('HH:mm'),
+      intervals: now.format('HH:mm'),
+      fontSize: now.format('HH:mm'),
+      align: now.format('HH:mm'),
+      height: now.format('HH:mm'),
     }
   },
 }

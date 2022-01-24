@@ -1,5 +1,5 @@
-import datestring from '../assets/datestring'
 import dayjs from '../modules/dayjs'
+import { datestring } from '../modules/format-helper'
 import OverlayLayer from '../components/OverlayLayer'
 import PickerContainer from '../components/PickerContainer'
 import ContentLayer from '../components/ContentLayer'

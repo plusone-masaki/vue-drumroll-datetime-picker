@@ -1,4 +1,4 @@
-import datestring from '../assets/datestring'
+import { datestring } from '../modules/format-helper'
 import BaseTimePicker from './BaseTimePicker'
 import PickerContainer from '../components/PickerContainer'
 import useBindings from '../mixins/useBindings'

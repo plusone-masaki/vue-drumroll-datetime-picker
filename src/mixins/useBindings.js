@@ -1,6 +1,5 @@
-import datestring from '../assets/datestring'
 import dayjs from '../modules/dayjs'
-import { calculatePattern } from '../modules/format-helper'
+import { calculatePattern, datestring } from '../modules/format-helper'
 
 export default {
   props: {
