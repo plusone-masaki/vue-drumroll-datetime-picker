@@ -16,7 +16,7 @@
         <nav class="tabs is-boxed is-right">
           <div class="container">
             <ul>
-              <li><a href="https://www.plug-one.tech">Author's website</a></li>
+              <li><a href="https://www.plus-one.tech">Author's website</a></li>
               <li><a href="https://github.com/plusone-masaki/vue-drumroll-datetime-picker">GitHub</a></li>
             </ul>
           </div>
