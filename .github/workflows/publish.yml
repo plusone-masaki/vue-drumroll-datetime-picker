@@ -5,23 +5,23 @@ on:
     types: [created]
 
 jobs:
-  publish-github:
+  publish:
     runs-on: ubuntu-latest
     permissions:
       packages: write
       contents: read
     steps:
       - uses: actions/checkout@v2
-      - name: Setup for GitHub Packages
+      - name: Setup for npm
         uses: actions/setup-node@v2
         with:
           node-version: 16.x
-          registry-url: https://npm.pkg.github.com
+          registry-url: https://registry.npmjs.org
           scope: '@plusone-masaki'
 
       - run: yarn
       - run: yarn build
       - run: yarn build:demo
-      - run: yarn publish --access public
+      - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

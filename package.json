@@ -1,12 +1,9 @@
 {
-  "name": "@plusone-masaki/vue-drumroll-datetime-picker",
-  "version": "0.3.2",
+  "name": "vue-drumroll-datetime-picker",
+  "version": "0.3.4",
   "license": "MIT",
   "author": "m_enomoto@plus-one.tech",
   "main": "dist/vue-drumroll-datetime-picker.js",
-  "publishConfig": {
-    "@plusone-masaki:registry": "https://npm.pkg.github.com/"
-  },
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "rollup -c",
@@ -18,7 +15,7 @@
     "@mdi/js": "^5.9.55",
     "dayjs": "^1.10.4",
     "dayjs-jp-format": "https://github.com/plusone-masaki/dayjs-jp-format.git#dist",
-    "vue-scroll-picker": "0.7.1"
+    "vue-scroll-picker": "0.8.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^18.0.0",
