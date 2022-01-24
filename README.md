@@ -1,4 +1,11 @@
-# vue-drumroll-datetime-picker
+# Simple design and lightweight wheel style datetime picker
+
+`vue-drumroll-datetime-picker` is a wheel style datetime picker.
+There is also a date-only and time-only picker.
+
+There is a stationary format and a dialog format that can be installed directly on the screen, and it also supports responsiveness.
+It is an easy-to-use and highly flexible library with a wide variety of customization such as date order and label editing.
+Furthermore, the minified version is as light as 19kb.
 
 [日本語](README.ja.md)
 

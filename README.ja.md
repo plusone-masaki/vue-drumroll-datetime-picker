@@ -7,7 +7,7 @@
 年月日の順序やラベルの編集などカスタマイズも豊富に取り揃え、使いやすく自由度の高いライブラリです。
 さらにminify版で19kbと超軽量。
 
-デモページからお試しいただけます。
+動作の様子は [デモページ](https://www.plus-one.tech/vue-drumroll-datetime-picker/) からお試しいただけます。
 
 [English](README.md)
 
@@ -104,7 +104,7 @@ export default {
 
 #### TimePicker
 
-| 項目名               | 型                       | デフォルト               | 説明                                              |
+| 項目名             | 型                      | デフォルト           | 説明                                              |
 |-------------------|-------------------------|---------------------|-------------------------------------------------|
 | align             | String                  | "center"            | ラベルの左右方向の配置                                     |
 | dialog            | Boolean                 | false               | ピッカーをダイアログで開く                                   |
@@ -115,7 +115,7 @@ export default {
 | hideButton        | Boolean                 | false               | ダイアログ表示の確定ボタンを非表示にする。`dialog` が `true` の場合のみ有効  |
 | minuteInterval    | [String, Number]        | 1                   | 分単位の間隔                                          |
 | pattern           | Object                  | `undefined`         | ピッカーのラベルをカスタマイズできる。<br/>詳細は下に記載 |
-| `非推奨` separator   | String                  | `undefined`         | 時刻の区切り文字                                        |
+| `非推奨` separator | String                  | `undefined`         | 時刻の区切り文字                                        |
 | scrollSensitivity | [String, Number]        | 0.8                 | スクロール感度                                         |
 | touchSensitivity  | [String, Number]        | 1.7                 | タッチ操作の感度                                        |
 | value             | [String, Number, Date]  | `required`          | 変更対象の値                                          |
