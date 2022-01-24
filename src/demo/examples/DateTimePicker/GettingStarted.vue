@@ -35,7 +35,7 @@ Vue.component('DateTimePicker', DateTimePicker)</code></pre>
         <pre class="pre-code"><code class="code">&lt;script&gt;
 import { DateTimePicker } from 'vue-drumroll-datetime-picker'
 // or import { DateTimePicker } from 'vue-drumroll-datetime-picker'
-import 'vue-drumroll-datetime-picker/vue-drumroll-datetime-picker.css'
+import 'vue-drumroll-datetime-picker/dist/style.css'
 
 export default {
   components: {

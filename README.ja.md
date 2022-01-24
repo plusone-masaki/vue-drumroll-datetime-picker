@@ -32,7 +32,7 @@ npm install vue-drumroll-datetime-picker
 ```javascript
 import Vue from 'vue'
 import DateTimePicker, { DatePicker, TimePicker } from 'vue-drumroll-datetime-picker'
-import 'vue-drumroll-datetime-picker/vue-drumroll-datetime-picker.css'
+import 'vue-drumroll-datetime-picker/dist/style.css'
 
 Vue.component('DateTimePicker', DateTimePicker)
 Vue.component('DatePicker', DatePicker)
