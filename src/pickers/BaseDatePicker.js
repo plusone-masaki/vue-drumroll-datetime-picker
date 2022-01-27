@@ -25,10 +25,12 @@ export default {
   },
 
   data () {
-    const date = dayjs(this.value || this.defaultValue, this.format).endOf('month').date()
+    const date = dayjs(this.value || this.defaultValue, this.format)
+    const dateOfMax = date.endOf('month').date()
     return {
-      date: date,
-      numberOfDays: date,
+      monthOfMin: 0,
+      numberOfDays: dateOfMax,
+      dateOfMax: dateOfMax,
       dateOfMin: 1,
     }
   },
@@ -84,12 +86,16 @@ export default {
       // 桁揃えをしつつ時刻を配列に追加
       const months = []
       const dateObj = dayjs(value, this.format)
-      for (let month = min; month < max; month++) {
+      for (let month = Math.min(this.monthOfMin, min); month < max; month++) {
         months.push({
           name: dateObj.set('month', month).format(this.drumPattern.month),
           value: month,
         })
       }
+
+      this.$nextTick(() => setTimeout(() => {
+        this.monthOfMin = min
+      }, 100))
 
       return months
     },
@@ -119,16 +125,14 @@ export default {
       const dateObj = currentDate.clone()
       for (let date = Math.min(this.dateOfMin, min); date <= max; date++) {
         days.push({
-          name: date <= this.date && date >= min ? dateObj.set('date', date).format(this.drumPattern.date) : '',
+          name: date <= this.dateOfMax && date >= min ? dateObj.set('date', date).format(this.drumPattern.date) : '',
           value: date,
         })
       }
 
       this.$nextTick(() => setTimeout(() => {
         this.dateOfMin = min
-        if (this.date !== this.numberOfDays) {
-          this.numberOfDays = this.date
-        }
+        this.numberOfDays = this.dateOfMax
       }, 100))
 
       return days
@@ -138,8 +142,7 @@ export default {
   watch: {
     value (newValue) {
       const newDate = dayjs(newValue, this.format)
-      const lastDate = newDate.endOf('month').date()
-      if (lastDate !== this.date) this.date = lastDate
+      this.dateOfMax = newDate.endOf('month').date()
     },
   },
 

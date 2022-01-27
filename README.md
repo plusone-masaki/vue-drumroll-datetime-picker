@@ -72,7 +72,7 @@ export default {
 | hideOverlay       | Boolean                      | false                     | Hide the dialog display overlay. Valid only if `dialog` is `true` |
 | hideButton        | Boolean                      | false                     | Hide the dialog close button. Valid only if `dialog` is `true`    |
 | maxDate           | [String, Number, Date]       | `value + 100 years`       | Maximum valid date and time                                       |
-| minDate           | [String, Number, Date]       | 1970-01-01 00:00          | Valid minimum date and time                                       |
+| minDate           | [String, Number, Date]       | 1900-01-01 00:00          | Valid minimum date and time                                       |
 | minuteInterval    | [String, Number]             | 1                         | Selectable minute intervals for Time picker                       |
 | pattern           | Object                       | `undefined`               | Customize picker labels<br>More details below                     |
 | scrollSensitivity | [String, Number]             | 0.8                       | Scroll sensitivity                                                |
@@ -93,7 +93,7 @@ export default {
 | hideOverlay            | Boolean                | false                      | Hide the dialog display overlay. Valid only if `dialog` is `true` |
 | hideButton             | Boolean                | false                      | Hide the dialog close button. Valid only if `dialog` is `true`    |
 | maxDate                | [String, Number, Date] | `value + 100 years`        | Maximum valid date and time                                       |
-| minDate                | [String, Number, Date] | 1970-01-01 00:00           | Valid minimum date and time                                       |
+| minDate                | [String, Number, Date] | 1900-01-01 00:00           | Valid minimum date and time                                       |
 | pattern                | Object                 | `undefined`                | Customize picker labels<br>More details below                     |
 | `deprecated` separator | String                 | "-"                        | Change date separator character                                   |
 | scrollSensitivity      | [String, Number]       | 0.8                        | Scroll sensitivity                                                |

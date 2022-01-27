@@ -24,6 +24,13 @@ export default {
     value: { type: [String, Number, Date], default: undefined },
   },
 
+  data () {
+    return {
+      hourOfMin: 0,
+      minuteOfMin: 0,
+    }
+  },
+
   computed: {
     formatDefaultValue () {
       return dayjs(this.defaultValue).format(this.format)
@@ -52,12 +59,17 @@ export default {
 
       const hours = []
       const dateObj = currentDate.clone()
-      for (let hour = min; hour < max; hour++) {
+      for (let hour = Math.min(this.hourOfMin, min); hour < max; hour++) {
         hours.push({
           name: dateObj.set('hour', hour).format(this.drumPattern.hour),
           value: hour,
         })
       }
+
+      this.$nextTick(() => setTimeout(() => {
+        this.hourOfMin = min
+      }, 100))
+
       return hours
     },
 
@@ -86,12 +98,17 @@ export default {
       const interval = Number(this.minuteInterval)
       const minutes = []
       const dateObj = currentDate.clone()
-      for (let minute = min; minute < max; minute += interval) {
+      for (let minute = Math.min(this.minuteOfMin, min); minute < max; minute += interval) {
         minutes.push({
           name: dateObj.set('minute', minute).format(this.drumPattern.minute),
           value: minute,
         })
       }
+
+      this.$nextTick(() => setTimeout(() => {
+        this.minuteOfMin = min
+      }, 100))
+
       return minutes
     },
   },

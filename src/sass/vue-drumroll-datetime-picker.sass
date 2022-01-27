@@ -5,9 +5,7 @@
 .v-drumroll-picker
   --selected-color: #007BFF
   --picker-align: center
-
-  *
-    user-select: none
+  user-select: none
 
   .-selected
     color: var(--selected-color)
@@ -46,7 +44,6 @@
   height: 10em
   justify-content: center
   overflow: hidden
-  padding: 0 1em
   pointer-events: auto
   position: relative
 
@@ -59,13 +56,16 @@
   & > .vue-scroll-picker-group
     margin-left: .5em
     margin-right: .5em
+    position: relative
 
   & .vue-scroll-picker-item
     text-align: var(--picker-align)
 
-.v-drumroll-picker--dialog .v-drumroll-picker__container
-  box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12)
-  position: relative
+.v-drumroll-picker--dialog
+  .v-drumroll-picker__container
+    box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12)
+    padding: 0 1em
+    position: relative
 
 .v-drumroll-picker__input
   border: none
@@ -116,3 +116,7 @@
       &:active::before,
       &:hover::before
         background: rgba(255, 255, 255, 0.2)
+
+    &.v-drumroll-picker--dialog
+      .v-drumroll-picker__container
+        padding: 0
