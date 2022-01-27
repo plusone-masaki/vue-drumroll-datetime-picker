@@ -25,13 +25,12 @@ export default {
   },
 
   data () {
-    const date = dayjs(this.value || this.defaultValue, this.format)
-    const dateOfMax = date.endOf('month').date()
+    const date = dayjs(this.value || this.defaultValue, this.format).endOf('month').date()
     return {
-      monthOfMin: 0,
-      numberOfDays: dateOfMax,
-      dateOfMax: dateOfMax,
+      date: date,
+      numberOfDays: date,
       dateOfMin: 1,
+      monthOfMin: 0,
     }
   },
 
@@ -125,14 +124,14 @@ export default {
       const dateObj = currentDate.clone()
       for (let date = Math.min(this.dateOfMin, min); date <= max; date++) {
         days.push({
-          name: date <= this.dateOfMax && date >= min ? dateObj.set('date', date).format(this.drumPattern.date) : '',
+          name: date <= this.date && date >= min ? dateObj.set('date', date).format(this.drumPattern.date) : '',
           value: date,
         })
       }
 
       this.$nextTick(() => setTimeout(() => {
         this.dateOfMin = min
-        this.numberOfDays = this.dateOfMax
+        this.numberOfDays = this.date
       }, 100))
 
       return days
@@ -142,7 +141,7 @@ export default {
   watch: {
     value (newValue) {
       const newDate = dayjs(newValue, this.format)
-      this.dateOfMax = newDate.endOf('month').date()
+      this.date = newDate.endOf('month').date()
     },
   },
 

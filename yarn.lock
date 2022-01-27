@@ -2863,8 +2863,8 @@ data-urls@^1.0.0, data-urls@^1.1.0:
     whatwg-url "^7.0.0"
 
 "dayjs-jp-format@https://github.com/plusone-masaki/dayjs-jp-format.git#dist":
-  version "1.0.1"
-  resolved "https://github.com/plusone-masaki/dayjs-jp-format.git#b986f9ce5df54db6c1d0d2b94c3ae8b09f63ecdc"
+  version "1.0.2"
+  resolved "https://github.com/plusone-masaki/dayjs-jp-format.git#36d3e19dbd9717bfec406f1c2c6da1421f26f8d6"
 
 dayjs@^1.10.4:
   version "1.10.7"
