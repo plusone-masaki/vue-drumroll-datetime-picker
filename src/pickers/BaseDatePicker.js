@@ -149,7 +149,10 @@ export default {
     onInput (value) {
       if (!value) return
 
-      const valueObj = dayjs.unix(value)
+      let valueObj = dayjs.unix(value)
+      if (valueObj.isBefore(this.minDate)) valueObj = dayjs(this.minDate)
+      if (valueObj.isAfter(this.maxDate)) valueObj = dayjs(this.maxDate)
+
       if (this.value || valueObj.format(this.format) !== this.formatDefaultValue) {
         this.$emit('input', valueObj.format(this.format))
       }
