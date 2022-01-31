@@ -31,23 +31,6 @@ export const guessDateOrder = (baseFormat) => {
     .map(item => item.type)
 }
 
-export const calculateWidth = str => {
-  let result = 0
-  for (let i = 0; i < str.length; i++) {
-    const chr = str.charCodeAt(i)
-    if ((chr >= 0x00 && chr < 0x81) ||
-      (chr === 0xf8f0) ||
-      (chr >= 0xff61 && chr < 0xffa0) ||
-      (chr >= 0xf8f1 && chr < 0xf8f4)) {
-      result += 0.6
-    } else {
-      result += 1
-    }
-  }
-
-  return result
-}
-
 /**
  * Format date string
  *

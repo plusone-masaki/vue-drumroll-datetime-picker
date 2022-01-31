@@ -1,7 +1,7 @@
 import { ScrollPickerGroup } from 'vue-scroll-picker'
 import * as constants from '../assets/constants'
 import dayjs from '../modules/dayjs'
-import { calculateWidth, guessDateOrder } from '../modules/format-helper'
+import { guessDateOrder } from '../modules/format-helper'
 import useSensitivity from '../mixins/useSensitivity'
 import DrumDivider from '../components/DrumDivider'
 import BasePicker from './BasePicker'
@@ -151,7 +151,7 @@ export default {
 
       let valueObj = dayjs.unix(value)
       if (valueObj.isBefore(this.minDate)) valueObj = dayjs(this.minDate)
-      if (valueObj.isAfter(this.maxDate)) valueObj = dayjs(this.maxDate)
+      if (this.maxDate && valueObj.isAfter(this.maxDate)) valueObj = dayjs(this.maxDate)
 
       if (this.value || valueObj.format(this.format) !== this.formatDefaultValue) {
         this.$emit('input', valueObj.format(this.format))
@@ -162,14 +162,12 @@ export default {
   render (h) {
     const divider = this.separator || this.drumPattern.dividerDate || this.drumPattern['divider-date']
     const drumDivider = divider ? h(DrumDivider, { props: { divider } }) : null
-    const sampleDate = dayjs('1989-12-31')
 
     const drums = {
       year: h(BasePicker, {
         props: {
           items: this.years,
           unit: 'year',
-          width: calculateWidth(sampleDate.format(this.drumPattern.year)) + 'em',
           ...this.$props,
           value: this.value || this.defaultValue,
         },
@@ -181,7 +179,6 @@ export default {
         props: {
           items: this.months,
           unit: 'month',
-          width: calculateWidth(sampleDate.format(this.drumPattern.month)) + 'em',
           ...this.$props,
           value: this.value || this.defaultValue,
         },
@@ -193,7 +190,6 @@ export default {
         props: {
           items: this.days,
           unit: 'date',
-          width: calculateWidth(sampleDate.format(this.drumPattern.date)) + 'em',
           ...this.$props,
           value: this.value || this.defaultValue,
         },
@@ -210,6 +206,6 @@ export default {
       if (divider && i < dateOrder.length - 1) pickers.push(drumDivider)
     }
 
-    return h(ScrollPickerGroup, { class: 'vdd-flex' }, pickers)
+    return h(ScrollPickerGroup, pickers)
   },
 }

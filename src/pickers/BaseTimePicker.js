@@ -4,7 +4,6 @@ import DrumDivider from '../components/DrumDivider'
 import BasePicker from './BasePicker'
 import * as constants from '../assets/constants'
 import useSensitivity from '../mixins/useSensitivity'
-import { calculateWidth } from '../modules/format-helper'
 
 export default {
   name: 'BaseTimePicker',
@@ -124,7 +123,6 @@ export default {
   render (h) {
     const divider = this.separator || this.drumPattern.dividerTime || this.drumPattern['divider-time']
     const drumDivider = divider ? h(DrumDivider, { props: { divider } }) : null
-    const sampleDate = dayjs('1989-12-31 10:10:10')
 
     // 時
     const hourPicker = h(BasePicker, {
@@ -132,7 +130,6 @@ export default {
         ...this.$props,
         items: this.hours,
         unit: 'hour',
-        width: calculateWidth(sampleDate.format(this.drumPattern.hour)) + 'em',
       },
       on: {
         input: this.onInput,
@@ -145,14 +142,13 @@ export default {
         ...this.$props,
         items: this.minutes,
         unit: 'minute',
-        width: calculateWidth(sampleDate.format(this.drumPattern.minute)) + 'em',
       },
       on: {
         input: this.onInput,
       },
     })
 
-    return h(ScrollPickerGroup, { class: 'vdd-flex' }, [
+    return h(ScrollPickerGroup, [
       hourPicker,
       drumDivider,
       minutePicker,

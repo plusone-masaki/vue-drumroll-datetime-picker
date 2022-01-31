@@ -18,7 +18,6 @@ export default {
     height: { type: [String, Number], default: '10em' },
     unit: { type: String, required: true },
     value: { type: [String, Number], default: undefined },
-    width: { type: [String, Number], default: '2em' },
   },
 
   render (h, { props, listeners }) {
@@ -26,7 +25,6 @@ export default {
       style: {
         '--picker-align': props.align,
         height: typeof props.height === 'string' ? props.height : props.height + 'px',
-        width: typeof props.width === 'string' ? props.width : props.width + 'px',
       },
       props: {
         options: props.items,

@@ -3,7 +3,7 @@ import { calculatePattern, datestring } from '../modules/format-helper'
 
 export default {
   props: {
-    align: { type: String, default: 'center' },
+    align: { type: String, default: 'right' },
     defaultValue: { type: String, default: undefined },
     pattern: { type: Object, default: undefined },
     format: { type: [String, Object], default: undefined },

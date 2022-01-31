@@ -11,9 +11,6 @@
   .-selected
     color: var(--selected-color)
 
-  .vdd-flex
-    display: flex
-
 .v-drumroll-picker__overlay
   height: 100%
   left: 0
@@ -48,6 +45,12 @@
   pointer-events: auto
   position: relative
 
+  & .vue-scroll-picker,
+  & .vue-scroll-picker-list,
+  & .vue-scroll-picker-list-rotator
+    position: relative
+    width: fit-content
+
   & > .vue-scroll-picker-layer
     pointer-events: none
 
@@ -55,12 +58,14 @@
       background: transparent
 
   & > .vue-scroll-picker-group
+    display: flex
     margin-left: .5em
     margin-right: .5em
     position: relative
 
   & .vue-scroll-picker-item
     text-align: var(--picker-align)
+    width: auto
 
 .v-drumroll-picker--dialog
   .v-drumroll-picker__container
