@@ -65,7 +65,7 @@ export default {
 
 | 項目名               | 型                            | デフォルト                     | 説明                              |
 |-------------------|------------------------------|---------------------------|---------------------------------|
-| align             | String                       | "center"                  | ラベルの左右方向の配置                     |
+| align             | String                       | "right"                  | ラベルの左右方向の配置                     |
 | dateOrder         | Array                        | ['year', 'month', 'date'] | 年月日の順序                          |
 | dialog            | Boolean                      | false                     | ピッカーをダイアログで開く                   |
 | dragSensitivity   | [String, Number]             | 1.7                       | ドラッグ感度                          |
@@ -86,7 +86,7 @@ export default {
 
 | 項目名               | 型                      | デフォルト                     | 説明                                             |
 |-------------------|------------------------|---------------------------|------------------------------------------------|
-| align             | String                 | "center"                  | ラベルの左右方向の配置                                    |
+| align             | String                 | "right"                  | ラベルの左右方向の配置                                    |
 | dateOrder         | Array                  | ['year', 'month', 'date'] | 年月日の順序                                         |
 | dialog            | Boolean                | false                     | ピッカーをダイアログで開く                                  |
 | dragSensitivity   | [String, Number]       | 1.7                       | ドラッグ感度                                         |
@@ -106,7 +106,7 @@ export default {
 
 | 項目名             | 型                      | デフォルト           | 説明                                              |
 |-------------------|-------------------------|---------------------|-------------------------------------------------|
-| align             | String                  | "center"            | ラベルの左右方向の配置                                     |
+| align             | String                  | "right"            | ラベルの左右方向の配置                                     |
 | dialog            | Boolean                 | false               | ピッカーをダイアログで開く                                   |
 | dragSensitivity   | [String, Number]        | 1.7                 | ドラッグ感度                                          |
 | format            | String                  | "YYYY-MM-DD HH:mm"  | 日付形式                                            |

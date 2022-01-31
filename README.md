@@ -63,7 +63,7 @@ export default {
 
 | name              | type                         | default                   | description                                                       |
 |-------------------|------------------------------|---------------------------|-------------------------------------------------------------------|
-| align             | String                       | "center"                  | Modify label alignment of the pickers                             |
+| align             | String                       | "right"                  | Modify label alignment of the pickers                             |
 | dateOrder         | Array                        | ['year', 'month', 'date'] | Order of the date picker                                          |
 | dialog            | Boolean                      | false                     | Open picker in dialog                                             |
 | dragSensitivity   | [String, Number]             | 1.7                       | Drag sensitivity                                                  |
@@ -84,7 +84,7 @@ export default {
 
 | name                   | type                   | default                    | description                                                       |
 |------------------------|------------------------|----------------------------|-------------------------------------------------------------------|
-| align                  | String                 | "center"                   | Modify text alignment of the pickers                              |
+| align                  | String                 | "right"                   | Modify text alignment of the pickers                              |
 | dateOrder              | Array                  | ['year', 'month', 'date']  | Order of the date drums                                           |
 | dialog                 | Boolean                | false                      | Open picker in dialog                                             |
 | dragSensitivity        | [String, Number]       | 1.7                        | Drag sensitivity                                                  |
@@ -104,7 +104,7 @@ export default {
 
 | name                   | type                   | default  | description                                                       |
 |------------------------|------------------------|----------|-------------------------------------------------------------------|
-| align                  | String                 | "center" | Modify text alignment of the pickers                              |
+| align                  | String                 | "right" | Modify text alignment of the pickers                              |
 | dialog                 | Boolean                | false    | Open picker in dialog                                             |
 | dragSensitivity        | [String, Number]       | 1.7      | Drag sensitivity                                                  |
 | format                 | String                 | "HH:mm"  | Time format                                                       |
