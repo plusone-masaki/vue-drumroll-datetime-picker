@@ -49,13 +49,15 @@
 </template>
 
 <script>
+import dayjs from 'dayjs'
+
 export default {
   name: 'BasicUsages',
   data () {
     return {
-      datetime: this.$dayjs().format('YYYY-MM-DD HH:mm'),
-      date: this.$dayjs().format('YYYY-MM-DD'),
-      time: this.$dayjs().format('HH:mm'),
+      datetime: dayjs().format('YYYY-MM-DD HH:mm'),
+      date: dayjs().format('YYYY-MM-DD'),
+      time: dayjs().format('HH:mm'),
     }
   },
 }

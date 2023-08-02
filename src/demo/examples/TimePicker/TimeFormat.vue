@@ -57,10 +57,12 @@
 </template>
 
 <script>
+import dayjs from 'dayjs'
+
 export default {
   name: 'TimeFormat',
   data () {
-    const now = this.$dayjs()
+    const now = dayjs()
     return {
       autoFormat: now.format('HH.mm'),
       pattern: now.format('HH:mm'),

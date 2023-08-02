@@ -7,12 +7,12 @@ export default {
     defaultValue: { type: String, default: undefined },
     pattern: { type: Object, default: undefined },
     format: { type: [String, Object], default: undefined },
-    value: { type: [String, Number, Date], default: undefined },
+    modelValue: { type: [String, Number, Date], default: undefined },
   },
   computed: {
     modelValue: {
       get () {
-        const modelValue = this.value || this.defaultValue || dayjs().format(this.modelFormat)
+        const modelValue = this.modelValue || this.defaultValue || dayjs().format(this.modelFormat)
         return datestring(modelValue, this.modelFormat, this.type)
       },
       set (value) {

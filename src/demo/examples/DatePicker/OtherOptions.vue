@@ -81,10 +81,12 @@
 </template>
 
 <script>
+import dayjs from 'dayjs'
+
 export default {
   name: 'OtherOptions',
   data () {
-    const now = this.$dayjs()
+    const now = dayjs()
     return {
       range: now.format('YYYY-MM-DD'),
       height: now.format('YYYY-MM-DD'),

@@ -1,13 +1,14 @@
-export default {
+import { h } from 'vue'
+
+const DrumDivider = {
   name: 'DrumDivider',
-
-  functional: true,
-
   props: {
     divider: { type: String, required: true },
   },
 
-  render (h, { props }) {
-    return h('span', { class: 'v-drumroll-picker__divider -selected' }, [props.divider])
-  },
+  setup: ({ divider }) => () => (
+    h('span', { class: 'v-drumroll-picker__divider -selected' }, [divider])
+  ),
 }
+
+export default DrumDivider

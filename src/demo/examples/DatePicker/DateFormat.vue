@@ -79,10 +79,12 @@
 </template>
 
 <script>
+import dayjs from 'dayjs'
+
 export default {
   name: 'DateFormat',
   data () {
-    const now = this.$dayjs()
+    const now = dayjs()
     return {
       autoFormat: now.format('DD/MM/YYYY'),
       manuallyFormat: now.format('YYYY/MM/DD'),

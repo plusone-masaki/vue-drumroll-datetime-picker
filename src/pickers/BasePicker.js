@@ -1,51 +1,46 @@
-import { ScrollPicker } from 'vue-scroll-picker'
+import { h, inject } from 'vue'
+import { VueScrollPicker } from 'vue-scroll-picker'
 import dayjs from '../modules/dayjs'
-import useSensitivity from '../mixins/useSensitivity'
 
-export default {
+const BasePicker = {
   name: 'BasePicker',
-
-  functional: true,
-
-  mixins: [
-    useSensitivity,
-  ],
-
   props: {
-    align: { type: String, default: 'center' },
     items: { type: Array, required: true },
-    format: { type: String, required: true },
     height: { type: [String, Number], default: '10em' },
-    unit: { type: String, required: true },
-    value: { type: [String, Number], default: undefined },
+    format: { type: [String, Object], required: true },
+    unit: { type: dayjs.UnitType, required: true },
+    modelValue: { type: [String, Number], default: undefined },
   },
 
-  render (h, { props, listeners }) {
-    return h(ScrollPicker, {
+  setup (props, { emit }) {
+    const dragSensitivity = inject('dragSensitivity')
+    const touchSensitivity = inject('touchSensitivity')
+    const scrollSensitivity = inject('scrollSensitivity')
+    const align = inject('align')
+
+    return () => h(VueScrollPicker, {
       style: {
-        '--picker-align': props.align,
+        '--picker-align': align,
         height: typeof props.height === 'string' ? props.height : props.height + 'px',
       },
-      props: {
-        options: props.items,
-        dragSensitivity: props.dragSensitivity,
-        touchSensitivity: props.touchSensitivity,
-        scrollSensitivity: props.scrollSensitivity,
-        value: dayjs(props.value, props.format).get(props.unit),
-      },
-      on: {
-        input: value => {
-          if (!value) value = 0
+      options: props.items,
+      dragSensitivity,
+      touchSensitivity,
+      scrollSensitivity,
+      modelValue: dayjs(props.modelValue, props.format).get(props.unit),
+      'onUpdate:modelValue': value => {
+        if (!value) value = 0
 
-          const dateObj = props.value ? dayjs(props.value, props.format) : dayjs()
-          const current = dateObj.get(props.unit)
-          const date = dateObj.set(props.unit, value)
+        const dateObj = props.modelValue ? dayjs(props.modelValue, props.format) : dayjs()
+        const current = dateObj.get(props.unit)
+        const date = dateObj.set(props.unit, value)
 
-          // 桁上がり抑止
-          if (current <= value && date.get(props.unit) < value) return
-          listeners.input(date.unix())
-        },
+        // 桁上がり抑止
+        if (current <= value && date.get(props.unit) < value) return
+        emit('update:modelValue', date.unix())
       },
     })
   },
 }
+
+export default BasePicker

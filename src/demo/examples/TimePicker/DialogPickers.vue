@@ -71,10 +71,12 @@
 </template>
 
 <script>
+import dayjs from 'dayjs'
+
 export default {
   name: 'DialogPickers',
   data () {
-    const now = this.$dayjs()
+    const now = dayjs()
     return {
       dialog: now.format('HH:mm'),
       hideOverlay: now.format('HH:mm'),

@@ -1,5 +1,4 @@
-@import "~vue-scroll-picker/src/picker/picker.scss"
-@import "~vue-scroll-picker/src/picker-group/picker-group.scss"
+@import url("vue-scroll-picker/lib/style.css")
 @import "animation"
 
 .v-drumroll-picker
@@ -46,8 +45,7 @@
   position: relative
 
   & .vue-scroll-picker,
-  & .vue-scroll-picker-list,
-  & .vue-scroll-picker-list-rotator
+  & .vue-scroll-picker-rotator
     position: relative
     width: fit-content
 
@@ -57,7 +55,7 @@
     .top, .bottom
       background: transparent
 
-  & > .vue-scroll-picker-group
+  & > .v-drumroll-picker__group
     display: flex
     margin-left: .5em
     margin-right: .5em

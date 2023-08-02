@@ -1,14 +1,11 @@
-import Vue from 'vue'
-import dayjs from 'dayjs'
-import Demo from './Demo'
+import { createApp } from 'vue'
+import Demo from './Demo.vue'
 import { DateTimePicker, DatePicker, TimePicker } from '../main'
 
-Vue.component('DateTimePicker', DateTimePicker)
-Vue.component('DatePicker', DatePicker)
-Vue.component('TimePicker', TimePicker)
-Vue.prototype.$dayjs = dayjs
+const app = createApp(Demo)
+app.component('DateTimePicker', DateTimePicker)
+app.component('DatePicker', DatePicker)
+app.component('TimePicker', TimePicker)
 
-window.vm = new Vue({
-  el: '#app',
-  render: h => h(Demo),
-})
+window.vm = app
+app.mount('#app')

@@ -106,10 +106,12 @@ dialog
 </template>
 
 <script>
+import dayjs from 'dayjs'
+
 export default {
   name: 'DialogPickers',
   data () {
-    const now = this.$dayjs()
+    const now = dayjs()
     return {
       now: now.format('YYYY-MM-DD HH:mm'),
       pattern: now.format('YYYY-MM-DD HH:mm'),

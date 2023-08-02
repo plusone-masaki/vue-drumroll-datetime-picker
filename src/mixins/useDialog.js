@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import dayjs from '../modules/dayjs'
 import { datestring } from '../modules/format-helper'
 import OverlayLayer from '../components/OverlayLayer'
@@ -23,7 +24,7 @@ export default {
   },
 
   methods: {
-    generateDialogPicker (h) {
+    generateDialogPicker () {
       const content = [this.generateActivator(h)]
 
       if (this.active) {

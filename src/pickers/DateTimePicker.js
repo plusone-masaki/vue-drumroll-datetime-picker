@@ -1,26 +1,26 @@
+import { computed, h } from 'vue'
 import * as constants from '../assets/constants'
-import useBindings from '../mixins/useBindings'
 import useDialog from '../mixins/useDialog'
-import useSensitivity from '../mixins/useSensitivity'
+import useProvide from '../composables/useProvide'
 import PickerContainer from '../components/PickerContainer'
 import BaseDatePicker from './BaseDatePicker'
 import BaseTimePicker from './BaseTimePicker'
+import dayjs from '../modules/dayjs'
+import { datestring } from '../modules/format-helper'
 
-const generateDatePicker = (h, options) => (
+const generateDatePicker = (options) => (
   h(BaseDatePicker, options())
 )
 
-const generateTimePicker = (h, options) => (
+const generateTimePicker = (options) => (
   h(BaseTimePicker, options())
 )
 
-export default {
+const DateTimePicker = {
   name: 'DateTimePicker',
 
   mixins: [
-    useBindings,
     useDialog,
-    useSensitivity,
   ],
 
   props: {
@@ -31,35 +31,62 @@ export default {
     minDate: { type: [String, Number, Date], default: () => constants.DEFAULT_MIN_DATE },
     minuteInterval: { type: [String, Number], default: 1 },
     type: { type: String, default: 'datetime' },
+    align: { type: String, default: 'right' },
+    defaultValue: { type: String, default: undefined },
+    pattern: { type: Object, default: undefined },
+    format: { type: [String, Object], default: undefined },
+    modelValue: { type: [String, Number, Date], default: undefined },
   },
 
-  methods: {
-    pickers (h) {
-      const options = props => ({
+  setup (props, { emit }) {
+    useProvide(props)
+
+    const modelFormat = computed(() => {
+      if (props.format) return props.format
+      switch (props.type) {
+        case 'datetime': return 'YYYY-MM-DD HH:mm'
+        case 'date': return 'YYYY-MM-DD'
+        case 'time': return 'HH:mm'
+        default: throw new Error('Invalid property. "type" is only allow "datetime/date/time".')
+      }
+    })
+
+    const onInput = (value) => {
+      if (dayjs.unix(value).isBefore(props.minDate)) {
+        emit('update:modelValue', datestring(props.minDate, modelFormat.value, props.type))
+      } else if (props.maxDate && dayjs(value).isAfter(props.maxDate)) {
+        emit('update:modelValue', datestring(props.maxDate, modelFormat.value, props.type))
+      } else {
+        emit('update:modelValue', datestring(value, modelFormat.value, props.type))
+      }
+    }
+
+    const pickers = () => {
+      const options = ops => ({
         props: {
-          ...this.$props,
           ...props,
-          value: this.modelValue,
-          format: this.modelFormat,
-          drumPattern: this.drumPattern,
+          ...ops,
+          modelValue: props.modelValue,
+          format: props.modelFormat,
+          drumPattern: props.drumPattern,
         },
-        on: { input: this.onInput },
+        on: { 'update:modelValue': onInput },
       })
 
-      switch (this.type) {
-        case 'datetime': return [generateDatePicker(h, options), generateTimePicker(h, options)]
-        case 'date': return [generateDatePicker(h, options)]
-        case 'time': return [generateTimePicker(h, options)]
+      switch (props.type) {
+        case 'datetime': return [generateDatePicker(options), generateTimePicker(options)]
+        case 'date': return [generateDatePicker(options)]
+        case 'time': return [generateTimePicker(options)]
       }
-    },
-  },
+    }
 
-  render (h) {
-    if (this.dialog) {
-      return this.generateDialogPicker(h)
+    if (props.dialog) {
+      return this.generateDialogPicker()
     } else {
-      const container = h(PickerContainer, { props: this.$props }, [this.pickers(h)])
-      return h('div', { class: ['v-drumroll-picker'] }, [container])
+      const container = h(PickerContainer, { props }, [pickers()])
+      return () => h('div', { class: ['v-drumroll-picker'] }, [container])
     }
   },
 }
+
+export default DateTimePicker

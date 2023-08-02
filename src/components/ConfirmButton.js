@@ -1,15 +1,13 @@
+import { h } from 'vue'
 import { mdiCheckBold } from '@mdi/js'
 
-export default {
+const ConfirmButton = {
   name: 'ConfirmButton',
-
-  functional: true,
-
   props: {
     size: { type: [Number, String], default: 24 },
   },
 
-  render (h, { props, listeners }) {
+  setup: (props, { emit }) => () => {
     const icon = h('svg',
       {
         class: ['v-drumroll-picker__button--icon'],
@@ -28,7 +26,9 @@ export default {
 
     return h('button', {
       class: ['v-drumroll-picker__button'],
-      on: { ...listeners },
+      on: emit,
     }, [icon])
   },
 }
+
+export default ConfirmButton

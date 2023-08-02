@@ -1,15 +1,14 @@
-import { datestring } from '../modules/format-helper'
+import { computed, h } from 'vue'
+import { calculatePattern, datestring } from '../modules/format-helper'
 import BaseTimePicker from './BaseTimePicker'
 import PickerContainer from '../components/PickerContainer'
-import useBindings from '../mixins/useBindings'
 import useDialog from '../mixins/useDialog'
 import useSensitivity from '../mixins/useSensitivity'
+import useProvide from '../composables/useProvide'
+import dayjs from '../modules/dayjs'
 
-export default {
-  name: 'TimePicker',
-
+const TimePicker = {
   mixins: [
-    useBindings,
     useDialog,
     useSensitivity,
   ],
@@ -19,44 +18,51 @@ export default {
     hideButton: { type: Boolean, default: false },
     minuteInterval: { type: [String, Number], default: 1 },
     separator: { type: String, default: undefined }, // deprecated
+    align: { type: String, default: 'right' },
+    defaultValue: { type: String, default: undefined },
+    pattern: { type: Object, default: undefined },
+    format: { type: [String, Object], default: undefined },
+    modelValue: { type: [String, Number, Date], default: undefined },
   },
 
-  computed: {
-    type: () => 'time',
-  },
+  setup (props, { emit }) {
+    useProvide(props)
+    const { generateDialogPicker } = useDialog('time', props)
 
-  methods: {
-    onInput (value) {
-      this.modelValue = datestring(value, this.modelFormat, this.type)
-    },
+    const drumPattern = computed(() => ({
+      ...calculatePattern(props.format || 'HH:mm'),
+      ...(props.pattern || {}),
+    }))
 
-    pickers (h) {
-      const options = () => ({
-        props: {
-          ...this.$props,
-          value: this.modelValue,
-          format: this.modelFormat,
-          drumPattern: this.drumPattern,
-        },
-        on: { input: this.onInput },
-      })
+    const onInput = (value) => {
+      emit('update:modelValue', datestring(value, this.modelFormat, 'time'))
+    }
+
+    const pickers = () => {
+      const options = {
+        ...props,
+        modelValue: props.modelValue,
+        format: props.format || 'HH:mm',
+        drumPattern,
+        'onUpdate:modelValue': onInput,
+      }
 
       return [h(BaseTimePicker, options())]
-    },
-  },
+    }
 
-  render (h) {
-    if (this.dialog) {
-      return this.generateDialogPicker(h)
+    if (props.dialog) {
+      return generateDialogPicker()
     } else {
-      const props = {
-        ...this.$props,
+      const options = {
+        ...props,
         value: this.modelValue,
         format: this.modelFormat,
         drumPattern: this.drumPattern,
       }
-      const container = h(PickerContainer, { props }, [this.pickers(h)])
-      return h('div', { class: ['v-drumroll-picker'] }, [container])
+      const container = h(PickerContainer, options, [this.pickers()])
+      return () => h('div', { class: ['v-drumroll-picker'] }, [container])
     }
   },
 }
+
+export default TimePicker

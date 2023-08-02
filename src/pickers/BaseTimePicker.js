@@ -1,15 +1,10 @@
+import { computed, h, inject, nextTick, ref } from 'vue'
 import dayjs from '../modules/dayjs'
-import { ScrollPickerGroup } from 'vue-scroll-picker'
 import DrumDivider from '../components/DrumDivider'
 import BasePicker from './BasePicker'
 import * as constants from '../assets/constants'
-import useSensitivity from '../mixins/useSensitivity'
 
-export default {
-  name: 'BaseTimePicker',
-
-  mixins: [useSensitivity],
-
+const BaseTimePicker = {
   props: {
     align: { type: String, default: 'center' },
     defaultValue: { type: String, default: undefined },
@@ -19,139 +14,134 @@ export default {
     maxDate: { type: [String, Number, Date], default: undefined },
     minDate: { type: [String, Number, Date], default: undefined },
     minuteInterval: { type: [String, Number], default: 1 },
-    separator: { type: String, default: undefined }, // deprecated
-    value: { type: [String, Number, Date], default: undefined },
+    modelValue: { type: [String, Number, Date], default: undefined },
   },
 
-  data () {
-    return {
-      hourOfMin: 0,
-      minuteOfMin: 0,
+  setup (props, { emit }) {
+    const defaultValue = inject('defaultValue')
+    const pattern = inject('pattern')
+    const format = inject('format', '')
+
+    const divider = this.separator || this.drumPattern.dividerTime || this.drumPattern['divider-time']
+    const drumDivider = divider ? h(DrumDivider, { props: { divider } }) : null
+
+    const formatDefaultValue = computed(() => dayjs(this.defaultValue).format(format))
+    const hourOfMin = ref(0)
+    const minuteOfMin = ref(0)
+
+    const onInput = (value) => {
+      if (value && (props.value || dayjs.unix(value).format(format) !== formatDefaultValue.value)) {
+        emit('input', dayjs.unix(value).format(format))
+      }
     }
-  },
-
-  computed: {
-    formatDefaultValue () {
-      return dayjs(this.defaultValue).format(this.format)
-    },
 
     /**
-     * 時配列
-     *
-     * @return {array}
-     */
-    hours () {
+       * 時配列
+       *
+       * @return {array}
+       */
+    const hours = computed(() => {
       let min = 0
       let max = constants.HOUR_UNIT
 
-      const value = this.value || this.defaultValue
-      const currentDate = value ? dayjs(value, this.format) : dayjs()
+      const value = props.value || defaultValue
+      const currentDate = value ? dayjs(value, format) : dayjs()
 
-      if (this.minDate) {
-        const minDate = dayjs(this.minDate)
+      if (props.minDate) {
+        const minDate = dayjs(props.minDate)
         min = currentDate.isSame(minDate, 'date') ? minDate.hour() : 0
       }
-      if (this.maxDate) {
-        max = this.maxDate && currentDate.isSame(this.maxDate, 'date')
-          ? dayjs(this.maxDate).hour() + 1 : constants.HOUR_UNIT
+      if (props.maxDate) {
+        max = props.maxDate && currentDate.isSame(props.maxDate, 'date')
+          ? dayjs(props.maxDate).hour() + 1
+          : constants.HOUR_UNIT
       }
 
       const hours = []
       const dateObj = currentDate.clone()
-      for (let hour = Math.min(this.hourOfMin, min); hour < max; hour++) {
+      for (let hour = Math.min(hourOfMin.value, min); hour < max; hour++) {
         hours.push({
-          name: dateObj.set('hour', hour).format(this.drumPattern.hour),
+          name: dateObj.set('hour', hour).format(props.drumPattern.hour),
           value: hour,
         })
       }
 
-      this.$nextTick(() => setTimeout(() => {
-        this.hourOfMin = min
+      nextTick(() => setTimeout(() => {
+        hourOfMin.value = min
       }, 100))
 
       return hours
-    },
+    })
 
     /**
-     * 分配列
-     *
-     * @return {array}
-     */
-    minutes () {
+       * 分配列
+       *
+       * @return {array}
+       */
+    const minutes = computed(() => {
       let min = 0
       let max = constants.MINUTE_UNIT
 
-      const value = this.value || this.defaultValue
-      const currentDate = value ? dayjs(value, this.format) : dayjs()
+      const value = props.value || defaultValue
+      const currentDate = value ? dayjs(value, format) : dayjs()
 
-      if (this.minDate) {
-        const minDate = dayjs(this.minDate)
+      if (props.minDate) {
+        const minDate = dayjs(props.minDate)
         min = currentDate.isSame(minDate, 'hour') ? minDate.minute() : 0
       }
-      if (this.maxDate) {
-        max = this.maxDate && currentDate.isSame(this.maxDate, 'hour')
-          ? dayjs(this.maxDate).minute() + 1
+      if (props.maxDate) {
+        max = props.maxDate && currentDate.isSame(props.maxDate, 'hour')
+          ? dayjs(props.maxDate).minute() + 1
           : constants.MINUTE_UNIT
       }
 
-      const interval = Number(this.minuteInterval)
+      const interval = Number(props.minuteInterval)
       const minutes = []
       const dateObj = currentDate.clone()
-      for (let minute = Math.min(this.minuteOfMin, min); minute < max; minute += interval) {
+      for (let minute = Math.min(minuteOfMin.value, min); minute < max; minute += interval) {
         minutes.push({
-          name: dateObj.set('minute', minute).format(this.drumPattern.minute),
+          name: dateObj.set('minute', minute).format(props.drumPattern.minute),
           value: minute,
         })
       }
 
-      this.$nextTick(() => setTimeout(() => {
-        this.minuteOfMin = min
+      nextTick(() => setTimeout(() => {
+        minuteOfMin.value = min
       }, 100))
 
       return minutes
-    },
-  },
-
-  methods: {
-    onInput (value) {
-      if (value && (this.value || dayjs.unix(value).format(this.format) !== this.formatDefaultValue)) {
-        this.$emit('input', dayjs.unix(value).format(this.format))
-      }
-    },
-  },
-
-  render (h) {
-    const divider = this.separator || this.drumPattern.dividerTime || this.drumPattern['divider-time']
-    const drumDivider = divider ? h(DrumDivider, { props: { divider } }) : null
+    })
 
     // 時
     const hourPicker = h(BasePicker, {
       props: {
-        ...this.$props,
-        items: this.hours,
+        ...props,
+        items: hours,
         unit: 'hour',
       },
       on: {
-        input: this.onInput,
+        input: onInput,
       },
     })
 
     // 分
     const minutePicker = h(BasePicker, {
       props: {
-        ...this.$props,
-        items: this.minutes,
+        ...props,
+        items: minutes,
         unit: 'minute',
       },
       on: {
-        input: this.onInput,
+        input: onInput,
       },
     })
 
-    return h(ScrollPickerGroup, [
+    return h('div', [
       hourPicker,
       drumDivider,
       minutePicker,
     ])
   },
 }
+
+export default BaseTimePicker

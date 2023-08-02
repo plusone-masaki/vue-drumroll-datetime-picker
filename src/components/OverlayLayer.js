@@ -1,18 +1,18 @@
-export default {
+import { h } from 'vue'
+
+const OverlayLayer = {
   name: 'OverlayLayer',
-  functional: true,
   props: {
     dark: { type: Boolean, default: false },
+    onClick: { type: Function, default: () => {} },
   },
-  render (h, context) {
-    return h('div', {
-      class: [
-        'v-drumroll-picker__overlay',
-        context.props.dark ? '--dark' : '',
-      ],
-      on: {
-        click: context.listeners.click,
-      },
-    })
-  },
+  setup: (props, { emit }) => () => h('div', {
+    class: [
+      'v-drumroll-picker__overlay',
+      props.dark ? '--dark' : '',
+    ],
+    onClick: props.onClick,
+  }),
 }
+
+export default OverlayLayer

@@ -15,11 +15,13 @@
 </template>
 
 <script>
+import dayjs from 'dayjs'
+
 export default {
   name: 'BasicUsages',
   data () {
     return {
-      date: this.$dayjs().format('YYYY-MM-DD'),
+      date: dayjs().format('YYYY-MM-DD'),
     }
   },
 }

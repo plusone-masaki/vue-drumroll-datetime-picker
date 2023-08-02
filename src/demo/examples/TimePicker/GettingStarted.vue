@@ -33,7 +33,7 @@ Vue.component('TimePicker', TimePicker)</code></pre>
 
         <pre class="pre-code"><code class="code">&lt;script&gt;
 import { TimePicker } from 'vue-drumroll-datetime-picker'
-import 'vue-drumroll-datetime-picker/vue-drumroll-datetime-picker.css'
+import 'vue-drumroll-datetime-picker/style.css'
 
 export default {
   components: {

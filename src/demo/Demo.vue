@@ -58,11 +58,11 @@
 
       <!-- DateTimePicker Examples -->
       <section v-if="type === 'datetime'">
-        <date-time-picker-getting-started />
-        <date-time-picker-basic-usages />
-        <date-time-picker-date-format />
-        <date-time-picker-dialog-pickers />
-        <date-time-picker-other-options />
+<!--        <date-time-picker-getting-started />-->
+<!--        <date-time-picker-basic-usages />-->
+<!--        <date-time-picker-date-format />-->
+<!--        <date-time-picker-dialog-pickers />-->
+<!--        <date-time-picker-other-options />-->
       </section>
 
       <!-- DatePicker Examples -->
@@ -74,14 +74,14 @@
         <date-picker-other-options />
       </section>
 
-      <!-- TimePicker Examples -->
-      <section v-if="type === 'time'">
-        <time-picker-getting-started />
-        <time-picker-basic-usages />
-        <time-picker-time-format />
-        <time-picker-dialog-pickers />
-        <time-picker-other-options />
-      </section>
+<!--      &lt;!&ndash; TimePicker Examples &ndash;&gt;-->
+<!--      <section v-if="type === 'time'">-->
+<!--        <time-picker-getting-started />-->
+<!--        <time-picker-basic-usages />-->
+<!--        <time-picker-time-format />-->
+<!--        <time-picker-dialog-pickers />-->
+<!--        <time-picker-other-options />-->
+<!--      </section>-->
     </main>
 
     <footer class="has-background-dark" style="margin-top: 15vh;">
@@ -97,30 +97,30 @@
 <script>
 /* eslint-disable vue/no-unused-components */
 import dayjs from 'dayjs'
-import DateTimePickerGettingStarted from './examples/DateTimePicker/GettingStarted'
-import DateTimePickerBasicUsages from './examples/DateTimePicker/BasicUsages'
-import DateTimePickerDialogPickers from './examples/DateTimePicker/DialogPickers'
-import DateTimePickerDateFormat from './examples/DateTimePicker/DateFormat'
-import DateTimePickerOtherOptions from './examples/DateTimePicker/OtherOptions'
-import DatePickerGettingStarted from './examples/DatePicker/GettingStarted'
-import DatePickerBasicUsages from './examples/DatePicker/BasicUsages'
-import DatePickerDialogPickers from './examples/DatePicker/DialogPickers'
-import DatePickerDateFormat from './examples/DatePicker/DateFormat'
-import DatePickerOtherOptions from './examples/DatePicker/OtherOptions'
-import TimePickerGettingStarted from './examples/TimePicker/GettingStarted'
-import TimePickerBasicUsages from './examples/TimePicker/BasicUsages'
-import TimePickerDialogPickers from './examples/TimePicker/DialogPickers'
-import TimePickerTimeFormat from './examples/TimePicker/TimeFormat'
-import TimePickerOtherOptions from './examples/TimePicker/OtherOptions'
+// import DateTimePickerGettingStarted from './examples/DateTimePicker/GettingStarted.vue'
+// import DateTimePickerBasicUsages from './examples/DateTimePicker/BasicUsages.vue'
+// import DateTimePickerDialogPickers from './examples/DateTimePicker/DialogPickers.vue'
+// import DateTimePickerDateFormat from './examples/DateTimePicker/DateFormat.vue'
+// import DateTimePickerOtherOptions from './examples/DateTimePicker/OtherOptions.vue'
+import DatePickerGettingStarted from './examples/DatePicker/GettingStarted.vue'
+import DatePickerBasicUsages from './examples/DatePicker/BasicUsages.vue'
+import DatePickerDateFormat from './examples/DatePicker/DateFormat.vue'
+import DatePickerDialogPickers from './examples/DatePicker/DialogPickers.vue'
+import DatePickerOtherOptions from './examples/DatePicker/OtherOptions.vue'
+// import TimePickerGettingStarted from './examples/TimePicker/GettingStarted.vue'
+// import TimePickerBasicUsages from './examples/TimePicker/BasicUsages.vue'
+// import TimePickerDialogPickers from './examples/TimePicker/DialogPickers.vue'
+// import TimePickerTimeFormat from './examples/TimePicker/TimeFormat.vue'
+// import TimePickerOtherOptions from './examples/TimePicker/OtherOptions.vue'
 
 export default {
   name: 'App',
   components: {
-    DateTimePickerGettingStarted,
-    DateTimePickerBasicUsages,
-    DateTimePickerDateFormat,
-    DateTimePickerDialogPickers,
-    DateTimePickerOtherOptions,
+    // DateTimePickerGettingStarted,
+    // DateTimePickerBasicUsages,
+    // DateTimePickerDateFormat,
+    // DateTimePickerDialogPickers,
+    // DateTimePickerOtherOptions,
 
     DatePickerGettingStarted,
     DatePickerBasicUsages,
@@ -128,11 +128,11 @@ export default {
     DatePickerDialogPickers,
     DatePickerOtherOptions,
 
-    TimePickerGettingStarted,
-    TimePickerBasicUsages,
-    TimePickerDialogPickers,
-    TimePickerTimeFormat,
-    TimePickerOtherOptions,
+    // TimePickerGettingStarted,
+    // TimePickerBasicUsages,
+    // TimePickerDialogPickers,
+    // TimePickerTimeFormat,
+    // TimePickerOtherOptions,
   },
   data: () => ({
     now: dayjs().format('YYYY-MM-DD HH:mm'),

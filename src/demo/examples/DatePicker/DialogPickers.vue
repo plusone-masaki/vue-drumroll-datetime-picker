@@ -39,11 +39,11 @@
         <pre class="pre-code"><code class="code">&lt;date-picker
   v-model="now"
   dialog
-&gt;
-  &lt;template v-slot:activator="{ on }"&gt;
+>
+  &lt;template v-slot:activator="{ props }"&gt;
     &lt;button
       class="button is-primary"
-      v-on="on"
+      v-bind="props"
     &gt;
       {{ '\{\{ now \}\}' }}
     &lt;/button&gt;
@@ -55,10 +55,10 @@
             v-model="now"
             dialog
           >
-            <template v-slot:activator="{ on }">
+            <template v-slot:activator="props">
               <button
                 class="button is-primary"
-                v-on="on"
+                v-bind="props"
               >
                 {{ now }}
               </button>
@@ -100,10 +100,12 @@ dialog
 </template>
 
 <script>
+import dayjs from 'dayjs'
+
 export default {
   name: 'DialogPickers',
   data () {
-    const now = this.$dayjs()
+    const now = dayjs()
     return {
       now: now.format('YYYY-MM-DD'),
       pattern: now.format('YYYY-MM-DD'),
