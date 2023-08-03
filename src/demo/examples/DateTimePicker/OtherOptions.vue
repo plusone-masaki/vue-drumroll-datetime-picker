@@ -13,15 +13,15 @@
 
             <pre class="pre-code"><code class="code">&lt;date-time-picker
   v-model="now"
-  min-date="2020-05-10 12:03"
-  max-date="2036-10-20 20:06"
+  min-date="2020-10-20 20:06"
+  max-date="2036-05-10 12:03"
 /&gt;</code></pre>
 
             <label>Value: <input v-model="range" class="demo-input"></label>
             <date-time-picker
               v-model="range"
-              min-date="2020-05-10 12:03"
-              max-date="2036-10-20 20:06"
+              min-date="2020-10-20 20:06"
+              max-date="2036-05-10 12:03"
             />
           </div>
         </div><!-- /column -->

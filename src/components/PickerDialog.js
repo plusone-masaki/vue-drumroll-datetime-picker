@@ -12,7 +12,8 @@ const PickerDialog = {
         {
           'v-drumroll-picker__slide-transition-leave-active': props.leaving,
           'v-drumroll-picker__slide-transition-leave-to': props.leaving,
-        }],
+        },
+      ],
       onClick: e => e.stopPropagation(),
     }, [slots.default()])
 
@@ -21,7 +22,7 @@ const PickerDialog = {
         name: 'v-drumroll-picker__slide-transition',
         appear: true,
         duration: 300,
-      }, [content])
+      }, () => [content])
     )
   },
 }

@@ -63,14 +63,14 @@ export default (type, props, context) => {
   }
 
   const generateActivator = () => {
-    const on = {
+    const listeners = {
       onClick: onActivate,
       onFocus: onActivate,
       onTouchend: onActivate,
     }
 
     if (context.slots.activator) {
-      return context.slots.activator(on)
+      return context.slots.activator(listeners)
     }
 
     // Fallback default
@@ -78,26 +78,27 @@ export default (type, props, context) => {
       class: 'v-drumroll-picker__input',
       value: props.modelValue,
       onInput: onNativeInput,
-      ...on,
+      ...listeners,
     }
-    return h('input', options)
+    return [h('input', options)]
   }
 
   const generateDialogPicker = (pickers) => () => {
-    const content = [generateActivator()]
+    const contents = generateActivator()
 
     if (active.value) {
       // overlay
-      content.push(h(OverlayLayer, {
+      contents.push(h(OverlayLayer, {
         dark: !props.hideOverlay,
+        leaving: leaving.value,
         onClick: offActivate,
       }))
 
       // picker
       const picker = h(PickerContainer, { ...props, onClick: offActivate }, pickers)
-      content.push(h(PickerDialog, { leaving: leaving.value }, [picker]))
+      contents.push(h(PickerDialog, { leaving: leaving.value }, () => [picker]))
     }
-    return h('div', { class: ['v-drumroll-picker', 'v-drumroll-picker__activator'] }, content)
+    return h('div', { class: ['v-drumroll-picker', 'v-drumroll-picker__activator'] }, contents)
   }
 
   return {

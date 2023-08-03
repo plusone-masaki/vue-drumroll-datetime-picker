@@ -1,6 +1,7 @@
 import dayjs from './dayjs'
 
-export const dateFormat = (type) => {
+export const dateFormat = (type, format) => {
+  if (format) return format
   switch (type) {
     case 'datetime': return 'YYYY-MM-DD HH:mm'
     case 'date': return 'YYYY-MM-DD'

@@ -2,11 +2,17 @@
   &-enter-active, &-leave-active
       transition: 300ms ease-in-out
 
-  &-enter-from,
-  &-leave-to
+  &-enter-from, &-leave-to
     @media screen and (min-width: 961px)
       opacity: 0
       transform: translateY(-2em)
 
     @media screen and (max-width: 960px)
       transform: translateY(100%)
+
+.v-drumroll-picker__fade-transition
+  &-enter-active, &-leave-active
+    transition: 300ms ease-in-out
+
+  &-enter-from, &-leave-to
+    opacity: 0
