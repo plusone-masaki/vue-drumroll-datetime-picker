@@ -94,8 +94,8 @@ export default {
   data () {
     const now = dayjs()
     return {
-      autoFormat: now.format('DD/MM/YYYY HH:mm'),
-      manuallyFormat: now.format('YYYY/MM/DD HH:mm'),
+      autoFormat: now.format('DD/MM/YYYY'),
+      manuallyFormat: now.format('YYYY/MM/DD'),
       pattern: now.format('YYYY年MM月DD日 HH時mm分'),
     }
   },

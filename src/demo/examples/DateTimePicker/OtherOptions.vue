@@ -128,7 +128,7 @@ export default {
     const now = dayjs()
     return {
       range: now.format('YYYY-MM-DD HH:mm'),
-      intervals: now.format('YYYY-MM-DD HH:mm'),
+      intervals: now.format('HH:mm'),
       height: now.format('YYYY-MM-DD HH:mm'),
       align: now.format('YYYY-MM-DD HH:mm'),
       fontSize: now.format('YYYY-MM-DD HH:mm'),
