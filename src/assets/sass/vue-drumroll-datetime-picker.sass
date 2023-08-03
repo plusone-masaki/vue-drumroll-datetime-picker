@@ -21,7 +21,7 @@
   &.--dark
     background: rgba(0, 0, 0, 0.33)
 
-.v-drumroll-picker__content
+.v-drumroll-picker__dialog
     align-items: center
     display: flex
     height: 100%
@@ -65,7 +65,7 @@
     text-align: var(--picker-align)
     width: auto
 
-.v-drumroll-picker--dialog
+.v-drumroll-picker__activator
   .v-drumroll-picker__container
     box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12)
     padding: 0 1em
@@ -89,7 +89,7 @@
 
 @media screen and (max-width: 960px)
   .v-drumroll-picker
-    .v-drumroll-picker__content
+    .v-drumroll-picker__dialog
       align-items: flex-end
 
     .v-drumroll-picker__container
@@ -121,6 +121,6 @@
       &:hover::before
         background: rgba(255, 255, 255, 0.2)
 
-    &.v-drumroll-picker--dialog
+    &.v-drumroll-picker__activator
       .v-drumroll-picker__container
         padding: 0

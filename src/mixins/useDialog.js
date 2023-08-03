@@ -3,7 +3,7 @@ import dayjs from '../modules/dayjs'
 import { datestring } from '../modules/format-helper'
 import OverlayLayer from '../components/OverlayLayer'
 import PickerContainer from '../components/PickerContainer'
-import ContentLayer from '../components/ContentLayer'
+import PickerDialog from '../components/PickerDialog'
 
 const disableScroll = (e) => {
   e.preventDefault()
@@ -39,7 +39,7 @@ export default {
           props: this.$props,
           on: { click: this.offActivate },
         }, [this.pickers(h)])
-        content.push(h(ContentLayer, [picker]))
+        content.push(h(PickerDialog, [picker]))
       }
       return h('div', { class: ['v-drumroll-picker', 'v-drumroll-picker--dialog'] }, content)
     },

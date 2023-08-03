@@ -5,8 +5,8 @@ const ConfirmButton = {
   name: 'ConfirmButton',
   props: {
     size: { type: [Number, String], default: 24 },
+    onClick: { type: Function, default: () => {} },
   },
-
   setup: (props, { emit }) => () => {
     const icon = h('svg',
       {
@@ -19,14 +19,12 @@ const ConfirmButton = {
           viewBox: '0 0 24 24',
         },
       },
-      [h('path', {
-        attrs: { d: mdiCheckBold },
-      })],
+      [h('path', { d: mdiCheckBold })],
     )
 
     return h('button', {
       class: ['v-drumroll-picker__button'],
-      on: emit,
+      onClick: props.onClick,
     }, [icon])
   },
 }

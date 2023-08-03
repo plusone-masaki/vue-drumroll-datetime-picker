@@ -12,7 +12,7 @@ const pickerLayer = () => (
 const confirmButton = (props, { emit }) => (
   !props.dialog || props.hideButton
     ? []
-    : [h(ConfirmButton, { onClick: e => emit('click', e) })]
+    : [h(ConfirmButton, { onClick: props.onClick })]
 )
 
 const PickerContainer = {
@@ -21,6 +21,7 @@ const PickerContainer = {
     dialog: { type: Boolean, default: false },
     height: { type: [Number, String], default: '10em' },
     hideButton: { type: Boolean, default: false },
+    onClick: { type: Function, default: () => {} },
   },
 
   setup: (props, context) => () => h('div',

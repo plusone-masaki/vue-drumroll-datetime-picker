@@ -3,7 +3,7 @@ import dayjs from '../modules/dayjs'
 import { dateFormat, datestring } from '../modules/format-helper'
 import OverlayLayer from '../components/OverlayLayer'
 import PickerContainer from '../components/PickerContainer'
-import ContentLayer from '../components/ContentLayer'
+import PickerDialog from '../components/PickerDialog'
 
 const disableScroll = (e) => {
   e.preventDefault()
@@ -12,6 +12,7 @@ const disableScroll = (e) => {
 
 export default (type, props, context) => {
   const active = ref(false)
+  const leaving = ref(false)
 
   /**
    * @param {KeyboardEvent} e
@@ -54,7 +55,11 @@ export default (type, props, context) => {
     document.removeEventListener('scroll', disableScroll)
     document.removeEventListener('wheel', disableScroll)
     document.removeEventListener('touchmove', disableScroll)
-    active.value = false
+    leaving.value = true
+    setTimeout(() => {
+      active.value = false
+      leaving.value = false
+    }, 300)
   }
 
   const generateActivator = () => {
@@ -89,10 +94,10 @@ export default (type, props, context) => {
       }))
 
       // picker
-      const picker = h(PickerContainer, props, pickers)
-      content.push(h(ContentLayer, [picker]))
+      const picker = h(PickerContainer, { ...props, onClick: offActivate }, pickers)
+      content.push(h(PickerDialog, { leaving: leaving.value }, [picker]))
     }
-    return h('div', { class: ['v-drumroll-picker', 'v-drumroll-picker--dialog'] }, content)
+    return h('div', { class: ['v-drumroll-picker', 'v-drumroll-picker__activator'] }, content)
   }
 
   return {
