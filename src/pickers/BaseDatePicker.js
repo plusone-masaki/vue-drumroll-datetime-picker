@@ -1,7 +1,7 @@
 import { computed, h } from 'vue'
 import * as constants from '../assets/constants'
-import dayjs from '../modules/dayjs'
 import BasePicker from './BasePicker'
+import useDayJS from '../composables/useDayJS'
 
 const BaseDatePicker = {
   name: 'BaseDatePicker',
@@ -15,7 +15,8 @@ const BaseDatePicker = {
     items: { type: Array, required: true },
   },
 
-  setup (props, { emit }) {
+  setup: async (props, { emit }) => {
+    const dayjs = await useDayJS(props.locale)
     const formatDefaultValue = computed(() => dayjs(props.defaultValue).format(props.format))
 
     const onInput = (value) => {

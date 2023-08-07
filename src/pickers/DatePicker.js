@@ -1,13 +1,13 @@
 import { computed, h } from 'vue'
-import dayjs from '../modules/dayjs'
 import * as constants from '../assets/constants'
+import { calculatePattern, datestring, guessDateOrder } from '../modules/format-helper'
 import useProvide from '../composables/useProvide'
 import useDialog from '../composables/useDialog'
-import PickerContainer from '../components/PickerContainer'
-import { calculatePattern, datestring, guessDateOrder } from '../modules/format-helper'
-import BaseDatePicker from './BaseDatePicker'
 import { useDateLists } from '../composables/useDateTimeLists'
+import useDayJS from '../composables/useDayJS'
 import DrumDivider from '../components/DrumDivider'
+import PickerContainer from '../components/PickerContainer'
+import BaseDatePicker from './BaseDatePicker'
 
 const DatePicker = {
   props: {
@@ -25,8 +25,9 @@ const DatePicker = {
     pattern: { type: Object, default: undefined },
   },
 
-  setup: (props, context) => {
+  setup: async (props, context) => {
     useProvide(props)
+    const dayjs = await useDayJS(props.locale)
     const drumPattern = computed(() => ({
       ...calculatePattern(props.format),
       ...(props.pattern || {}),

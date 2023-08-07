@@ -1,11 +1,11 @@
 import { computed, h } from 'vue'
 import { calculatePattern, datestring } from '../modules/format-helper'
-import BaseTimePicker from './BaseTimePicker'
-import PickerContainer from '../components/PickerContainer'
 import useDialog from '../composables/useDialog'
 import useProvide from '../composables/useProvide'
 import { useTimeLists } from '../composables/useDateTimeLists'
 import DrumDivider from '../components/DrumDivider'
+import PickerContainer from '../components/PickerContainer'
+import BaseTimePicker from './BaseTimePicker'
 
 const TimePicker = {
   props: {
@@ -21,7 +21,7 @@ const TimePicker = {
     pattern: { type: Object, default: undefined },
   },
 
-  setup (props, context) {
+  setup: (props, context) => {
     useProvide(props)
     const drumPattern = computed(() => ({
       ...calculatePattern(props.format),
