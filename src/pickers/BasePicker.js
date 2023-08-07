@@ -10,16 +10,21 @@ const BasePicker = {
     height: { type: [String, Number], default: '10em' },
     format: { type: [String, Object], required: true },
     unit: { type: typeofDayJS.UnitType, required: true },
-    modelValue: { type: [String, Number], default: undefined },
+    modelValue: { type: [String, Number, Date], default: undefined },
   },
 
-  setup: async (props, { emit }) => {
-    const dayjs = await useDayJS(props.locale)
+  setup: (props, { emit }) => {
+    const dayjs = useDayJS()
     const dragSensitivity = inject('dragSensitivity')
     const touchSensitivity = inject('touchSensitivity')
     const scrollSensitivity = inject('scrollSensitivity')
     const align = inject('align')
 
+    console.log(props.modelValue, (
+      typeof props.modelValue === 'string'
+        ? dayjs(props.modelValue, props.format)
+        : dayjs(props.modelValue)
+    ).get(props.unit))
     return () => h(VueScrollPicker, {
       style: {
         '--picker-align': align,
@@ -29,7 +34,11 @@ const BasePicker = {
       dragSensitivity,
       touchSensitivity,
       scrollSensitivity,
-      modelValue: dayjs(props.modelValue, props.format).get(props.unit),
+      modelValue: (
+        typeof props.modelValue === 'string'
+          ? dayjs(props.modelValue, props.format)
+          : dayjs(props.modelValue)
+      ).get(props.unit),
       'onUpdate:modelValue': value => {
         if (!value) value = 0
 

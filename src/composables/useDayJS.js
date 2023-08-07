@@ -1,14 +1,12 @@
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
 import { jpFormat } from 'dayjs-jp-format'
 
 dayjs.extend(customParseFormat)
+dayjs.extend(localizedFormat)
 dayjs.extend(jpFormat)
 
-export default async (locale) => {
-  if (locale) {
-    const localeData = await import(`dayjs/locale/${locale}.js`)
-    dayjs.locale(localeData)
-  }
+export default () => {
   return dayjs
 }

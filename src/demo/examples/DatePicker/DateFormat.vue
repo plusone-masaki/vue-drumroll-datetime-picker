@@ -73,6 +73,35 @@
             />
           </div>
         </div><!-- /column -->
+
+        <div class="column">
+          <div class="card-content">
+            <div class="subtitle">Locales</div>
+
+            <pre class="pre-code"><code class="code">// must be imported locale file before using "locale" property.
+import 'dayjs/locale/de'
+
+...
+
+&lt;date-picker
+  v-model="now"
+  locale="zh"
+  format="YYYY-MM-DD(ddd)"
+/&gt;
+</code></pre>
+
+            <date-picker
+              v-model="locale"
+              locale="zh"
+              :pattern="{
+                year: 'YYYY',
+                month: 'MM',
+                date: 'DD(ddd)',
+                dividerDate: '/',
+              }"
+            />
+          </div>
+        </div><!-- /column -->
       </div>
     </div>
   </div><!-- /Date format -->
@@ -85,10 +114,12 @@ export default {
   name: 'DateFormat',
   data () {
     const now = dayjs()
+    console.log('time', dayjs().format('L LT'))
     return {
       autoFormat: now.format('DD/MM/YYYY'),
       manuallyFormat: now.format('YYYY/MM/DD'),
       pattern: now.format('YYYY-MM-DD'),
+      locale: now.format('YYYY-MM-DD'),
     }
   },
 }

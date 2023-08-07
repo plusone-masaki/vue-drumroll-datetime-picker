@@ -48,24 +48,14 @@ export const guessDateOrder = (baseFormat) => (
  * @return {string|undefined}
  */
 export const datestring = (value, dateFormat, type) => {
-  if (!value) return undefined
+  if (Number.isNaN(value)) return undefined
 
-  const baseFormat = '^' + dateFormat
-    .replace(/(Aa|M{3,4}|d{2,4})/g, '[\\u\\l]+?')
-    .replace(/([YMDHms])/g, '\\d')
-  const format = new RegExp(baseFormat)
-
-  if (format.test(value)) {
-    const modelValue = dayjs(value, dateFormat)
-    if (modelValue.isValid()) {
-      return modelValue.format(dateFormat)
-    } else if (type === 'time' && typeof value === 'string') {
-      const datetime = `1980-01-01 ${value}`
-      const date = dayjs(datetime, `YYYY-MM-DD ${dateFormat}`)
-      return date.isValid() ? datetime : undefined
-    }
-    return undefined
-  } else {
-    return undefined
+  const modelValue = dayjs.unix(value)
+  if (modelValue.isValid()) {
+    return modelValue.format(dateFormat)
+  } else if (type === 'time' && typeof value === 'string') {
+    const datetime = `1980-01-01 ${value}`
+    const date = dayjs(datetime, `YYYY-MM-DD ${dateFormat}`)
+    return date.isValid() ? datetime : undefined
   }
 }

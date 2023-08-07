@@ -12,13 +12,14 @@ const BaseTimePicker = {
     items: { type: Array, required: true },
   },
 
-  setup: async (props, { emit }) => {
-    const dayjs = await useDayJS(props.locale)
+  setup: (props, { emit }) => {
+    const dayjs = useDayJS()
     const formatDefaultValue = computed(() => dayjs(props.defaultValue).format(props.format))
 
     const onInput = (value) => {
-      if (value && (props.modelValue || dayjs.unix(value).format(props.format) !== formatDefaultValue.value)) {
-        emit('update:modelValue', dayjs.unix(value).format(props.format))
+      const valueObj = dayjs.unix(value)
+      if (value && (props.modelValue || valueObj.format(props.format) !== formatDefaultValue.value)) {
+        emit('update:modelValue', value)
       }
     }
 

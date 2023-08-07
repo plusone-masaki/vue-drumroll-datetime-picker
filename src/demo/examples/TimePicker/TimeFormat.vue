@@ -51,6 +51,46 @@
             />
           </div>
         </div><!-- /column -->
+
+        <div class="column">
+          <div class="card-content">
+            <div class="subtitle">Locales</div>
+
+            <pre class="pre-code"><code class="code">// must be imported locale file before using "locale" property.
+import 'dayjs/locale/ja'
+
+...
+
+&lt;date-time-picker
+  v-model="now"
+  locale="ja"
+  :pattern="{
+    year: '（rrrr年）YYYY年',
+    month: 'MMM',
+    date: 'DD日(ddd)',
+    hour: 'HH時',
+    minute: 'mm分',
+    dividerDate: '',
+    dividerTime: ''
+  }"
+/&gt;
+</code></pre>
+
+            <date-time-picker
+              v-model="locale"
+              locale="ja"
+              :pattern="{
+                year: '（rrrr年）YYYY年',
+                month: 'MMM',
+                date: 'DD日(ddd)',
+                hour: 'HH時',
+                minute: 'mm分',
+                dividerDate: '',
+                dividerTime: ''
+              }"
+            />
+          </div>
+        </div><!-- /column -->
       </div>
     </div>
   </div><!-- /Time format -->
@@ -66,6 +106,7 @@ export default {
     return {
       autoFormat: now.format('HH.mm'),
       pattern: now.format('HH:mm'),
+      locale: now.format('HH:mm'),
     }
   },
 }

@@ -19,6 +19,7 @@ const TimePicker = {
     minuteInterval: { type: [String, Number], default: 1 },
     modelValue: { type: [String, Number, Date], default: undefined },
     pattern: { type: Object, default: undefined },
+    locale: { type: String, default: undefined },
   },
 
   setup: (props, context) => {

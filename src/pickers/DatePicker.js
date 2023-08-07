@@ -23,11 +23,12 @@ const DatePicker = {
     minDate: { type: [String, Number, Date], default: () => constants.DEFAULT_MIN_DATE },
     modelValue: { type: [String, Number, Date], default: undefined },
     pattern: { type: Object, default: undefined },
+    locale: { type: String, default: undefined },
   },
 
-  setup: async (props, context) => {
+  setup: (props, context) => {
     useProvide(props)
-    const dayjs = await useDayJS(props.locale)
+    const dayjs = useDayJS()
     const drumPattern = computed(() => ({
       ...calculatePattern(props.format),
       ...(props.pattern || {}),
@@ -37,7 +38,7 @@ const DatePicker = {
     const { generateDialogPicker } = useDialog('date', props, context)
 
     const onInput = (value) => {
-      if (dayjs(value, props.format).isBefore(props.minDate)) {
+      if (dayjs.unix(value).isBefore(props.minDate)) {
         context.emit('update:modelValue', datestring(props.minDate, props.format, 'date'))
       } else if (props.maxDate && dayjs(value, props.format).isAfter(props.maxDate)) {
         context.emit('update:modelValue', datestring(props.maxDate, props.format, 'date'))

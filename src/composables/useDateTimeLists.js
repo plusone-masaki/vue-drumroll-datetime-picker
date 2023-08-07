@@ -23,7 +23,8 @@ export const useDateLists = (props, drumPattern) => {
       : dayjs(value, modelFormat.value).add(100, 'year').year()
 
     const yearItems = []
-    const dateObj = dayjs(value, modelFormat.value)
+    const dateObj = dayjs(value, modelFormat.value).locale(props.locale ?? dayjs.locale())
+
     for (let year = minYear; year <= maxYear; year++) {
       yearItems.push({
         name: dateObj.set('year', year).format(drumPattern.value.year),
@@ -36,7 +37,7 @@ export const useDateLists = (props, drumPattern) => {
 
   const months = computed(() => {
     const value = props.modelValue || props.defaultValue
-    const currentDate = dayjs(value, modelFormat.value)
+    const currentDate = dayjs(value, modelFormat.value).locale(props.locale ?? dayjs.locale())
     const minDate = dayjs(props.minDate)
     let min = currentDate.isSame(minDate, 'year') ? minDate.month() : 0
     let max = props.maxDate && currentDate.isSame(props.maxDate, 'year')
@@ -50,7 +51,8 @@ export const useDateLists = (props, drumPattern) => {
 
     // 桁揃えをしつつ時刻を配列に追加
     const monthItems = []
-    const dateObj = dayjs(value, modelFormat.value)
+    const dateObj = currentDate.clone()
+
     for (let month = Math.min(monthOfMin.value, min); month < max; month++) {
       monthItems.push({
         name: dateObj.set('month', month).format(drumPattern.value.month),
@@ -67,7 +69,7 @@ export const useDateLists = (props, drumPattern) => {
 
   const days = computed(() => {
     const value = props.modelValue || props.defaultValue
-    const currentDate = dayjs(value, modelFormat.value)
+    const currentDate = dayjs(value, modelFormat.value).locale(props.locale ?? dayjs.locale())
     const minDate = dayjs(props.minDate)
     let min = currentDate.isSame(minDate, 'month') ? minDate.date() : 1
     let max = props.maxDate && currentDate.isSame(props.maxDate, 'month')
@@ -82,6 +84,7 @@ export const useDateLists = (props, drumPattern) => {
     // 桁揃えをしつつ時刻を配列に追加
     const dayItems = []
     const dateObj = currentDate.clone()
+
     for (let day = Math.min(dateOfMin.value, min); day <= max; day++) {
       dayItems.push({
         name: day <= date.value && day >= min ? dateObj.set('date', day).format(drumPattern.value.date) : '',
@@ -109,6 +112,11 @@ export const useTimeLists = (props, drumPattern) => {
   const minuteOfMin = ref(0)
   const modelFormat = computed(() => dateFormat(props.type, props.format))
 
+  const value = props.modelValue || props.defaultValue
+  const currentDate = value
+    ? dayjs(value, modelFormat.value).locale(props.locale ?? dayjs.locale())
+    : dayjs().locale(props.locale ?? dayjs.locale())
+
   /**
    * 時配列
    *
@@ -117,9 +125,6 @@ export const useTimeLists = (props, drumPattern) => {
   const hours = computed(() => {
     let min = 0
     let max = constants.HOUR_UNIT
-
-    const value = props.modelValue || props.defaultValue
-    const currentDate = value ? dayjs(value, modelFormat.value) : dayjs()
 
     if (props.minDate) {
       const minDate = dayjs(props.minDate)
@@ -155,9 +160,6 @@ export const useTimeLists = (props, drumPattern) => {
   const minutes = computed(() => {
     let min = 0
     let max = constants.MINUTE_UNIT
-
-    const value = props.modelValue || props.defaultValue
-    const currentDate = value ? dayjs(value, modelFormat.value) : dayjs()
 
     if (props.minDate) {
       const minDate = dayjs(props.minDate)

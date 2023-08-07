@@ -114,28 +114,6 @@
             </div>
           </div>
         </div><!-- /column -->
-
-        <div class="column is-6">
-          <div class="card-content">
-            <div class="subtitle">Locales</div>
-
-            <pre class="pre-code"><code class="code">&lt;div style="font-size: 21px"&gt;
-  &lt;date-time-picker
-    v-model="now"
-    format="YYYY年MM月DD日(ddd) HH時mm分"
-    locale="ja"
-  /&gt;
-&lt;/div&gt;</code></pre>
-
-            <div class="has-text-centered" style="font-size: 21px">
-              <date-time-picker
-                v-model="fontSize"
-                format="YYYY年MM月DD日(ddd) HH時mm分"
-                locale="ja"
-              />
-            </div>
-          </div>
-        </div><!-- /column -->
       </div>
     </div>
   </div><!-- /Other options -->

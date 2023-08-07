@@ -15,8 +15,8 @@ const BaseDatePicker = {
     items: { type: Array, required: true },
   },
 
-  setup: async (props, { emit }) => {
-    const dayjs = await useDayJS(props.locale)
+  setup: (props, { emit }) => {
+    const dayjs = useDayJS()
     const formatDefaultValue = computed(() => dayjs(props.defaultValue).format(props.format))
 
     const onInput = (value) => {
@@ -27,7 +27,7 @@ const BaseDatePicker = {
       if (props.maxDate && valueObj.isAfter(props.maxDate)) valueObj = dayjs(props.maxDate)
 
       if (props.modelValue || valueObj.format(props.format) !== formatDefaultValue.value) {
-        emit('update:modelValue', valueObj.format(props.format))
+        emit('update:modelValue', value)
       }
     }
 
