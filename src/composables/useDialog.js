@@ -1,5 +1,4 @@
 import { h, ref } from 'vue'
-import dayjs from '../modules/dayjs'
 import { dateFormat, datestring } from '../modules/format-helper'
 import OverlayLayer from '../components/OverlayLayer'
 import PickerContainer from '../components/PickerContainer'
@@ -38,11 +37,6 @@ export default (type, props, context) => {
     // Blur active element.
     const isElement = document.activeElement instanceof HTMLElement
     if (!active.value && !props.hideOverlay && isElement) document.activeElement.blur()
-
-    // Emit initial value
-    const modelValue = props.modelValue || this.defaultValue || dayjs().format(dateFormat)
-    const initialValue = datestring(modelValue, props.format || dateFormat(type), type)
-    context.emit('update:modelValue', initialValue)
 
     active.value = true
   }
@@ -83,7 +77,7 @@ export default (type, props, context) => {
     return [h('input', options)]
   }
 
-  const generateDialogPicker = (pickers) => () => {
+  const generateDialogPicker = (pickers) => {
     const contents = generateActivator()
 
     if (active.value) {

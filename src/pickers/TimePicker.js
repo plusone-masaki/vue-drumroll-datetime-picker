@@ -5,13 +5,13 @@ import useProvide from '../composables/useProvide'
 import { useTimeLists } from '../composables/useDateTimeLists'
 import DrumDivider from '../components/DrumDivider'
 import PickerContainer from '../components/PickerContainer'
-import BaseTimePicker from './BaseTimePicker'
+import BasePicker from './BasePicker'
 
 const TimePicker = {
   props: {
-    align: { type: String, default: 'right' },
     defaultValue: { type: String, default: undefined },
     dialog: { type: Boolean, default: false },
+    dragSensitivity: { type: [String, Number], default: 1.7 },
     format: { type: [String, Object], default: 'HH:mm' },
     height: { type: [String, Number], default: undefined },
     hideButton: { type: Boolean, default: false },
@@ -20,6 +20,8 @@ const TimePicker = {
     modelValue: { type: [String, Number, Date], default: undefined },
     pattern: { type: Object, default: undefined },
     locale: { type: String, default: undefined },
+    scrollSensitivity: { type: [String, Number], default: 1.0 },
+    touchSensitivity: { type: [String, Number], default: 1.7 },
   },
 
   setup: (props, context) => {
@@ -55,18 +57,20 @@ const TimePicker = {
           unit,
           'onUpdate:modelValue': onInput,
         }
-        pickers.push(h(BaseTimePicker, options))
+        pickers.push(h(BasePicker, options))
         if (divider && index < timeOrder.length - 1) pickers.push(drumDivider)
       })
 
       return h('div', { class: 'v-drumroll-picker__group' }, [pickers])
     }
 
-    if (props.dialog) {
-      return generateDialogPicker(pickers)
-    } else {
-      const container = h(PickerContainer, pickers)
-      return () => h('div', { class: ['v-drumroll-picker'] }, [container])
+    return () => {
+      if (props.dialog) {
+        return generateDialogPicker(pickers)
+      } else {
+        const container = h(PickerContainer, pickers)
+        return h('div', { class: ['v-drumroll-picker'] }, [container])
+      }
     }
   },
 }

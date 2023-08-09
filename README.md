@@ -63,7 +63,6 @@ export default {
 
 | name              | type                         | default                   | description                                                       |
 |-------------------|------------------------------|---------------------------|-------------------------------------------------------------------|
-| align             | String                       | "right"                  | Modify label alignment of the pickers                             |
 | dateOrder         | Array                        | ['year', 'month', 'date'] | Order of the date picker                                          |
 | dialog            | Boolean                      | false                     | Open picker in dialog                                             |
 | dragSensitivity   | [String, Number]             | 1.7                       | Drag sensitivity                                                  |
@@ -71,52 +70,51 @@ export default {
 | height            | [String, Number]             | "10em"                    | Specifies the height of the picker                                |
 | hideOverlay       | Boolean                      | false                     | Hide the dialog display overlay. Valid only if `dialog` is `true` |
 | hideButton        | Boolean                      | false                     | Hide the dialog close button. Valid only if `dialog` is `true`    |
+| locale            | String                       | `undefined`               | Locale of picker                                                  |
 | maxDate           | [String, Number, Date]       | `value + 100 years`       | Maximum valid date and time                                       |
 | minDate           | [String, Number, Date]       | 1900-01-01 00:00          | Valid minimum date and time                                       |
 | minuteInterval    | [String, Number]             | 1                         | Selectable minute intervals for Time picker                       |
+| modelValue        | [String, Number, Date]       | `undefined`               | Value of datetime                                                 |
 | pattern           | Object                       | `undefined`               | Customize picker labels<br>More details below                     |
-| scrollSensitivity | [String, Number]             | 0.8                       | Scroll sensitivity                                                |
+| scrollSensitivity | [String, Number]             | 1.0                       | Scroll sensitivity                                                |
 | touchSensitivity  | [String, Number]             | 1.7                       | Touch operation sensitivity                                       |
 | type              | ["datetime", "date", "time"] | "datetime"                | Picker type. Select from 3 types: `datetime` / `date` / `time`    |
-| value             | [String, Number, Date]       | `undefined`               | Value of datetime                                                 |
 
 #### DatePicker
 
-| name                   | type                   | default                    | description                                                       |
-|------------------------|------------------------|----------------------------|-------------------------------------------------------------------|
-| align                  | String                 | "right"                   | Modify text alignment of the pickers                              |
-| dateOrder              | Array                  | ['year', 'month', 'date']  | Order of the date drums                                           |
-| dialog                 | Boolean                | false                      | Open picker in dialog                                             |
-| dragSensitivity        | [String, Number]       | 1.7                        | Drag sensitivity                                                  |
-| format                 | String                 | "YYYY-MM-DD HH:mm"         | Date format                                                       |
-| height                 | [String, Number]       | "10em"                     | Specifies the height of the picker                                |
-| hideOverlay            | Boolean                | false                      | Hide the dialog display overlay. Valid only if `dialog` is `true` |
-| hideButton             | Boolean                | false                      | Hide the dialog close button. Valid only if `dialog` is `true`    |
-| maxDate                | [String, Number, Date] | `value + 100 years`        | Maximum valid date and time                                       |
-| minDate                | [String, Number, Date] | 1900-01-01 00:00           | Valid minimum date and time                                       |
-| pattern                | Object                 | `undefined`                | Customize picker labels<br>More details below                     |
-| `deprecated` separator | String                 | "-"                        | Change date separator character                                   |
-| scrollSensitivity      | [String, Number]       | 0.8                        | Scroll sensitivity                                                |
-| touchSensitivity       | [String, Number]       | 1.7                        | Touch operation sensitivity                                       |
-| value                  | [String, Number, Date] | `undefined`                | Value of date                                                     |
+| name              | type                   | default                   | description                                                       |
+|-------------------|------------------------|---------------------------|-------------------------------------------------------------------|
+| dateOrder         | Array                  | ['year', 'month', 'date'] | Order of the date drums                                           |
+| dialog            | Boolean                | false                     | Open picker in dialog                                             |
+| dragSensitivity   | [String, Number]       | 1.7                       | Drag sensitivity                                                  |
+| format            | String                 | "YYYY-MM-DD HH:mm"        | Date format                                                       |
+| height            | [String, Number]       | "10em"                    | Specifies the height of the picker                                |
+| hideOverlay       | Boolean                | false                     | Hide the dialog display overlay. Valid only if `dialog` is `true` |
+| hideButton        | Boolean                | false                     | Hide the dialog close button. Valid only if `dialog` is `true`    |
+| locale            | String                 | `undefined`               | Locale of picker                                                  |
+| maxDate           | [String, Number, Date] | `value + 100 years`       | Maximum valid date and time                                       |
+| minDate           | [String, Number, Date] | 1900-01-01 00:00          | Valid minimum date and time                                       |
+| modelValue        | [String, Number, Date] | `undefined`               | Value of date                                                     |
+| pattern           | Object                 | `undefined`               | Customize picker labels<br>More details below                     |
+| scrollSensitivity | [String, Number]       | 1.0                       | Scroll sensitivity                                                |
+| touchSensitivity  | [String, Number]       | 1.7                       | Touch operation sensitivity                                       |
 
 #### TimePicker
 
-| name                   | type                   | default  | description                                                       |
-|------------------------|------------------------|----------|-------------------------------------------------------------------|
-| align                  | String                 | "right" | Modify text alignment of the pickers                              |
-| dialog                 | Boolean                | false    | Open picker in dialog                                             |
-| dragSensitivity        | [String, Number]       | 1.7      | Drag sensitivity                                                  |
-| format                 | String                 | "HH:mm"  | Time format                                                       |
-| height                 | [String, Number]       | "10em"   | Specifies the height of the picker                                |
-| hideOverlay            | Boolean                | false    | Hide the dialog display overlay. Valid only if `dialog` is `true` |
-| hideButton             | Boolean                | false    | Hide the dialog close button. Valid only if `dialog` is `true`    |
-| minuteInterval         | [String, Number]       | 1        | Selectable minute intervals                                       |
-| pattern                | Object                 | `undefined` | Customize picker labels<br>More details below                     |
-| `deprecated` separator | String                 | ":"      | Change time separator character                                   |
-| scrollSensitivity      | [String, Number]       | 0.8      | Scroll sensitivity                                                |
-| touchSensitivity       | [String, Number]       | 1.7      | Touch operation sensitivity                                       |
-| value                  | [String, Number, Date] | `undefined` | Value of time                                                     |
+| name              | type                   | default     | description                                                       |
+|-------------------|------------------------|-------------|-------------------------------------------------------------------|
+| dialog            | Boolean                | false       | Open picker in dialog                                             |
+| dragSensitivity   | [String, Number]       | 1.7         | Drag sensitivity                                                  |
+| format            | String                 | "HH:mm"     | Time format                                                       |
+| height            | [String, Number]       | "10em"      | Specifies the height of the picker                                |
+| hideOverlay       | Boolean                | false       | Hide the dialog display overlay. Valid only if `dialog` is `true` |
+| hideButton        | Boolean                | false       | Hide the dialog close button. Valid only if `dialog` is `true`    |
+| locale            | String                 | `undefined` | Locale of picker                                                  |
+| minuteInterval    | [String, Number]       | 1           | Selectable minute intervals                                       |
+| modelValue        | [String, Number, Date] | `undefined` | Value of time                                                     |
+| pattern           | Object                 | `undefined` | Customize picker labels<br>More details below                     |
+| scrollSensitivity | [String, Number]       | 1.0         | Scroll sensitivity                                                |
+| touchSensitivity  | [String, Number]       | 1.7         | Touch operation sensitivity                                       |
 
 
 ### Props: "pattern" detail

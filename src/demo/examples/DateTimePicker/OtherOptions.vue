@@ -65,23 +65,6 @@
 
         <div class="column is-6">
           <div class="card-content">
-            <div class="subtitle">Alignment</div>
-
-            <pre class="pre-code"><code class="code">&lt;date-time-picker
-  v-model="now"
-  align="left"
-/&gt;</code></pre>
-
-            <label>Value: <input v-model="align" class="demo-input"></label>
-            <date-time-picker
-              v-model="align"
-              align="left"
-            />
-          </div>
-        </div><!-- /column -->
-
-        <div class="column is-6">
-          <div class="card-content">
             <div class="subtitle">Font size</div>
 
             <pre class="pre-code"><code class="code">&lt;div style="font-size: 21px"&gt;
@@ -130,7 +113,6 @@ export default {
       range: now.format('YYYY-MM-DD HH:mm'),
       intervals: now.format('HH:mm'),
       height: now.format('YYYY-MM-DD HH:mm'),
-      align: now.format('YYYY-MM-DD HH:mm'),
       fontSize: now.format('YYYY-MM-DD HH:mm'),
     }
   },

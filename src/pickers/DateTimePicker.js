@@ -7,28 +7,29 @@ import { useDateLists, useTimeLists } from '../composables/useDateTimeLists'
 import useDayJS from '../composables/useDayJS'
 import DrumDivider from '../components/DrumDivider'
 import PickerContainer from '../components/PickerContainer'
-import BaseDatePicker from './BaseDatePicker'
-import BaseTimePicker from './BaseTimePicker'
+import BasePicker from './BasePicker'
 
 const DateTimePicker = {
   name: 'DateTimePicker',
 
   props: {
-    align: { type: String, default: 'right' },
     dateOrder: { type: Array, default: undefined },
     defaultValue: { type: String, default: undefined },
     dialog: { type: Boolean, default: false },
+    dragSensitivity: { type: [String, Number], default: 1.7 },
     format: { type: [String, Object], default: undefined },
     height: { type: [String, Number], default: undefined },
     hideButton: { type: Boolean, default: false },
     hideOverlay: { type: Boolean, default: false },
+    locale: { type: String, default: undefined },
     maxDate: { type: [String, Number, Date], default: undefined },
     minDate: { type: [String, Number, Date], default: () => constants.DEFAULT_MIN_DATE },
     minuteInterval: { type: [String, Number], default: 1 },
     modelValue: { type: [String, Number, Date], default: undefined },
     pattern: { type: Object, default: undefined },
+    scrollSensitivity: { type: [String, Number], default: 1.0 },
+    touchSensitivity: { type: [String, Number], default: 1.7 },
     type: { type: String, default: 'datetime' }, // datetime, date, time
-    locale: { type: String, default: undefined },
   },
 
   setup: (props, context) => {
@@ -48,7 +49,7 @@ const DateTimePicker = {
     const onInput = (value) => {
       if (dayjs.unix(value).isBefore(props.minDate)) {
         context.emit('update:modelValue', datestring(props.minDate, modelFormat.value, props.type))
-      } else if (props.maxDate && dayjs(value, modelFormat.value).isAfter(props.maxDate)) {
+      } else if (props.maxDate && dayjs.unix(value).isAfter(props.maxDate)) {
         context.emit('update:modelValue', datestring(props.maxDate, modelFormat.value, props.type))
       } else {
         context.emit('update:modelValue', datestring(value, modelFormat.value, props.type))
@@ -72,12 +73,13 @@ const DateTimePicker = {
           maxDate: props.maxDate,
           minDate: props.minDate,
           modelValue: props.modelValue,
+          height: props.height,
           format: modelFormat.value,
           items: items[unit],
           unit,
           'onUpdate:modelValue': onInput,
         }
-        pickers.push(h(BaseDatePicker, options))
+        pickers.push(h(BasePicker, options))
         if (divider && index < dateOrder.length - 1) pickers.push(drumDivider)
       })
 
@@ -98,13 +100,14 @@ const DateTimePicker = {
         const options = {
           defaultValue: props.defaultValue,
           modelValue: props.modelValue,
+          height: props.height,
           format: modelFormat.value,
           drumPattern,
           items: items[unit],
           unit,
           'onUpdate:modelValue': onInput,
         }
-        pickers.push(h(BaseTimePicker, options))
+        pickers.push(h(BasePicker, options))
         if (divider && index < timeOrder.length - 1) pickers.push(drumDivider)
       })
 
@@ -119,11 +122,13 @@ const DateTimePicker = {
       }
     }
 
-    if (props.dialog) {
-      return generateDialogPicker(pickers)
-    } else {
-      const container = h(PickerContainer, { props }, pickers)
-      return () => h('div', { class: ['v-drumroll-picker'] }, [container])
+    return () => {
+      if (props.dialog) {
+        return generateDialogPicker(pickers)
+      } else {
+        const container = h(PickerContainer, props, pickers)
+        return h('div', { class: ['v-drumroll-picker'] }, [container])
+      }
     }
   },
 }

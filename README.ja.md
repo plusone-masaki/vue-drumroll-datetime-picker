@@ -63,62 +63,60 @@ export default {
 
 #### DateTimePicker
 
-| 項目名               | 型                            | デフォルト                     | 説明                              |
-|-------------------|------------------------------|---------------------------|---------------------------------|
-| align             | String                       | "right"                  | ラベルの左右方向の配置                     |
-| dateOrder         | Array                        | ['year', 'month', 'date'] | 年月日の順序                          |
-| dialog            | Boolean                      | false                     | ピッカーをダイアログで開く                   |
-| dragSensitivity   | [String, Number]             | 1.7                       | ドラッグ感度                          |
-| format            | String                       | "YYYY-MM-DD HH:mm"        | 日付形式                            |
-| height            | [String, Number]             | "10em"                    | ピッカーの高さ                         |
+| 項目名               | 型                            | デフォルト                     | 説明                                             |
+|-------------------|------------------------------|---------------------------|------------------------------------------------|
+| dateOrder         | Array                        | ['year', 'month', 'date'] | 年月日の順序                                         |
+| dialog            | Boolean                      | false                     | ピッカーをダイアログで開く                                  |
+| dragSensitivity   | [String, Number]             | 1.7                       | ドラッグ感度                                         |
+| format            | String                       | "YYYY-MM-DD HH:mm"        | 日付形式                                           |
+| height            | [String, Number]             | "10em"                    | ピッカーの高さ                                        |
 | hideOverlay       | Boolean                      | false                     | ダイアログ表示のオーバーレイを非表示にする。`dialog` が `true` の場合のみ有効 |
 | hideButton        | Boolean                      | false                     | ダイアログ表示の確定ボタンを非表示にする。`dialog` が `true` の場合のみ有効 |
-| maxDate           | [String, Number, Date]       | `value + 100 years`       | 有効な最大日時                         |
-| minDate           | [String, Number, Date]       | 1900-01-01 00:00          | 有効な最低日時                         |
-| minuteInterval    | [String, Number]             | 1                         | 分単位の間隔                          |
-| pattern           | Object                       | `undefined`               | ピッカーのラベルをカスタマイズできる。<br/>詳細は下に記載 |
-| scrollSensitivity | [String, Number]             | 0.8                       | スクロール感度                         |
-| touchSensitivity  | [String, Number]             | 1.7                       | タッチ操作の感度                        |
-| type              | ["datetime", "date", "time"] | "datetime"                | ピッカーの種類。日時・年月日・時刻の3種類から選択       |
-| value             | [String, Number, Date]       | `required`                | 変更対象の値                          |
+| locale            | String                       | `undefined`               | 言語の指定 ※主に曜日の表記に使用                              |
+| maxDate           | [String, Number, Date]       | `value + 100 years`       | 有効な最大日時                                        |
+| minDate           | [String, Number, Date]       | 1900-01-01 00:00          | 有効な最低日時                                        |
+| minuteInterval    | [String, Number]             | 1                         | 分単位の間隔                                         |
+| modelValue        | [String, Number, Date]       | `required`                | 変更対象の値                                         |
+| pattern           | Object                       | `undefined`               | ピッカーのラベルをカスタマイズできる。<br/>詳細は下に記載                |
+| scrollSensitivity | [String, Number]             | 1.0                       | スクロール感度                                        |
+| touchSensitivity  | [String, Number]             | 1.7                       | タッチ操作の感度                                       |
+| type              | ["datetime", "date", "time"] | "datetime"                | ピッカーの種類。日時・年月日・時刻の3種類から選択                      |
 
 #### DatePicker
 
-| 項目名               | 型                      | デフォルト                     | 説明                                             |
-|-------------------|------------------------|---------------------------|------------------------------------------------|
-| align             | String                 | "right"                  | ラベルの左右方向の配置                                    |
-| dateOrder         | Array                  | ['year', 'month', 'date'] | 年月日の順序                                         |
-| dialog            | Boolean                | false                     | ピッカーをダイアログで開く                                  |
-| dragSensitivity   | [String, Number]       | 1.7                       | ドラッグ感度                                         |
-| format            | String                 | "YYYY-MM-DD HH:mm"        | 日付形式                                           |
-| height            | [String, Number]       | "10em"                    | ピッカーの高さ                                        |
+| 項目名               | 型                      | デフォルト                     | 説明                |
+|-------------------|------------------------|---------------------------|-------------------|
+| dateOrder         | Array                  | ['year', 'month', 'date'] | 年月日の順序            |
+| dialog            | Boolean                | false                     | ピッカーをダイアログで開く     |
+| dragSensitivity   | [String, Number]       | 1.7                       | ドラッグ感度            |
+| format            | String                 | "YYYY-MM-DD HH:mm"        | 日付形式              |
+| height            | [String, Number]       | "10em"                    | ピッカーの高さ           |
 | hideOverlay       | Boolean                | false                     | ダイアログ表示のオーバーレイを非表示にする。`dialog` が `true` の場合のみ有効 |
 | hideButton        | Boolean                | false                     | ダイアログ表示の確定ボタンを非表示にする。`dialog` が `true` の場合のみ有効 |
-| maxDate           | [String, Number, Date] | `value + 100 years`       | 有効な最大日時                                        |
-| minDate           | [String, Number, Date] | 1900-01-01 00:00          | 有効な最低日時                                        |
-| pattern           | Object                 | `undefined`               | ピッカーのラベルをカスタマイズできる。<br/>詳細は下に記載                |
-| `非推奨` separator   | String                 | `undefined`               | 日付の区切り文字                                       |
-| scrollSensitivity | [String, Number]       | 0.8                       | スクロール感度                                        |
-| touchSensitivity  | [String, Number]       | 1.7                       | タッチ操作の感度                                       |
-| value             | [String, Number, Date] | `required`                | 変更対象の値                                         |
+| locale            | String                 | `undefined`               | 言語の指定 ※主に曜日の表記に使用 |
+| maxDate           | [String, Number, Date] | `value + 100 years`       | 有効な最大日時           |
+| minDate           | [String, Number, Date] | 1900-01-01 00:00          | 有効な最低日時           |
+| modelValue        | [String, Number, Date] | `required`                | 変更対象の値            |
+| pattern           | Object                 | `undefined`               | ピッカーのラベルをカスタマイズできる。<br/>詳細は下に記載 |
+| scrollSensitivity | [String, Number]       | 1.0                       | スクロール感度           |
+| touchSensitivity  | [String, Number]       | 1.7                       | タッチ操作の感度          |
 
 #### TimePicker
 
-| 項目名             | 型                      | デフォルト           | 説明                                              |
-|-------------------|-------------------------|---------------------|-------------------------------------------------|
-| align             | String                  | "right"            | ラベルの左右方向の配置                                     |
-| dialog            | Boolean                 | false               | ピッカーをダイアログで開く                                   |
-| dragSensitivity   | [String, Number]        | 1.7                 | ドラッグ感度                                          |
-| format            | String                  | "YYYY-MM-DD HH:mm"  | 日付形式                                            |
-| height            | [String, Number]        | "10em"              | ピッカーの高さ                                         |
-| hideOverlay       | Boolean                 | false               | ダイアログ表示のオーバーレイを非表示にする。`dialog` が `true` の場合のみ有効 |
-| hideButton        | Boolean                 | false               | ダイアログ表示の確定ボタンを非表示にする。`dialog` が `true` の場合のみ有効  |
-| minuteInterval    | [String, Number]        | 1                   | 分単位の間隔                                          |
-| pattern           | Object                  | `undefined`         | ピッカーのラベルをカスタマイズできる。<br/>詳細は下に記載 |
-| `非推奨` separator | String                  | `undefined`         | 時刻の区切り文字                                        |
-| scrollSensitivity | [String, Number]        | 0.8                 | スクロール感度                                         |
-| touchSensitivity  | [String, Number]        | 1.7                 | タッチ操作の感度                                        |
-| value             | [String, Number, Date]  | `required`          | 変更対象の値                                          |
+| 項目名               | 型                      | デフォルト              | 説明                                              |
+|-------------------|------------------------|--------------------|-------------------------------------------------|
+| dialog            | Boolean                | false              | ピッカーをダイアログで開く                                   |
+| dragSensitivity   | [String, Number]       | 1.7                | ドラッグ感度                                          |
+| format            | String                 | "YYYY-MM-DD HH:mm" | 日付形式                                            |
+| height            | [String, Number]       | "10em"             | ピッカーの高さ                                         |
+| hideOverlay       | Boolean                | false              | ダイアログ表示のオーバーレイを非表示にする。`dialog` が `true` の場合のみ有効 |
+| hideButton        | Boolean                | false              | ダイアログ表示の確定ボタンを非表示にする。`dialog` が `true` の場合のみ有効  |
+| locale            | String                 | `undefined`        | 言語の指定 ※主に曜日の表記に使用                               |
+| minuteInterval    | [String, Number]       | 1                  | 分単位の間隔                                          |
+| modelValue        | [String, Number, Date] | `required`         | 変更対象の値                                          |
+| pattern           | Object                 | `undefined`        | ピッカーのラベルをカスタマイズできる。<br/>詳細は下に記載                 |
+| scrollSensitivity | [String, Number]       | 1.0                | スクロール感度                                         |
+| touchSensitivity  | [String, Number]       | 1.7                | タッチ操作の感度                                        |
 
 
 ### Props: "pattern" について

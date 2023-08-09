@@ -48,9 +48,15 @@ export const guessDateOrder = (baseFormat) => (
  * @return {string|undefined}
  */
 export const datestring = (value, dateFormat, type) => {
-  if (Number.isNaN(value)) return undefined
+  let modelValue
+  if (typeof value === 'number') {
+    modelValue = dayjs.unix(value)
+  } else if (typeof value === 'string') {
+    modelValue = dayjs(value, dateFormat)
+  } else {
+    modelValue = dayjs(value)
+  }
 
-  const modelValue = dayjs.unix(value)
   if (modelValue.isValid()) {
     return modelValue.format(dateFormat)
   } else if (type === 'time' && typeof value === 'string') {

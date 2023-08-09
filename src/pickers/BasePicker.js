@@ -18,16 +18,9 @@ const BasePicker = {
     const dragSensitivity = inject('dragSensitivity')
     const touchSensitivity = inject('touchSensitivity')
     const scrollSensitivity = inject('scrollSensitivity')
-    const align = inject('align')
 
-    console.log(props.modelValue, (
-      typeof props.modelValue === 'string'
-        ? dayjs(props.modelValue, props.format)
-        : dayjs(props.modelValue)
-    ).get(props.unit))
     return () => h(VueScrollPicker, {
       style: {
-        '--picker-align': align,
         height: typeof props.height === 'string' ? props.height : props.height + 'px',
       },
       options: props.items,
@@ -40,7 +33,7 @@ const BasePicker = {
           : dayjs(props.modelValue)
       ).get(props.unit),
       'onUpdate:modelValue': value => {
-        if (!value) value = 0
+        if (Number.isNaN(value)) return
 
         const dateObj = props.modelValue ? dayjs(props.modelValue, props.format) : dayjs()
         const current = dateObj.get(props.unit)

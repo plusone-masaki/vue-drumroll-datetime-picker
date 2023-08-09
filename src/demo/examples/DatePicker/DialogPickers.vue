@@ -71,15 +71,15 @@
         <div class="subtitle">With custom pattern</div>
 
         <pre class="pre-code"><code class="code">&lt;date-picker
-v-model="now"
-format="YYYY年MM月DD日"
-dialog
-:pattern="{
-  year: '（rrrr年）YYYY年',
-  month: 'M月',
-  date: 'D日',
-  dividerDate: '',
-}"
+  v-model="now"
+  format="YYYY年MM月DD日"
+  dialog
+  :pattern="{
+    year: '（rrrr年）YYYY年',
+    month: 'M月',
+    date: 'D日',
+    dividerDate: '',
+  }"
 /&gt;</code></pre>
 
         <div class="has-text-centered">

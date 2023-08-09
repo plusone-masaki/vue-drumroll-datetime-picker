@@ -49,7 +49,6 @@
 
             <pre class="pre-code"><code class="code">&lt;date-picker
   v-model="now"
-  align="left"
   format="YYYY-MM-DD"
   :pattern="{
     year: 'YYYY',
@@ -62,7 +61,6 @@
             <label>Value: <input v-model="pattern" class="demo-input"></label>
             <date-picker
               v-model="pattern"
-              align="left"
               format="YYYY-MM-DD"
               :pattern="{
                 year: 'YYYY',
@@ -114,7 +112,6 @@ export default {
   name: 'DateFormat',
   data () {
     const now = dayjs()
-    console.log('time', dayjs().format('L LT'))
     return {
       autoFormat: now.format('DD/MM/YYYY'),
       manuallyFormat: now.format('YYYY/MM/DD'),
