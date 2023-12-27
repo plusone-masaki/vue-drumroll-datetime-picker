@@ -1,4 +1,6 @@
-import dayjs from './dayjs'
+import useDayJS from '../composables/useDayJS'
+
+const dayjs = useDayJS()
 
 export const dateFormat = (type, format) => {
   if (format) return format

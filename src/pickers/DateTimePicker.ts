@@ -1,15 +1,14 @@
-import { computed, h } from 'vue'
+import { computed, defineComponent, h } from 'vue'
 import * as constants from '../assets/constants'
 import { calculatePattern, dateFormat, datestring, guessDateOrder } from '../modules/format-helper'
 import useDialog from '../composables/useDialog'
-import useProvide from '../composables/useProvide'
 import { useDateLists, useTimeLists } from '../composables/useDateTimeLists'
 import useDayJS from '../composables/useDayJS'
 import DrumDivider from '../components/DrumDivider'
 import PickerContainer from '../components/PickerContainer'
 import BasePicker from './BasePicker'
 
-const DateTimePicker = {
+const DateTimePicker = defineComponent({
   name: 'DateTimePicker',
 
   props: {
@@ -17,7 +16,7 @@ const DateTimePicker = {
     defaultValue: { type: String, default: undefined },
     dialog: { type: Boolean, default: false },
     dragSensitivity: { type: [String, Number], default: 1.7 },
-    format: { type: [String, Object], default: undefined },
+    format: { type: String, default: undefined },
     height: { type: [String, Number], default: undefined },
     hideButton: { type: Boolean, default: false },
     hideOverlay: { type: Boolean, default: false },
@@ -25,7 +24,7 @@ const DateTimePicker = {
     maxDate: { type: [String, Number, Date], default: undefined },
     minDate: { type: [String, Number, Date], default: () => constants.DEFAULT_MIN_DATE },
     minuteInterval: { type: [String, Number], default: 1 },
-    modelValue: { type: [String, Number, Date], default: undefined },
+    modelValue: { type: [String, Number, Date], required: true },
     pattern: { type: Object, default: undefined },
     scrollSensitivity: { type: [String, Number], default: 1.0 },
     touchSensitivity: { type: [String, Number], default: 1.7 },
@@ -33,9 +32,9 @@ const DateTimePicker = {
   },
 
   setup: (props, context) => {
-    useProvide(props)
     const dayjs = useDayJS()
 
+    const type = computed(() => props.type || 'datetime')
     const modelFormat = computed(() => dateFormat(props.type, props.format))
     const drumPattern = computed(() => ({
       ...calculatePattern(modelFormat.value),
@@ -44,7 +43,7 @@ const DateTimePicker = {
 
     const { years, months, days } = useDateLists(props, drumPattern)
     const { hours, minutes } = useTimeLists(props, drumPattern)
-    const { generateDialogPicker } = useDialog(props.type, props, context)
+    const { generateDialogPicker } = useDialog(type.value, props, context)
 
     const onInput = (value) => {
       if (dayjs.unix(value).isBefore(props.minDate)) {
@@ -98,12 +97,13 @@ const DateTimePicker = {
       const timeOrder = ['hour', 'minute']
       timeOrder.forEach((unit, index) => {
         const options = {
-          defaultValue: props.defaultValue,
-          modelValue: props.modelValue,
+          dragSensitivity: props.dragSensitivity,
           height: props.height,
           format: modelFormat.value,
-          drumPattern,
           items: items[unit],
+          modelValue: props.modelValue,
+          scrollSensitivity: props.scrollSensitivity,
+          touchSensitivity: props.touchSensitivity,
           unit,
           'onUpdate:modelValue': onInput,
         }
@@ -131,6 +131,6 @@ const DateTimePicker = {
       }
     }
   },
-}
+})
 
 export default DateTimePicker

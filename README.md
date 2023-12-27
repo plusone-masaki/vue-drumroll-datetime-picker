@@ -3,9 +3,9 @@
 `vue-drumroll-datetime-picker` is a wheel style datetime picker.
 There is also a date-only and time-only picker.
 
-There is a stationary format and a dialog format that can be installed directly on the screen, and it also supports responsiveness.
-It is an easy-to-use and highly flexible library with a wide variety of customization such as date order and label editing.
-Furthermore, the minified version is as light as 19kb.
+There is a fixed format and a dialog format that can be installed directly on the screen, and it also supports responsive support.
+It is an easy-to-use and highly flexible library with plenty of customization such as date order and label editing.
+Furthermore, the file size is as light as 50kb or less.
 
 [日本語](README.ja.md)
 
@@ -28,20 +28,19 @@ npm install vue-drumroll-datetime-picker
 ### Global usage
 
 ```javascript
-import Vue from 'vue'
-import DateTimePicker, { DatePicker, TimePicker } from 'vue-drumroll-datetime-picker'
+import { createApp } from 'vue'
+import DateTimePicker from 'vue-drumroll-datetime-picker'
 import 'vue-drumroll-datetime-picker/dist/style.css'
 
-Vue.component('DateTimePicker', DateTimePicker)
-Vue.component('DatePicker', DatePicker)
-Vue.component('TimePicker', TimePicker)
+const app = createApp()
+app.use(DateTimePicker)
 ```
 
 ### Local usage
 
 ```vue
 <script>
-import DateTimePicker, { DatePicker, TimePicker } from 'vue-drumroll-datetime-picker'
+import { DateTimePicker, DatePicker, TimePicker } from 'vue-drumroll-datetime-picker'
 import 'vue-drumroll-datetime-picker/style.css'
 
 export default {
@@ -52,6 +51,15 @@ export default {
   },
   // ...your code
 }
+</script>
+```
+
+or
+
+```vue
+<script setup>
+import { DateTimePicker, DatePicker, TimePicker } from 'vue-drumroll-datetime-picker'
+import 'vue-drumroll-datetime-picker/style.css'
 </script>
 ```
 
@@ -74,7 +82,7 @@ export default {
 | maxDate           | [String, Number, Date]       | `value + 100 years`       | Maximum valid date and time                                       |
 | minDate           | [String, Number, Date]       | 1900-01-01 00:00          | Valid minimum date and time                                       |
 | minuteInterval    | [String, Number]             | 1                         | Selectable minute intervals for Time picker                       |
-| modelValue        | [String, Number, Date]       | `undefined`               | Value of datetime                                                 |
+| modelValue        | [String, Number, Date]       | `required`                | Value of datetime                                                 |
 | pattern           | Object                       | `undefined`               | Customize picker labels<br>More details below                     |
 | scrollSensitivity | [String, Number]             | 1.0                       | Scroll sensitivity                                                |
 | touchSensitivity  | [String, Number]             | 1.7                       | Touch operation sensitivity                                       |
@@ -94,7 +102,7 @@ export default {
 | locale            | String                 | `undefined`               | Locale of picker                                                  |
 | maxDate           | [String, Number, Date] | `value + 100 years`       | Maximum valid date and time                                       |
 | minDate           | [String, Number, Date] | 1900-01-01 00:00          | Valid minimum date and time                                       |
-| modelValue        | [String, Number, Date] | `undefined`               | Value of date                                                     |
+| modelValue        | [String, Number, Date] | `required`               | Value of date                                                     |
 | pattern           | Object                 | `undefined`               | Customize picker labels<br>More details below                     |
 | scrollSensitivity | [String, Number]       | 1.0                       | Scroll sensitivity                                                |
 | touchSensitivity  | [String, Number]       | 1.7                       | Touch operation sensitivity                                       |
@@ -111,7 +119,7 @@ export default {
 | hideButton        | Boolean                | false       | Hide the dialog close button. Valid only if `dialog` is `true`    |
 | locale            | String                 | `undefined` | Locale of picker                                                  |
 | minuteInterval    | [String, Number]       | 1           | Selectable minute intervals                                       |
-| modelValue        | [String, Number, Date] | `undefined` | Value of time                                                     |
+| modelValue        | [String, Number, Date] | `required`  | Value of time                                                     |
 | pattern           | Object                 | `undefined` | Customize picker labels<br>More details below                     |
 | scrollSensitivity | [String, Number]       | 1.0         | Scroll sensitivity                                                |
 | touchSensitivity  | [String, Number]       | 1.7         | Touch operation sensitivity                                       |
@@ -131,7 +139,7 @@ This allows you to add additional information to the picker such as day of the w
   date: "DD(ddd)", // -> 08(Tue)
   hour: "A hh", // -> PM 9
   minute: "mm",
-  dividerDate: '/', // -> 2022/Jan/08(Tue)
-  dividerTime: '@', // -> PM 9@15
+  dividerDate: "/", // -> 2022/Jan/08(Tue)
+  dividerTime: "@", // -> PM 9@15
 }
 ```

@@ -1,18 +1,17 @@
-import { computed, h } from 'vue'
+import { computed, defineComponent, h } from 'vue'
 import { calculatePattern, datestring } from '../modules/format-helper'
 import useDialog from '../composables/useDialog'
-import useProvide from '../composables/useProvide'
 import { useTimeLists } from '../composables/useDateTimeLists'
 import DrumDivider from '../components/DrumDivider'
 import PickerContainer from '../components/PickerContainer'
 import BasePicker from './BasePicker'
 
-const TimePicker = {
+const TimePicker = defineComponent({
   props: {
     defaultValue: { type: String, default: undefined },
     dialog: { type: Boolean, default: false },
     dragSensitivity: { type: [String, Number], default: 1.7 },
-    format: { type: [String, Object], default: 'HH:mm' },
+    format: { type: String, default: 'HH:mm' },
     height: { type: [String, Number], default: undefined },
     hideButton: { type: Boolean, default: false },
     hideOverlay: { type: Boolean, default: false },
@@ -25,7 +24,6 @@ const TimePicker = {
   },
 
   setup: (props, context) => {
-    useProvide(props)
     const drumPattern = computed(() => ({
       ...calculatePattern(props.format),
       ...(props.pattern || {}),
@@ -50,10 +48,13 @@ const TimePicker = {
       timeOrder.forEach((unit, index) => {
         const options = {
           defaultValue: props.defaultValue,
-          modelValue: props.modelValue,
+          dragSensitivity: props.dragSensitivity,
           format: props.format,
-          drumPattern,
+          height: props.height,
           items: items[unit],
+          modelValue: props.modelValue,
+          scrollSensitivity: props.scrollSensitivity,
+          touchSensitivity: props.touchSensitivity,
           unit,
           'onUpdate:modelValue': onInput,
         }
@@ -68,11 +69,11 @@ const TimePicker = {
       if (props.dialog) {
         return generateDialogPicker(pickers)
       } else {
-        const container = h(PickerContainer, pickers)
+        const container = h(PickerContainer, props, pickers)
         return h('div', { class: ['v-drumroll-picker'] }, [container])
       }
     }
   },
-}
+})
 
 export default TimePicker

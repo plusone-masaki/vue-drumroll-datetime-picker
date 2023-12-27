@@ -1,32 +1,31 @@
-import typeofDayJS from 'dayjs'
-import { h, inject } from 'vue'
+import { h } from 'vue'
 import { VueScrollPicker } from 'vue-scroll-picker'
 import useDayJS from '../composables/useDayJS'
 
 const BasePicker = {
   name: 'BasePicker',
   props: {
-    items: { type: Array, required: true },
+    dragSensitivity: { type: [String, Number], default: 1.7 },
     height: { type: [String, Number], default: '10em' },
     format: { type: [String, Object], required: true },
-    unit: { type: typeofDayJS.UnitType, required: true },
+    items: { type: Array, required: true },
     modelValue: { type: [String, Number, Date], default: undefined },
+    scrollSensitivity: { type: [String, Number], default: 1.0 },
+    touchSensitivity: { type: [String, Number], default: 1.7 },
+    unit: { type: String, required: true },
   },
 
   setup: (props, { emit }) => {
     const dayjs = useDayJS()
-    const dragSensitivity = inject('dragSensitivity')
-    const touchSensitivity = inject('touchSensitivity')
-    const scrollSensitivity = inject('scrollSensitivity')
 
     return () => h(VueScrollPicker, {
       style: {
         height: typeof props.height === 'string' ? props.height : props.height + 'px',
       },
       options: props.items,
-      dragSensitivity,
-      touchSensitivity,
-      scrollSensitivity,
+      dragSensitivity: props.dragSensitivity,
+      touchSensitivity: props.touchSensitivity,
+      scrollSensitivity: props.scrollSensitivity,
       modelValue: (
         typeof props.modelValue === 'string'
           ? dayjs(props.modelValue, props.format)

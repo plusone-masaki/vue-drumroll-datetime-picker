@@ -1,15 +1,23 @@
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import typescript from 'rollup-plugin-typescript2'
 
 export default defineConfig({
-  root: resolve(__dirname, 'src/demo'),
-  plugins: [vue()],
+  root: __dirname,
+  plugins: [vue(), typescript()],
   build: {
+    outDir: resolve(__dirname, 'dist'),
     lib: {
-      entry: resolve(__dirname, 'src/main.js'),
+      entry: resolve(__dirname, 'src/main.ts'),
       name: 'vue-drumroll-datetime-picker',
-      fileName: 'dist/vue-drumroll-datetime-picker.js',
+    },
+    rollupOptions: {
+      external: ['vue'],
+      output: {
+        exports: 'named',
+        globals: { vue: 'vue' },
+      },
     },
   },
 })

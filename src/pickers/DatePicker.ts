@@ -1,7 +1,6 @@
-import { computed, h } from 'vue'
+import { computed, defineComponent, h } from 'vue'
 import * as constants from '../assets/constants'
 import { calculatePattern, datestring, guessDateOrder } from '../modules/format-helper'
-import useProvide from '../composables/useProvide'
 import useDialog from '../composables/useDialog'
 import { useDateLists } from '../composables/useDateTimeLists'
 import useDayJS from '../composables/useDayJS'
@@ -9,13 +8,13 @@ import DrumDivider from '../components/DrumDivider'
 import PickerContainer from '../components/PickerContainer'
 import BasePicker from './BasePicker'
 
-const DatePicker = {
+const DatePicker = defineComponent({
   props: {
     dateOrder: { type: Array, default: undefined },
     defaultValue: { type: String, default: undefined },
     dialog: { type: Boolean, default: false },
     dragSensitivity: { type: [String, Number], default: 1.7 },
-    format: { type: [String, Object], default: 'YYYY-MM-DD' },
+    format: { type: String, default: 'YYYY-MM-DD' },
     height: { type: [String, Number], default: undefined },
     hideButton: { type: Boolean, default: false },
     hideOverlay: { type: Boolean, default: false },
@@ -29,7 +28,6 @@ const DatePicker = {
   },
 
   setup: (props, context) => {
-    useProvide(props)
     const dayjs = useDayJS()
     const drumPattern = computed(() => ({
       ...calculatePattern(props.format),
@@ -63,14 +61,15 @@ const DatePicker = {
       dateOrder.forEach((unit, index) => {
         const options = {
           defaultValue: props.defaultValue,
-          maxDate: props.maxDate,
-          minDate: props.minDate,
-          modelValue: props.modelValue,
-          height: props.height,
+          dragSensitivity: props.dragSensitivity,
           format: props.format,
-          'onUpdate:modelValue': onInput,
+          height: props.height,
           items: items[unit],
+          modelValue: props.modelValue,
+          scrollSensitivity: props.scrollSensitivity,
+          touchSensitivity: props.touchSensitivity,
           unit,
+          'onUpdate:modelValue': onInput,
         }
         pickers.push(h(BasePicker, options))
         if (divider && index < dateOrder.length - 1) pickers.push(drumDivider)
@@ -83,11 +82,11 @@ const DatePicker = {
       if (props.dialog) {
         return generateDialogPicker(pickers)
       } else {
-        const container = h(PickerContainer, pickers)
+        const container = h(PickerContainer, props, pickers)
         return h('div', { class: ['v-drumroll-picker'] }, [container])
       }
     }
   },
-}
+})
 
 export default DatePicker

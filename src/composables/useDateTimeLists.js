@@ -1,29 +1,29 @@
-import { computed, nextTick, ref, watch } from 'vue'
-import dayjs from '../modules/dayjs'
+import { computed, nextTick, ref } from 'vue'
 import * as constants from '../assets/constants'
 import { dateFormat } from '../modules/format-helper'
+import useDayJS from './useDayJS'
+
+const dayjs = useDayJS()
 
 export const useDateLists = (props, drumPattern) => {
-  const date = ref(dayjs(props.modelValue || props.defaultValue, props.format).endOf('month').date())
+  const baseDate = computed(() => (
+    typeof props.modelValue === 'string'
+      ? dayjs(props.modelValue, dateFormat(props.type, props.format))
+      : dayjs(props.modelValue)
+  ).locale(props.locale ?? dayjs.locale()))
+  const date = computed(() => baseDate.value.endOf('month').date())
   const numberOfDays = ref(date.value)
   const dateOfMin = ref(1)
   const monthOfMin = ref(0)
-  const modelFormat = computed(() => dateFormat(props.type, props.format))
-
-  watch(() => props.modelValue, (newValue) => {
-    const newDate = dayjs(newValue, modelFormat.value)
-    date.value = newDate.endOf('month').date()
-  })
 
   const years = computed(() => {
-    const value = props.modelValue || props.defaultValue
     const minYear = dayjs(props.minDate).year()
     const maxYear = props.maxDate
       ? dayjs(props.maxDate).year()
-      : dayjs(value, modelFormat.value).add(100, 'year').year()
+      : baseDate.value.add(100, 'year').year()
 
     const yearItems = []
-    const dateObj = dayjs(value, modelFormat.value).locale(props.locale ?? dayjs.locale())
+    const dateObj = baseDate.value.locale(props.locale ?? dayjs.locale())
 
     for (let year = minYear; year <= maxYear; year++) {
       yearItems.push({
@@ -36,22 +36,20 @@ export const useDateLists = (props, drumPattern) => {
   })
 
   const months = computed(() => {
-    const value = props.modelValue || props.defaultValue
-    const currentDate = dayjs(value, modelFormat.value).locale(props.locale ?? dayjs.locale())
     const minDate = dayjs(props.minDate)
-    let min = currentDate.isSame(minDate, 'year') ? minDate.month() : 0
-    let max = props.maxDate && currentDate.isSame(props.maxDate, 'year')
+    let min = baseDate.value.isSame(minDate, 'year') ? minDate.month() : 0
+    let max = props.maxDate && baseDate.value.isSame(props.maxDate, 'year')
       ? dayjs(props.maxDate).month() + 1
       : constants.MONTH_UNIT
 
-    if (min > currentDate.month() || max < currentDate.month()) {
+    if (min > baseDate.value.month() || max < baseDate.value.month()) {
       min = 0
       max = constants.MONTH_UNIT
     }
 
     // 桁揃えをしつつ時刻を配列に追加
     const monthItems = []
-    const dateObj = currentDate.clone()
+    const dateObj = baseDate.value.clone()
 
     for (let month = Math.min(monthOfMin.value, min); month < max; month++) {
       monthItems.push({
@@ -68,22 +66,20 @@ export const useDateLists = (props, drumPattern) => {
   })
 
   const days = computed(() => {
-    const value = props.modelValue || props.defaultValue
-    const currentDate = dayjs(value, modelFormat.value).locale(props.locale ?? dayjs.locale())
     const minDate = dayjs(props.minDate)
-    let min = currentDate.isSame(minDate, 'month') ? minDate.date() : 1
-    let max = props.maxDate && currentDate.isSame(props.maxDate, 'month')
+    let min = baseDate.value.isSame(minDate, 'month') ? minDate.date() : 1
+    let max = props.maxDate && baseDate.value.isSame(props.maxDate, 'month')
       ? dayjs(props.maxDate).date()
       : numberOfDays.value
 
-    if (min > currentDate.date() || max < currentDate.date()) {
+    if (min > baseDate.value.date() || max < baseDate.value.date()) {
       min = 1
       max = numberOfDays.value
     }
 
     // 桁揃えをしつつ時刻を配列に追加
     const dayItems = []
-    const dateObj = currentDate.clone()
+    const dateObj = baseDate.value.clone()
 
     for (let day = Math.min(dateOfMin.value, min); day <= max; day++) {
       dayItems.push({
@@ -108,14 +104,13 @@ export const useDateLists = (props, drumPattern) => {
 }
 
 export const useTimeLists = (props, drumPattern) => {
+  const baseDate = computed(() => (
+    typeof props.modelValue === 'string'
+      ? dayjs(props.modelValue, dateFormat(props.type, props.format))
+      : dayjs(props.modelValue)
+  ).locale(props.locale ?? dayjs.locale()))
   const hourOfMin = ref(0)
   const minuteOfMin = ref(0)
-  const modelFormat = computed(() => dateFormat(props.type, props.format))
-
-  const value = props.modelValue || props.defaultValue
-  const currentDate = value
-    ? dayjs(value, modelFormat.value).locale(props.locale ?? dayjs.locale())
-    : dayjs().locale(props.locale ?? dayjs.locale())
 
   /**
    * 時配列
@@ -128,16 +123,16 @@ export const useTimeLists = (props, drumPattern) => {
 
     if (props.minDate) {
       const minDate = dayjs(props.minDate)
-      min = currentDate.isSame(minDate, 'date') ? minDate.hour() : 0
+      min = baseDate.value.isSame(minDate, 'date') ? minDate.hour() : 0
     }
     if (props.maxDate) {
-      max = props.maxDate && currentDate.isSame(props.maxDate, 'date')
+      max = props.maxDate && baseDate.value.isSame(props.maxDate, 'date')
         ? dayjs(props.maxDate).hour() + 1
         : constants.HOUR_UNIT
     }
 
     const hours = []
-    const dateObj = currentDate.clone()
+    const dateObj = baseDate.value.clone()
     for (let hour = Math.min(hourOfMin.value, min); hour < max; hour++) {
       hours.push({
         name: dateObj.set('hour', hour).format(drumPattern.value.hour),
@@ -163,17 +158,17 @@ export const useTimeLists = (props, drumPattern) => {
 
     if (props.minDate) {
       const minDate = dayjs(props.minDate)
-      min = currentDate.isSame(minDate, 'hour') ? minDate.minute() : 0
+      min = baseDate.value.isSame(minDate, 'hour') ? minDate.minute() : 0
     }
     if (props.maxDate) {
-      max = props.maxDate && currentDate.isSame(props.maxDate, 'hour')
+      max = props.maxDate && baseDate.value.isSame(props.maxDate, 'hour')
         ? dayjs(props.maxDate).minute() + 1
         : constants.MINUTE_UNIT
     }
 
     const interval = Number(props.minuteInterval)
     const minutes = []
-    const dateObj = currentDate.clone()
+    const dateObj = baseDate.value.clone()
     for (let minute = Math.min(minuteOfMin.value, min); minute < max; minute += interval) {
       minutes.push({
         name: dateObj.set('minute', minute).format(drumPattern.value.minute),

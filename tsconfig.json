@@ -1,0 +1,23 @@
+{
+  "include": [
+    "src/*",
+    "src/components/*",
+    "src/composables/*",
+    "src/modules/*",
+    "src/pickers/*",
+  ],
+  "compilerOptions": {
+    "module": "esNext",
+    "target": "es6",
+    "lib": ["es6", "dom"],
+    "outDir": "dist",
+    "allowJs": true,
+    "declaration": true,
+    "declarationMap": false,
+    "sourceMap": false,
+    "emitDeclarationOnly": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

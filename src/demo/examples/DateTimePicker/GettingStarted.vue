@@ -20,12 +20,13 @@ or
       <div class="card-content">
         <div class="subtitle">Global usage</div>
 
-        <pre class="pre-code"><code class="code">import Vue from 'vue'
+        <pre class="pre-code"><code class="code">import { createApp } from 'vue'
 import DateTimePicker from 'vue-drumroll-datetime-picker'
 // or import { DateTimePicker } from 'vue-drumroll-datetime-picker'
-import 'vue-drumroll-datetime-picker/style.css'
+import 'vue-drumroll-datetime-picker/dist/style.css'
 
-Vue.component('DateTimePicker', DateTimePicker)</code></pre>
+const app = createApp()
+app.use(DateTimePicker)</code></pre>
       </div><!-- /Global usage -->
 
       <!-- Local usage -->

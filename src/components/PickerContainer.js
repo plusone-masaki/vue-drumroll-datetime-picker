@@ -9,10 +9,10 @@ const pickerLayer = () => (
   ])
 )
 
-const confirmButton = (props, { emit }) => (
-  !props.dialog || props.hideButton
-    ? []
-    : [h(ConfirmButton, { onClick: props.onClick })]
+const confirmButton = (props) => (
+  props.dialog && !props.hideButton
+    ? [h(ConfirmButton, { onClick: props.onClick })]
+    : []
 )
 
 const PickerContainer = {

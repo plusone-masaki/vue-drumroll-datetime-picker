@@ -13,14 +13,12 @@
 
             <pre class="pre-code"><code class="code">&lt;time-picker
   v-model="now"
-  type="time"
   minute-interval="30"
 /&gt;</code></pre>
 
             <label>Value: <input v-model="intervals" class="demo-input"></label>
             <time-picker
               v-model="intervals"
-              type="time"
               minute-interval="30"
             />
           </div>
